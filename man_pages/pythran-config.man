@@ -1,0 +1,42 @@
+PYTHRAN-CONFIG(1)                User Commands               PYTHRAN-CONFIG(1)
+
+NAME
+       pythran-config - part of pythran: ahead of time compiler for Python
+
+DESCRIPTION
+       usage:    pythran-config    [-h]   [--compiler]   [--cflags]   [--libs]
+       [--no-python]
+
+              [--verbose]
+
+       output build options for pythran-generated code
+
+   optional arguments:
+       -h, --help
+              show this help message and exit
+
+       --compiler
+              print default compiler
+
+       --cflags
+              print compilation flags
+
+       --libs print linker flags
+
+       --no-python
+              do not include Python-related flags
+
+       --verbose, -v
+              verbose mode: [-v] prints warnings if pythranrc has  an  invalid
+              configuration; use [-vv] for more information
+
+       It's a megablast!
+
+AUTHORS
+        pythran was primarily written by Serge Guelton.
+
+SEE ALSO
+        This script is part of pythran. Full documentation for pythran can be
+        consulted at https://pythran.readthedocs.io .
+
+pythran-config 0.10.0+ds        September 2021               PYTHRAN-CONFIG(1)

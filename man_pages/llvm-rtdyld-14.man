@@ -1,0 +1,63 @@
+LLVM-RTDYLD(1)                   User Commands                  LLVM-RTDYLD(1)
+
+NAME
+       llvm-rtdyld - manual page for llvm-rtdyld 14
+
+DESCRIPTION
+       OVERVIEW: llvm MC-JIT tool
+
+       USAGE:  llvm-rtdyld  [options]  <input  files>  --args  <program  argu‐
+       ments>...
+
+       OPTIONS:
+
+       Color Options:
+
+       --color               - Use colors in output (default=autodetect)
+
+       Generic Options:
+
+       --help                - Display available  options  (--help-hidden  for
+              more)
+
+       --help-list              -    Display   list   of   available   options
+              (--help-list-hidden for more)
+
+       --version             - Display the version of this program
+
+       RTDyld Options:
+
+       --args <string>...    - <program arguments>...
+
+       --check=<string>      - File containing RuntimeDyld verifier checks.
+
+       --dylib=<string>      - Add library.
+
+       --entry=<string>      - Function to call as entry point.
+
+       --mcpu=<cpu-name>     - Target a specific cpu type (-mcpu=help for  de‐
+              tails)
+
+       --preallocate=<ulong> - Allocate memory upfront rather than on-demand
+
+       --show-times          - Show times for llvm-rtdyld phases
+
+       --triple=<string>     - Target triple for disassembler
+
+              Action to perform:
+
+       --execute            - Load, link, and execute the inputs.
+
+       --printline           - Load, link, and print line information for each
+              function.
+
+       --printdebugline     - Load, link, and print line information for  each
+              function using the debug object
+
+       --printobjline       - Like -printlineinfo but does not load the object
+              first
+
+       --verify             - Load, link and verify the resulting  memory  im‐
+              age.
+
+llvm-rtdyld 14                     July 2023                    LLVM-RTDYLD(1)

@@ -1,0 +1,23 @@
+PSLOG(1)                      Linux User's Manual                     PSLOG(1)
+
+NAME
+       pslog - report current logs path of a process
+
+SYNOPSIS
+       pslog pid ...
+       pslog -V
+
+DESCRIPTION
+       The pslog command reports the current working logs of a process.
+
+OPTIONS
+       -V     Display version information.
+
+SEE ALSO
+       pgrep(1), ps(1), pwdx(1).
+
+AUTHOR
+       Vito  Mule’  ⟨mulevito@gmail.com⟩  wrote pslog in 2015. Please send bug
+       reports to ⟨mulevito@gmail.com⟩.
+
+Linux"                            2020-09-09                          PSLOG(1)

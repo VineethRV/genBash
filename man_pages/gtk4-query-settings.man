@@ -1,0 +1,14 @@
+GTK4-QUERY-SETTINGS()                                    GTK4-QUERY-SETTINGS()
+
+NAME
+       gtk4-query-settings - Print name and value of GTK settings
+
+SYNOPSIS
+       gtk4-query-settings [PATTERN]
+
+DESCRIPTION
+       gtk4-query-settings prints both name and value of all properties avail‐
+       able in the GtkSettings class. Optionally, you can filter which proper‐
+       ties to list by specifying a PATTERN.
+
+                                                         GTK4-QUERY-SETTINGS()

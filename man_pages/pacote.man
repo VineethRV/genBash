@@ -1,0 +1,47 @@
+BIN.JS(1)                        User Commands                       BIN.JS(1)
+
+NAME
+       bin.js - The JavaScript Package Handler
+
+DESCRIPTION
+       Pacote - The JavaScript Package Handler, v12.0.3
+
+       Usage:
+
+              pacote resolve <spec>
+
+              Resolve a specifier and output the fully resolved target Returns
+              integrity and from if '--long' flag is set.
+
+              pacote manifest <spec>
+
+              Fetch a manifest and print to stdout
+
+              pacote packument <spec>
+
+              Fetch a full packument and print to stdout
+
+              pacote tarball <spec> [<filename>]
+
+              Fetch a package tarball and save to <filename> If <filename>  is
+              missing or '-', the tarball will be streamed to stdout.
+
+              pacote extract <spec> <folder>
+
+              Extract a package to the destination folder.
+
+       Configuration  values  all match the names of configs passed to npm, or
+       options passed to Pacote.  Additional flags for this executable:
+
+       --long Print an object from 'resolve', including integrity and spec.
+
+       --json Print result objects as JSON rather than node's default.   (This
+              is the default if stdout is not a TTY.)
+
+       --help -h
+              Print this helpful text.
+
+       For  example  '--cache=/path/to/folder'  will  use  that  folder as the
+       cache.
+
+bin.js 12.0.3                    February 2022                       BIN.JS(1)

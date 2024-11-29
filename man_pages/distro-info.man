@@ -1,0 +1,65 @@
+DISTRO-INFO(1)              General Commands Manual             DISTRO-INFO(1)
+
+NAME
+       distro-info - provides information about the distributions' releases
+
+SYNOPSIS
+       distro-info [OPTIONS]
+
+DESCRIPTION
+       distro-info  is a symlink to the distro-info command for your distribu‐
+       tion.  On Debian it links to debian-distro-info and on Ubuntu it  links
+       to  ubuntu-distro-info.   All options described in this manual page are
+       available in all distro-info commands. All other options, which are not
+       described here, are distribution specific.
+
+OPTIONS
+       --date=DATE
+              date for calculating the version (default: today)
+
+       -h, --help
+              display help message and exit
+
+       -a, --all
+              list all known versions
+
+       -y[MILESTONE], --days[=MILESTONE]
+              display number of days until specified version reaches the spec‐
+              ified milestone.  MILESTONE may be one of created, release, eol,
+              or  eol-server.   If  no milestone is specified, assume release.
+              For options that return a list, display the normal  output  fol‐
+              lowed  by  whitespace and the number of days until the specified
+              milestone.
+
+       -d, --devel
+              latest development version
+
+       --series=SERIES
+              series to calculate the version for
+
+       -s, --stable
+              latest stable version
+
+       --supported
+              list of all supported versions, including development releases
+
+       --unsupported
+              list of all unsupported stable versions
+
+       -c, --codename
+              print the codename (default)
+
+       -r, --release
+              print the release version
+
+       -f, --fullname
+              print the full name
+
+SEE ALSO
+       debian-distro-info(1), ubuntu-distro-info(1)
+
+AUTHOR
+       The  script  and  this  manual  page  was  written  by  Benjamin  Drung
+       <bdrung@debian.org>.
+
+distro-info                       August 2013                   DISTRO-INFO(1)

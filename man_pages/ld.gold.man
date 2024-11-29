@@ -1,0 +1,913 @@
+GOLD(1)                          User Commands                         GOLD(1)
+
+NAME
+       gold - The GNU ELF linker
+
+SYNOPSIS
+       ld.gold [options] file...
+
+OPTIONS
+       --help Report usage information
+
+       -v, --version
+              Report version information
+
+       -V     Report version and target information
+
+       --add-needed
+              Not supported
+
+       --no-add-needed
+              Do not copy DT_NEEDED tags from shared libraries (default)
+
+       --allow-multiple-definition Allow multiple definitions of symbols
+
+       --no-allow-multiple-definition
+              Do not allow multiple definitions (default)
+
+       --allow-shlib-undefined
+              Allow unresolved references in shared libraries
+
+       --no-allow-shlib-undefined
+              Do not allow unresolved references in shared libraries (default)
+
+       --apply-dynamic-relocs
+              Apply link-time values for dynamic relocations (default)
+
+       --no-apply-dynamic-relocs
+              (aarch64 only) Do not apply link-time values for dynamic reloca‐
+              tions
+
+       --as-needed
+              Use DT_NEEDED only for shared libraries that are used
+
+       --no-as-needed
+              Use DT_NEEDED for all shared libraries (default)
+
+       -assert [ignored]
+              Ignored
+
+       -b [elf,binary], --format [elf,binary]
+              Set input format
+
+       --be8  Output BE8 format image
+
+       --build-id [=STYLE]
+              Generate build ID note
+
+       --build-id-chunk-size-for-treehash SIZE
+              Chunk size for '--build-id=tree'
+
+       --build-id-min-file-size-for-treehash SIZE
+              Minimum output file size for '--build-id=tree' to  work  differ‐
+              ently than '--build-id=sha1'
+
+       -Bdynamic                   -l searches for shared libraries (default)
+
+       -Bstatic                    -l does not search for shared libraries
+
+       -dy    alias for -Bdynamic (default)
+
+       -dn    alias for -Bstatic
+
+       -Bgroup
+              Use group name lookup rules for shared library
+
+       -Bshareable
+              Generate shared library (alias for -G/-shared)
+
+       -Bno-symbolic
+              Don't  bind  default  visibility  defined  symbols  locally  for
+              -shared (default)
+
+       -Bsymbolic-functions
+              Bind default visibility defined  function  symbols  locally  for
+              -shared
+
+       -Bsymbolic
+              Bind default visibility defined symbols locally for -shared
+
+       --check-sections
+              Check segment addresses for overlaps (default)
+
+       --no-check-sections
+              Do not check segment addresses for overlaps
+
+       --compress-debug-sections [none,zlib,zlib-gnu,zlib-gabi]
+              Compress .debug_* sections in the output file
+
+       --copy-dt-needed-entries
+              Not supported
+
+       --no-copy-dt-needed-entries  Do not copy DT_NEEDED tags from shared li‐
+              braries (default)
+
+       --cref
+              Output cross reference table
+
+       --no-cref
+              Do not output cross reference table (default)
+
+       --ctors-in-init-array
+              Use DT_INIT_ARRAY for all constructors (default)
+
+       --no-ctors-in-init-array
+              Handle constructors as directed by compiler
+
+       -d, --define-common
+              Define common symbols
+
+       --no-define-common
+              Do not define common symbols in relocatable output (default)
+
+       -dc    Alias for -d
+
+       -dp    Alias for -d
+
+       --debug [all,files,script,task][,...]
+              Turn on debugging
+
+       --defsym SYMBOL=EXPRESSION
+              Define a symbol
+
+       --demangle [=STYLE]
+              Demangle C++ symbols in log messages
+
+       --no-demangle
+              Do not demangle C++ symbols in log messages
+
+       --dependency-file FILE
+              Write a dependency file listing all files read
+
+       --detect-odr-violations
+              Look for violations of the C++ One Definition Rule
+
+       --no-detect-odr-violations
+              Do not look for violations of the C++ One Definition  Rule  (de‐
+              fault)
+
+       --dynamic-list-data
+              Add data symbols to dynamic symbols
+
+       --dynamic-list-cpp-new
+              Add C++ operator new/delete to dynamic symbols
+
+       --dynamic-list-cpp-typeinfo Add C++ typeinfo to dynamic symbols
+
+       --dynamic-list FILE
+              Read a list of dynamic symbols
+
+       --emit-stub-syms
+              (PowerPC only) Label linker stubs with a symbol (default)
+
+       --no-emit-stub-syms
+              (PowerPC only) Do not label linker stubs with a symbol
+
+       -e ADDRESS, --entry ADDRESS Set program start address
+
+       --eh-frame-hdr
+              Create exception frame header
+
+       --no-eh-frame-hdr
+              Do not create exception frame header (default)
+
+       --enable-new-dtags
+              Enable use of DT_RUNPATH (default)
+
+       --disable-new-dtags
+              Disable use of DT_RUNPATH
+
+       --no-enum-size-warning
+              (ARM  only)  Do  not  warn  about objects with incompatible enum
+              sizes
+
+       --exclude-libs lib,lib ...
+              Exclude libraries from automatic export
+
+       -E, --export-dynamic
+              Export all dynamic symbols
+
+       --no-export-dynamic
+              Do not export all dynamic symbols (default)
+
+       --export-dynamic-symbol SYMBOL
+              Export SYMBOL to dynamic symbol table
+
+       -EB    Link big-endian objects.
+
+       -EL    Link little-endian objects.
+
+       -f SHLIB, --auxiliary SHLIB Auxiliary filter for shared  object  symbol
+              table
+
+       -F SHLIB, --filter SHLIB
+              Filter for shared object symbol table
+
+       --fatal-warnings
+              Treat warnings as errors
+
+       --no-fatal-warnings
+              Do not treat warnings as errors (default)
+
+       -fini SYMBOL
+              Call SYMBOL at unload-time
+
+       --fix-arm1176
+              (ARM only) Fix binaries for ARM1176 erratum (default)
+
+       --no-fix-arm1176
+              (ARM only) Do not fix binaries for ARM1176 erratum
+
+       --fix-cortex-a8
+              (ARM only) Fix binaries for Cortex-A8 erratum
+
+       --no-fix-cortex-a8
+              (ARM only) Do not fix binaries for Cortex-A8 erratum (default)
+
+       --fix-cortex-a53-843419
+              (AArch64 only) Fix Cortex-A53 erratum 843419
+
+       --no-fix-cortex-a53-843419
+              (AArch64 only) Do not fix Cortex-A53 erratum 843419 (default)
+
+       --fix-cortex-a53-835769
+              (AArch64 only) Fix Cortex-A53 erratum 835769
+
+       --no-fix-cortex-a53-835769
+              (AArch64 only) Do not fix Cortex-A53 erratum 835769 (default)
+
+       --fix-v4bx
+              (ARM only) Rewrite BX rn as MOV pc, rn for ARMv4
+
+       --fix-v4bx-interworking
+              (ARM only) Rewrite BX rn branch to ARMv4 interworking veneer
+
+       -fuse-ld [gold,bfd]
+              Ignored for GCC linker option compatibility
+
+       -g     Ignored
+
+       --gc-sections
+              Remove unused sections
+
+       --no-gc-sections
+              Don't remove unused sections (default)
+
+       --gdb-index
+              Generate .gdb_index section
+
+       --no-gdb-index
+              Do not generate .gdb_index section (default)
+
+       --gnu-unique
+              Enable STB_GNU_UNIQUE symbol binding (default)
+
+       --no-gnu-unique
+              Disable STB_GNU_UNIQUE symbol binding
+
+       -G, -shared
+              Generate shared library
+
+       -h FILENAME, -soname FILENAME
+              Set shared library name
+
+       --hash-bucket-empty-fraction FRACTION
+              Min fraction of empty buckets in dynamic hash
+
+       --hash-style [sysv,gnu,both]
+              Dynamic hash style
+
+       -i     Alias for -r
+
+       --icf [none,all,safe]
+              Identical  Code  Folding.  '--icf=safe'  Folds  ctors, dtors and
+              functions whose pointers are definitely not taken
+
+       --icf-iterations COUNT
+              Number of iterations of ICF (default 3)
+
+       --incremental
+              Do an incremental link if possible; otherwise, do  a  full  link
+              and prepare output for incremental linking
+
+       --no-incremental
+              Do a full link (default)
+
+       --incremental-full
+              Do a full link and prepare output for incremental linking
+
+       --incremental-update
+              Do an incremental link; exit if not possible
+
+       --incremental-base FILE
+              Set base file for incremental linking (default is output file)
+
+       --incremental-changed
+              Assume files changed
+
+       --incremental-unchanged
+              Assume files didn't change
+
+       --incremental-unknown
+              Use timestamps to check files (default)
+
+       --incremental-startup-unchanged
+              Assume startup files unchanged (files preceding this option)
+
+       --incremental-patch  PERCENT  Amount  of  extra  space  to allocate for
+              patches (default 10)
+
+       -init SYMBOL
+              Call SYMBOL at load-time
+
+       -I PROGRAM, --dynamic-linker PROGRAM
+              Set dynamic linker path
+
+       --just-symbols FILE
+              Read only symbol values from FILE
+
+       --keep-files-mapped
+              Keep files mapped across passes (default)
+
+       --no-keep-files-mapped
+              Release mapped files after each pass
+
+       --keep-unique SYMBOL
+              Do not fold this symbol during ICF
+
+       -l LIBNAME, --library LIBNAME
+              Search for library LIBNAME
+
+       --ld-generated-unwind-info
+              Generate unwind information for PLT (default)
+
+       --no-ld-generated-unwind-info
+              Do not generate unwind information for PLT
+
+       -L DIR, --library-path DIR
+              Add directory to search path
+
+       --long-plt
+              (ARM only) Generate long PLT entries
+
+       --no-long-plt
+              (ARM only) Do not generate long PLT entries (default)
+
+       -m EMULATION
+              Set GNU linker emulation; obsolete
+
+       --map-whole-files
+              Map whole files to memory (default)
+
+       --no-map-whole-files
+              Map relevant file parts to memory
+
+       --merge-exidx-entries
+              (ARM only) Merge exidx entries in debuginfo (default)
+
+       --no-merge-exidx-entries
+              (ARM only) Do not merge exidx entries in debuginfo
+
+       --mmap-output-file
+              Map the output file for writing (default)
+
+       --no-mmap-output-file
+              Do not map the output file for writing
+
+       -M, --print-map
+              Write map file on standard output
+
+       -Map MAPFILENAME
+              Write map file
+
+       -n, --nmagic
+              Do not page align data
+
+       -N, --omagic
+              Do not page align data, do not make text readonly
+
+       --no-omagic
+              Page align data, make text readonly (default)
+
+       --no-keep-memory
+              Use less memory and more disk I/O (included only for compatibil‐
+              ity with GNU ld)
+
+       --no-undefined
+              Report undefined symbols (even with --shared)
+
+       --noinhibit-exec
+              Create an output file even if errors occur
+
+       -nostdlib
+              Only search directories specified on the command line
+
+       -o FILE, --output FILE
+              Set output file name
+
+       --oformat [binary]
+              Set output format
+
+       -O LEVEL, -optimize LEVEL
+              Optimize output file size
+
+       --orphan-handling [place,discard,warn,error]
+              Orphan section handling
+
+       -p     Ignored for ARM compatibility
+
+       -pie   Create a position independent executable
+
+       -no-pie
+              Do not create a position independent executable (default)
+
+       --pic-executable
+              Create a position independent executable
+
+       --no-pic-executable
+              Do not create a position independent executable (default)
+
+       --pic-veneer
+              Force PIC sequences for ARM/Thumb interworking veneers
+
+       -no-pipeline-knowledge
+              (ARM only) Ignore for backward compatibility (default)
+
+       --plt-align [=P2ALIGN]
+              (PowerPC only) Align PLT call stubs to fit cache lines
+
+       --plt-localentry
+              (PowerPC64 only) Optimize calls to ELFv2 localentry:0 functions
+
+       --no-plt-localentry
+              (PowerPC64 only) Don't optimize ELFv2 calls (default)
+
+       --plt-static-chain
+              (PowerPC64 only) PLT call stubs should load r11
+
+       --no-plt-static-chain
+              (PowerPC64 only) PLT call stubs should not load r11 (default)
+
+       --plt-thread-safe
+              (PowerPC64 only) PLT call stubs with load-load barrier
+
+       --no-plt-thread-safe
+              (PowerPC64 only) PLT call stubs without barrier (default)
+
+       --plugin PLUGIN
+              Load a plugin library
+
+       --plugin-opt OPTION
+              Pass an option to the plugin
+
+       --posix-fallocate
+              Use  posix_fallocate  to  reserve  space in the output file (de‐
+              fault)
+
+       --no-posix-fallocate
+              Use fallocate or ftruncate to reserve space
+
+       --power10-stubs [=auto,no,yes]
+              (PowerPC64 only) stubs use power10 insns
+
+       --no-power10-stubs
+              (PowerPC64 only) stubs do not use power10 insns
+
+       --preread-archive-symbols
+              Preread archive symbols when multi-threaded
+
+       --print-gc-sections
+              List removed unused sections on stderr
+
+       --no-print-gc-sections
+              Do not list removed unused sections (default)
+
+       --print-icf-sections
+              List folded identical sections on stderr
+
+       --no-print-icf-sections
+              Do not list folded identical sections (default)
+
+       --print-output-format
+              Print default output format
+
+       --print-symbol-counts FILENAME
+              Print symbols defined and used for each input
+
+       --push-state
+              Save the state of flags related to input files
+
+       --pop-state
+              Restore the state of flags related to input files
+
+       -q, --emit-relocs
+              Generate relocations in output
+
+       -Qy    Ignored for SVR4 compatibility
+
+       -r, -relocatable
+              Generate relocatable output
+
+       --relax
+              Relax branches on certain targets
+
+       --no-relax
+              Do not relax branches (default)
+
+       --retain-symbols-file FILE
+              keep only symbols listed in this file
+
+       --rosegment
+              Put read-only non-executable sections in their own segment
+
+       --no-rosegment
+              Do not put read-only non-executable sections in their  own  seg‐
+              ment (default)
+
+       --rosegment-gap OFFSET
+              Set offset between executable and read-only segments
+
+       -R DIR Add DIR to runtime search path
+
+       -rpath DIR
+              Add DIR to runtime search path
+
+       --rpath-link DIR
+              Add DIR to link time shared library search path
+
+       -s, --strip-all
+              Strip all symbols
+
+       -S, --strip-debug
+              Strip debugging information
+
+       --strip-debug-non-line
+              Emit only debug line number information
+
+       --strip-debug-gdb
+              Strip debug symbols that are unused by gdb (at least versions <=
+              7.4)
+
+       --strip-lto-sections
+              Strip LTO intermediate code sections (default)
+
+       --section-ordering-file FILENAME
+              Layout sections in the order specified
+
+       --section-start SECTION=ADDRESS
+              Set address of section
+
+       --secure-plt
+              (PowerPC only) Use new-style PLT (default)
+
+       --sort-common [={ascending,descending}]
+              Sort common symbols by alignment
+
+       --sort-section [none,name]
+              Sort  sections  by  name.   '--no-text-reorder'  will   override
+              '--sort-section=name' for .text
+
+       --spare-dynamic-tags COUNT
+              Dynamic tag slots to reserve (default 5)
+
+       --stub-group-size SIZE
+              (ARM,  PowerPC only) The maximum distance from instructions in a
+              group of sections to their stubs. Negative values mean stubs are
+              always after the group. 1 means use default size
+
+       --stub-group-multi
+              (PowerPC  only)  Allow a group of stubs to serve multiple output
+              sections (default)
+
+       --no-stub-group-multi
+              (PowerPC only) Each output section has its own stubs
+
+       --split-stack-adjust-size SIZE
+              Stack size when -fsplit-stack function calls non-split
+
+       -static
+              Do not link against shared libraries
+
+       --start-lib
+              Start a library
+
+       --end-lib
+              End a library
+
+       --stats
+              Print resource usage statistics
+
+       --sysroot DIR
+              Set target system root directory
+
+       -t, --trace
+              Print the name of each input file
+
+       --target1-abs
+              (ARM only) Force R_ARM_TARGET1 type to R_ARM_ABS32
+
+       --target1-rel
+              (ARM only) Force R_ARM_TARGET1 type to R_ARM_REL32
+
+       --target2 [rel, abs, got-rel
+              (ARM only) Set R_ARM_TARGET2 relocation type
+
+       --text-reorder
+              Enable text section reordering for GCC section names (default)
+
+       --no-text-reorder
+              Disable text section reordering for GCC section names
+
+       --threads
+              Run the linker multi-threaded
+
+       --no-threads
+              Do not run the linker multi-threaded (default)
+
+       --thread-count COUNT
+              Number of threads to use
+
+       --thread-count-initial COUNT
+              Number of threads to use in initial pass
+
+       --thread-count-middle COUNT Number of threads to use in middle pass
+
+       --thread-count-final COUNT
+              Number of threads to use in final pass
+
+       --tls-optimize
+              (PowerPC/64 only) Optimize GD/LD/IE code to IE/LE (default)
+
+       --no-tls-optimize
+              (PowerPC/64 only) Don'''t try to optimize TLS accesses
+
+       --tls-get-addr-optimize
+              (PowerPC/64 only) Use a special __tls_get_addr call (default)
+
+       --no-tls-get-addr-optimize
+              (PowerPC/64 only) Don't use a special __tls_get_addr call
+
+       --toc-optimize
+              (PowerPC64 only) Optimize TOC code sequences (default)
+
+       --no-toc-optimize
+              (PowerPC64 only) Don't optimize TOC code sequences
+
+       --toc-sort
+              (PowerPC64 only) Sort TOC and GOT sections (default)
+
+       --no-toc-sort
+              (PowerPC64 only) Don't sort TOC and GOT sections
+
+       -T FILE, --script FILE
+              Read linker script
+
+       -Tbss ADDRESS
+              Set the address of the bss segment
+
+       -Tdata ADDRESS
+              Set the address of the data segment
+
+       -Ttext ADDRESS
+              Set the address of the text segment
+
+       -Ttext-segment ADDRESS
+              Set the address of the text segment
+
+       -Trodata-segment ADDRESS
+              Set the address of the rodata segment
+
+       -u SYMBOL, --undefined SYMBOL
+              Create undefined reference to SYMBOL
+
+       --unresolved-symbols   ignore-all,report-all,ignore-in-object-files,ig‐
+       nore-in-shared-libs
+              How to handle unresolved symbols
+
+       --verbose
+              Alias for --debug=files
+
+       --version-script FILE
+              Read version script
+
+       --warn-common
+              Warn about duplicate common symbols
+
+       --no-warn-common
+              Do not warn about duplicate common symbols (default)
+
+       --warn-constructors
+              Ignored
+
+       --no-warn-constructors
+              Ignored
+
+       --warn-drop-version
+              Warn when discarding version information
+
+       --no-warn-drop-version
+              Do not warn when discarding version information (default)
+
+       --warn-execstack
+              Warn if the stack is executable
+
+       --no-warn-execstack
+              Do not warn if the stack is executable (default)
+
+       --no-warn-mismatch
+              Don't warn about mismatched input files
+
+       --warn-multiple-gp
+              Ignored
+
+       --warn-search-mismatch
+              Warn when skipping an incompatible library (default)
+
+       --no-warn-search-mismatch
+              Don't warn when skipping an incompatible library
+
+       --warn-shared-textrel
+              Warn if text segment is not shareable
+
+       --no-warn-shared-textrel
+              Do not warn if text segment is not shareable (default)
+
+       --warn-unresolved-symbols
+              Report unresolved symbols as warnings
+
+       --error-unresolved-symbols
+              Report unresolved symbols as errors (default)
+
+       -z buildd
+              Dummy z option
+
+       --no-wchar-size-warning
+              (ARM  only)  Do not warn about objects with incompatible wchar_t
+              sizes
+
+       --weak-unresolved-symbols
+              Convert unresolved symbols to weak references
+
+       --whole-archive
+              Include all archive contents
+
+       --no-whole-archive
+              Include only needed archive contents (default)
+
+       --wrap SYMBOL
+              Use wrapper functions for SYMBOL
+
+       -x, --discard-all
+              Delete all local symbols
+
+       -X, --discard-locals
+              Delete all temporary local symbols
+
+       --discard-none
+              Keep all local symbols
+
+       -y SYMBOL, --trace-symbol SYMBOL
+              Trace references to symbol
+
+       --undefined-version
+              Allow unused version in script (default)
+
+       --no-undefined-version
+              Do not allow unused version in script
+
+       -Y PATH
+              Default search path for Solaris compatibility
+
+       -(, --start-group
+              Start a library search group
+
+       -), --end-group
+              End a library search group
+
+       -z bndplt
+              (x86-64 only) Generate a BND PLT for Intel MPX
+
+       -z nobndplt
+              Generate a regular PLT (default)
+
+       -z combreloc
+              Sort dynamic relocs (default)
+
+       -z nocombreloc
+              Do not sort dynamic relocs
+
+       -z common-page-size=SIZE
+              Set common page size to SIZE
+
+       -z defs
+              Report undefined symbols (even with --shared)
+
+       -z execstack
+              Mark output as requiring executable stack
+
+       -z global
+              Make symbols in DSO available for subsequently loaded objects
+
+       -z initfirst
+              Mark DSO to be initialized first at runtime
+
+       -z interpose
+              Mark object to interpose all DSOs but executable
+
+       -z unique
+              Mark DSO to be loaded at most once, and only in the  main  name‐
+              space
+
+       -z nounique
+              Do  not  mark the DSO as one to be loaded only in the main name‐
+              space (default)
+
+       -z lazy
+              Mark object for lazy runtime binding (default)
+
+       -z loadfltr
+              Mark object requiring immediate process
+
+       -z max-page-size=SIZE
+              Set maximum page size to SIZE
+
+       -z muldefs
+              Allow multiple definitions of symbols
+
+       -z nocopyreloc
+              Do not create copy relocs
+
+       -z nodefaultlib
+              Mark object not to use default search paths
+
+       -z nodelete
+              Mark DSO non-deletable at runtime
+
+       -z nodlopen
+              Mark DSO not available to dlopen
+
+       -z nodump
+              Mark DSO not available to dldump
+
+       -z noexecstack
+              Mark output as not requiring executable stack
+
+       -z now Mark object for immediate function binding
+
+       -z origin
+              Mark DSO to indicate that needs immediate $ORIGIN processing  at
+              runtime
+
+       -z relro
+              Where  possible  mark  variables read-only after relocation (de‐
+              fault)
+
+       -z norelro
+              Don't mark variables read-only after relocation
+
+       -z stack-size=SIZE
+              Set PT_GNU_STACK segment p_memsz to SIZE
+
+       -z start-stop-visibility=[default,internal,hidden,protected]
+              ELF symbol visibility for  synthesized  __start_*  and  __stop_*
+              symbols
+
+       -z text
+              Do not permit relocations in read-only segments
+
+       -z notext
+              Permit relocations in read-only segments (default)
+
+       -z textoff
+              Permit relocations in read-only segments (default)
+
+       -z text-unlikely-segment
+              Move .text.unlikely sections to a separate segment.
+
+       -z notext-unlikely-segment
+              Do  not move .text.unlikely sections to a separate segment. (de‐
+              fault)
+
+       -z keep-text-section-prefix Keep .text.hot,  .text.startup,  .text.exit
+              and .text.unlikely as separate sections in the final binary.
+
+       -z nokeep-text-section-prefix
+              Merge all .text.* prefix sections. (default)
+
+       debian/tmp/usr/bin/ld.gold:     supported     targets:     elf32-x86-64
+       elf32-x86-64-freebsd elf32-x86-64-nacl elf64-x86-64  elf64-x86-64-free‐
+       bsd   elf64-x86-64-nacl   elf32-iamcu   elf32-i386   elf32-i386-freebsd
+       elf32-i386-nacl   debian/tmp/usr/bin/ld.gold:   supported   emulations:
+       elf32_x86_64  elf32_x86_64_nacl  elf_x86_64  elf_x86_64_nacl  elf_iamcu
+       elf_i386 elf_i386_nacl
+
+REPORTING BUGS
+       Report bugs to <https://sourceware.org/bugzilla/>
+
+COPYRIGHT
+       Copyright © 2022 Free Software Foundation, Inc.  This program  is  free
+       software;  you  may  redistribute it under the terms of the GNU General
+       Public License version 3 or (at your option)  a  later  version.   This
+       program has absolutely no warranty.
+
+GNU gold (GNU Binutils for UbuntuJanuary0202220119) 1.16               GOLD(1)

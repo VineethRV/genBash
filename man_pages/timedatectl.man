@@ -1,0 +1,340 @@
+TIMEDATECTL(1)                    timedatectl                   TIMEDATECTL(1)
+
+NAME
+       timedatectl - Control the system time and date
+
+SYNOPSIS
+       timedatectl [OPTIONS...] {COMMAND}
+
+DESCRIPTION
+       timedatectl may be used to query and change the system clock and its
+       settings, and enable or disable time synchronization services.
+
+       Use systemd-firstboot(1) to initialize the system time zone for mounted
+       (but not booted) system images.
+
+       timedatectl may be used to show the current status of time
+       synchronization services, for example systemd-timesyncd.service(8).
+
+COMMANDS
+       The following commands are understood:
+
+       status
+           Show current settings of the system clock and RTC, including
+           whether network time synchronization is active. If no command is
+           specified, this is the implied default.
+
+       show
+           Show the same information as status, but in machine readable form.
+           This command is intended to be used whenever computer-parsable
+           output is required. Use status if you are looking for formatted
+           human-readable output.
+
+           By default, empty properties are suppressed. Use --all to show
+           those too. To select specific properties to show, use --property=.
+
+       set-time [TIME]
+           Set the system clock to the specified time. This will also update
+           the RTC time accordingly. The time may be specified in the format
+           "2012-10-30 18:17:16".
+
+       set-timezone [TIMEZONE]
+           Set the system time zone to the specified value. Available
+           timezones can be listed with list-timezones. If the RTC is
+           configured to be in the local time, this will also update the RTC
+           time. This call will alter the /etc/localtime symlink. See
+           localtime(5) for more information.
+
+       list-timezones
+           List available time zones, one per line. Entries from the list can
+           be set as the system timezone with set-timezone.
+
+       set-local-rtc [BOOL]
+           Takes a boolean argument. If "0", the system is configured to
+           maintain the RTC in universal time. If "1", it will maintain the
+           RTC in local time instead. Note that maintaining the RTC in the
+           local timezone is not fully supported and will create various
+           problems with time zone changes and daylight saving adjustments. If
+           at all possible, keep the RTC in UTC mode. Note that invoking this
+           will also synchronize the RTC from the system clock, unless
+           --adjust-system-clock is passed (see above). This command will
+           change the 3rd line of /etc/adjtime, as documented in hwclock(8).
+
+       set-ntp [BOOL]
+           Takes a boolean argument. Controls whether network time
+           synchronization is active and enabled (if available). If the
+           argument is true, this enables and starts the first existing
+           network synchronization service. If the argument is false, then
+           this disables and stops the known network synchronization services.
+           The way that the list of services is built is described in systemd-
+           timedated.service(8).
+
+   systemd-timesyncd Commands
+       The following commands are specific to systemd-timesyncd.service(8).
+
+       timesync-status
+           Show current status of systemd-timesyncd.service(8). If --monitor
+           is specified, then this will monitor the status updates.
+
+       show-timesync
+           Show the same information as timesync-status, but in machine
+           readable form. This command is intended to be used whenever
+           computer-parsable output is required. Use timesync-status if you
+           are looking for formatted human-readable output.
+
+           By default, empty properties are suppressed. Use --all to show
+           those too. To select specific properties to show, use --property=.
+
+       ntp-servers INTERFACE SERVER...
+           Set the interface specific NTP servers. This command can be used
+           only when the interface is managed by systemd-networkd.
+
+       revert INTERFACE
+           Revert the interface specific NTP servers. This command can be used
+           only when the interface is managed by systemd-networkd.
+
+OPTIONS
+       The following options are understood:
+
+       --no-ask-password
+           Do not query the user for authentication for privileged operations.
+
+       --adjust-system-clock
+           If set-local-rtc is invoked and this option is passed, the system
+           clock is synchronized from the RTC again, taking the new setting
+           into account. Otherwise, the RTC is synchronized from the system
+           clock.
+
+       --monitor
+           If timesync-status is invoked and this option is passed, then
+           timedatectl monitors the status of systemd-timesyncd.service(8) and
+           updates the outputs. Use Ctrl+C to terminate the monitoring.
+
+       -a, --all
+           When showing properties of systemd-timesyncd.service(8), show all
+           properties regardless of whether they are set or not.
+
+       -p, --property=
+           When showing properties of systemd-timesyncd.service(8), limit
+           display to certain properties as specified as argument. If not
+           specified, all set properties are shown. The argument should be a
+           property name, such as "ServerName". If specified more than once,
+           all properties with the specified names are shown.
+
+       --value
+           When printing properties with show-timesync, only print the value,
+           and skip the property name and "=".
+
+       -H, --host=
+           Execute the operation remotely. Specify a hostname, or a username
+           and hostname separated by "@", to connect to. The hostname may
+           optionally be suffixed by a port ssh is listening on, separated by
+           ":", and then a container name, separated by "/", which connects
+           directly to a specific container on the specified host. This will
+           use SSH to talk to the remote machine manager instance. Container
+           names may be enumerated with machinectl -H HOST. Put IPv6 addresses
+           in brackets.
+
+       -M, --machine=
+           Execute operation on a local container. Specify a container name to
+           connect to, optionally prefixed by a user name to connect as and a
+           separating "@" character. If the special string ".host" is used in
+           place of the container name, a connection to the local system is
+           made (which is useful to connect to a specific user's user bus:
+           "--user --machine=lennart@.host"). If the "@" syntax is not used,
+           the connection is made as root user. If the "@" syntax is used
+           either the left hand side or the right hand side may be omitted
+           (but not both) in which case the local user name and ".host" are
+           implied.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       --no-pager
+           Do not pipe output into a pager.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+ENVIRONMENT
+       $SYSTEMD_LOG_LEVEL
+           The maximum log level of emitted messages (messages with a higher
+           log level, i.e. less important ones, will be suppressed). Either
+           one of (in order of decreasing importance) emerg, alert, crit, err,
+           warning, notice, info, debug, or an integer in the range 0...7. See
+           syslog(3) for more information.
+
+       $SYSTEMD_LOG_COLOR
+           A boolean. If true, messages written to the tty will be colored
+           according to priority.
+
+           This setting is only useful when messages are written directly to
+           the terminal, because journalctl(1) and other tools that display
+           logs will color messages based on the log level on their own.
+
+       $SYSTEMD_LOG_TIME
+           A boolean. If true, console log messages will be prefixed with a
+           timestamp.
+
+           This setting is only useful when messages are written directly to
+           the terminal or a file, because journalctl(1) and other tools that
+           display logs will attach timestamps based on the entry metadata on
+           their own.
+
+       $SYSTEMD_LOG_LOCATION
+           A boolean. If true, messages will be prefixed with a filename and
+           line number in the source code where the message originates.
+
+           Note that the log location is often attached as metadata to journal
+           entries anyway. Including it directly in the message text can
+           nevertheless be convenient when debugging programs.
+
+       $SYSTEMD_LOG_TID
+           A boolean. If true, messages will be prefixed with the current
+           numerical thread ID (TID).
+
+           Note that the this information is attached as metadata to journal
+           entries anyway. Including it directly in the message text can
+           nevertheless be convenient when debugging programs.
+
+       $SYSTEMD_LOG_TARGET
+           The destination for log messages. One of console (log to the
+           attached tty), console-prefixed (log to the attached tty but with
+           prefixes encoding the log level and "facility", see syslog(3), kmsg
+           (log to the kernel circular log buffer), journal (log to the
+           journal), journal-or-kmsg (log to the journal if available, and to
+           kmsg otherwise), auto (determine the appropriate log target
+           automatically, the default), null (disable log output).
+
+       $SYSTEMD_PAGER
+           Pager to use when --no-pager is not given; overrides $PAGER. If
+           neither $SYSTEMD_PAGER nor $PAGER are set, a set of well-known
+           pager implementations are tried in turn, including less(1) and
+           more(1), until one is found. If no pager implementation is
+           discovered no pager is invoked. Setting this environment variable
+           to an empty string or the value "cat" is equivalent to passing
+           --no-pager.
+
+       $SYSTEMD_LESS
+           Override the options passed to less (by default "FRSXMK").
+
+           Users might want to change two options in particular:
+
+           K
+               This option instructs the pager to exit immediately when Ctrl+C
+               is pressed. To allow less to handle Ctrl+C itself to switch
+               back to the pager command prompt, unset this option.
+
+               If the value of $SYSTEMD_LESS does not include "K", and the
+               pager that is invoked is less, Ctrl+C will be ignored by the
+               executable, and needs to be handled by the pager.
+
+           X
+               This option instructs the pager to not send termcap
+               initialization and deinitialization strings to the terminal. It
+               is set by default to allow command output to remain visible in
+               the terminal even after the pager exits. Nevertheless, this
+               prevents some pager functionality from working, in particular
+               paged output cannot be scrolled with the mouse.
+
+           See less(1) for more discussion.
+
+       $SYSTEMD_LESSCHARSET
+           Override the charset passed to less (by default "utf-8", if the
+           invoking terminal is determined to be UTF-8 compatible).
+
+       $SYSTEMD_PAGERSECURE
+           Takes a boolean argument. When true, the "secure" mode of the pager
+           is enabled; if false, disabled. If $SYSTEMD_PAGERSECURE is not set
+           at all, secure mode is enabled if the effective UID is not the same
+           as the owner of the login session, see geteuid(2) and
+           sd_pid_get_owner_uid(3). In secure mode, LESSSECURE=1 will be set
+           when invoking the pager, and the pager shall disable commands that
+           open or create new files or start new subprocesses. When
+           $SYSTEMD_PAGERSECURE is not set at all, pagers which are not known
+           to implement secure mode will not be used. (Currently only less(1)
+           implements secure mode.)
+
+           Note: when commands are invoked with elevated privileges, for
+           example under sudo(8) or pkexec(1), care must be taken to ensure
+           that unintended interactive features are not enabled. "Secure" mode
+           for the pager may be enabled automatically as describe above.
+           Setting SYSTEMD_PAGERSECURE=0 or not removing it from the inherited
+           environment allows the user to invoke arbitrary commands. Note that
+           if the $SYSTEMD_PAGER or $PAGER variables are to be honoured,
+           $SYSTEMD_PAGERSECURE must be set too. It might be reasonable to
+           completely disable the pager using --no-pager instead.
+
+       $SYSTEMD_COLORS
+           Takes a boolean argument. When true, systemd and related utilities
+           will use colors in their output, otherwise the output will be
+           monochrome. Additionally, the variable can take one of the
+           following special values: "16", "256" to restrict the use of colors
+           to the base 16 or 256 ANSI colors, respectively. This can be
+           specified to override the automatic decision based on $TERM and
+           what the console is connected to.
+
+       $SYSTEMD_URLIFY
+           The value must be a boolean. Controls whether clickable links
+           should be generated in the output for terminal emulators supporting
+           this. This can be specified to override the decision that systemd
+           makes based on $TERM and other conditions.
+
+EXAMPLES
+       Show current settings:
+
+           $ timedatectl
+                          Local time: Thu 2017-09-21 16:08:56 CEST
+                      Universal time: Thu 2017-09-21 14:08:56 UTC
+                            RTC time: Thu 2017-09-21 14:08:56
+                           Time zone: Europe/Warsaw (CEST, +0200)
+           System clock synchronized: yes
+                         NTP service: active
+                     RTC in local TZ: no
+
+       Enable network time synchronization:
+
+           $ timedatectl set-ntp true
+           ==== AUTHENTICATING FOR org.freedesktop.timedate1.set-ntp ===
+           Authentication is required to control whether network time synchronization shall be enabled.
+           Authenticating as: user
+           Password: ********
+           ==== AUTHENTICATION COMPLETE ===
+
+           $ systemctl status systemd-timesyncd.service
+           ● systemd-timesyncd.service - Network Time Synchronization
+              Loaded: loaded (/lib/systemd/system/systemd-timesyncd.service; enabled)
+              Active: active (running) since Mo 2015-03-30 14:20:38 CEST; 5s ago
+                Docs: man:systemd-timesyncd.service(8)
+            Main PID: 595 (systemd-timesyn)
+              Status: "Using Time Server 216.239.38.15:123 (time4.google.com)."
+              CGroup: /system.slice/systemd-timesyncd.service
+                      └─595 /lib/systemd/systemd-timesyncd
+           ...
+
+       Show current status of systemd-timesyncd.service(8):
+
+           $ timedatectl timesync-status
+                  Server: 216.239.38.15 (time4.google.com)
+           Poll interval: 1min 4s (min: 32s; max 34min 8s)
+                    Leap: normal
+                 Version: 4
+                 Stratum: 1
+               Reference: GPS
+               Precision: 1us (-20)
+           Root distance: 335us (max: 5s)
+                  Offset: +316us
+                   Delay: 349us
+                  Jitter: 0
+            Packet count: 1
+               Frequency: -8.802ppm
+
+SEE ALSO
+       systemd(1), hwclock(8), date(1), localtime(5), systemctl(1), systemd-
+       timedated.service(8), systemd-timesyncd.service(8), systemd-
+       firstboot(1)
+
+systemd 249                                                     TIMEDATECTL(1)

@@ -1,0 +1,28 @@
+DELPART(8)                   System Administration                  DELPART(8)
+
+NAME
+       delpart - tell the kernel to forget about a partition
+
+SYNOPSIS
+       delpart device partition
+
+DESCRIPTION
+       delpart asks the Linux kernel to forget about the specified partition
+       (a number) on the specified device. The command is a simple wrapper
+       around the "del partition" ioctl.
+
+       This command doesn’t manipulate partitions on a block device.
+
+SEE ALSO
+       addpart(8), fdisk(8), parted(8), partprobe(8), partx(8)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at
+       https://github.com/karelzak/util-linux/issues.
+
+AVAILABILITY
+       The delpart command is part of the util-linux package which can be
+       downloaded from Linux Kernel Archive
+       <https://www.kernel.org/pub/linux/utils/util-linux/>.
+
+util-linux 2.37.2                 2021-06-02                        DELPART(8)

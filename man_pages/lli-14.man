@@ -1,0 +1,1017 @@
+LLI(1)                           User Commands                          LLI(1)
+
+NAME
+       lli - manual page for lli 14
+
+DESCRIPTION
+       OVERVIEW: llvm interpreter & dynamic compiler
+
+       USAGE: lli [options] <input bitcode> <program arguments>...
+
+       OPTIONS:
+
+       Color Options:
+
+       --color                                                               -
+              Use colors in output (default=autodetect)
+
+       General options:
+
+       -O=<char>                                                             -
+              Optimization level. [-O0, -O1, -O2, or -O3] (default = '-O2')
+
+       --aarch64-neon-syntax=<value>                                         -
+              Choose style of NEON code to emit from AArch64 backend:
+
+       =generic
+              -   Emit generic NEON assembly
+
+       =apple -   Emit Apple-style NEON assembly
+
+       --aarch64-use-aa                                                      -
+              Enable the use of AA during codegen.
+
+       --abort-on-max-devirt-iterations-reached                              -
+              Abort when the max iterations for devirtualization CGSCC  repeat
+              pass is reached
+
+       --addrsig                                                             -
+              Emit an address-significance table
+
+       --align-loops=<uint>                                                  -
+              Default alignment for loops
+
+       --allow-ginsert-as-artifact                                           -
+              Allow G_INSERT to be considered an artifact. Hack around  AMDGPU
+              test infinite loops.
+
+       --amdgpu-bypass-slow-div                                              -
+              Skip 64-bit divide for dynamic 32-bit values
+
+       --amdgpu-disable-loop-alignment                                       -
+              Do not align and prefetch loops
+
+       --amdgpu-disable-power-sched                                          -
+              Disable scheduling to minimize mAI power bursts
+
+       --amdgpu-dpp-combine                                                  -
+              Enable DPP combiner
+
+       --amdgpu-dump-hsa-metadata                                            -
+              Dump AMDGPU HSA Metadata
+
+       --amdgpu-enable-flat-scratch                                          -
+              Use flat scratch instructions
+
+       --amdgpu-enable-merge-m0                                              -
+              Merge and hoist M0 initializations
+
+       --amdgpu-promote-alloca-to-vector-limit=<uint>                        -
+              Maximum byte size to consider promote alloca to vector
+
+       --amdgpu-sdwa-peephole                                                -
+              Enable SDWA peepholer
+
+       --amdgpu-use-aa-in-codegen                                            -
+              Enable the use of AA during codegen.
+
+       --amdgpu-verify-hsa-metadata                                          -
+              Verify AMDGPU HSA Metadata
+
+       --amdgpu-vgpr-index-mode                                              -
+              Use GPR indexing mode instead of movrel for vector indexing
+
+       --arm-add-build-attributes                                            -
+
+       --arm-implicit-it=<value>                                             -
+              Allow conditional instructions outdside of an IT block
+
+       =always
+              -   Accept in both ISAs, emit implicit ITs in Thumb
+
+       =never -   Warn in ARM, reject in Thumb
+
+       =arm   -   Accept in ARM, reject in Thumb
+
+       =thumb -   Warn in ARM, emit implicit ITs in Thumb
+
+       --asm-show-inst                                                       -
+              Emit internal instruction representation to assembly file
+
+       --atomic-counter-update-promoted                                      -
+       Do counter update using atomic fetch add
+              for promoted counters only
+
+       --atomic-first-counter                                                -
+              Use  atomic  fetch  add for first counter in a function (usually
+              the entry counter)
+
+       --basic-block-sections=<all | <function list (file)> | labels | none> -
+              Emit basic blocks into separate sections
+
+       --bounds-checking-single-trap                                         -
+              Use one trap block per function
+
+       --cfg-hide-cold-paths=<number>                                        -
+              Hide blocks with relative frequency below the given value
+
+       --cfg-hide-deoptimize-paths                                           -
+
+       --cfg-hide-unreachable-paths                                          -
+
+       --code-model=<value>                                                  -
+              Choose code model
+
+       =tiny  -   Tiny code model
+
+       =small -   Small code model
+
+       =kernel
+              -   Kernel code model
+
+       =medium
+              -   Medium code model
+
+       =large -   Large code model
+
+       --compile-threads=<uint>                                              -
+              Choose the number of compile threads (jit-kind=orc-lazy only)
+
+       --cost-kind=<value>                                                   -
+              Target cost kind
+
+       =throughput
+              -   Reciprocal throughput
+
+       =latency
+              -   Instruction latency
+
+       =code-size
+              -   Code size
+
+       =size-latency
+              -   Code size and latency
+
+       --data-sections                                                       -
+              Emit data into separate sections
+
+       --debug-entry-values                                                  -
+              Enable debug info for the debug entry values.
+
+       --debug-info-correlate                                                -
+              Use debug info to correlate profiles.
+
+       --debugger-tune=<value>                                               -
+              Tune debug info for a particular debugger
+
+       =gdb   -   gdb
+
+       =lldb  -   lldb
+
+       =dbx   -   dbx
+
+       =sce   -   SCE targets (e.g. PS4)
+
+       --debugify-level=<value>                                              -
+              Kind of debug info to add
+
+       =locations
+              -   Locations only
+
+       =location+variables
+              -   Locations and Variables
+
+       --debugify-quiet                                                      -
+              Suppress verbose debugify output
+
+       --denormal-fp-math=<value>                                            -
+              Select which denormal numbers the code is permitted to require
+
+       =ieee  -   IEEE 754 denormal numbers
+
+       =preserve-sign
+              -    the  sign  of a  flushed-to-zero number is preserved in the
+              sign of 0
+
+       =positive-zero
+              -   denormals are flushed to positive zero
+
+       --denormal-fp-math-f32=<value>                                        -
+              Select  which  denormal numbers the code is permitted to require
+              for float
+
+       =ieee  -   IEEE 754 denormal numbers
+
+       =preserve-sign
+              -   the sign of a  flushed-to-zero number is  preserved  in  the
+              sign of 0
+
+       =positive-zero
+              -   denormals are flushed to positive zero
+
+       --disable-i2p-p2i-opt                                                 -
+              Disables inttoptr/ptrtoint roundtrip optimization
+
+       --disable-lazy-compilation                                            -
+              Disable JIT lazy compilation
+
+       --disable-promote-alloca-to-lds                                       -
+              Disable promote alloca to LDS
+
+       --disable-promote-alloca-to-vector                                    -
+              Disable promote alloca to vector
+
+       --disable-tail-calls                                                  -
+              Never emit tail calls
+
+       --dlopen=<string>                                                     -
+              Dynamic libraries to load before linking
+
+       --do-counter-promotion                                                -
+              Do counter register promotion
+
+       --dot-cfg-mssa=<file name for generated dot file>                     -
+              file name for generated dot file
+
+       --dwarf-version=<int>                                                 -
+              Dwarf version
+
+       --dwarf64                                                             -
+              Generate debugging info in the 64-bit DWARF format
+
+       --emit-call-site-info                                                 -
+              Emit call site debug information, if debug  information  is  en‐
+              abled.
+
+       --emscripten-cxx-exceptions-allowed=<string>                          -
+              The list of function names in which  Emscripten-style  exception
+              handling  is enabled (see emscripten EMSCRIPTEN_CATCHING_ALLOWED
+              options)
+
+       --emulated-tls                                                        -
+              Use emulated TLS model
+
+       --enable-cache-manager                                                -
+              Use cache manager to save/load modules
+
+       --enable-cse-in-irtranslator                                          -
+              Should enable CSE in irtranslator
+
+       --enable-cse-in-legalizer                                             -
+              Should enable CSE in Legalizer
+
+       --enable-emscripten-cxx-exceptions                                    -
+              WebAssembly Emscripten-style exception handling
+
+       --enable-emscripten-sjlj                                              -
+              WebAssembly Emscripten-style setjmp/longjmp handling
+
+       --enable-gvn-hoist                                                    -
+              Enable the GVN hoisting pass (default = off)
+
+       --enable-gvn-memdep                                                   -
+
+       --enable-gvn-sink                                                     -
+              Enable the GVN sinking pass (default = off)
+
+       --enable-load-in-loop-pre                                             -
+
+       --enable-load-pre                                                     -
+
+       --enable-loop-simplifycfg-term-folding                                -
+
+       --enable-name-compression                                             -
+              Enable name/filename string compression
+
+       --enable-no-infs-fp-math                                              -
+              Enable FP math optimizations that assume no +-Infs
+
+       --enable-no-nans-fp-math                                              -
+              Enable FP math optimizations that assume no NaNs
+
+       --enable-no-signed-zeros-fp-math                                      -
+              Enable FP math optimizations that assume the sign of  0  is  in‐
+              significant
+
+       --enable-no-trapping-fp-math                                          -
+              Enable setting the FP exceptions build attribute not to use  ex‐
+              ceptions
+
+       --enable-split-backedge-in-load-pre                                   -
+
+       --enable-unsafe-fp-math                                               -
+              Enable optimizations that may decrease FP precision
+
+       --entry-function=<function>                                           -
+              Specify the entry function (default = 'main') of the executable
+
+       --exception-model=<value>                                             -
+              exception model
+
+       =default
+              -   default exception handling model
+
+       =dwarf -   DWARF-like CFI based exception handling
+
+       =sjlj  -   SjLj exception handling
+
+       =arm   -   ARM EHABI exceptions
+
+       =wineh -   Windows exception model
+
+       =wasm  -   WebAssembly exception handling
+
+       --experimental-debug-variable-locations                               -
+              Use experimental new value-tracking variable locations
+
+       --extra-archive=<input archive>                                       -
+              Extra archive files to be loaded
+
+       --extra-module=<input bitcode>                                        -
+              Extra modules to be loaded
+
+       --extra-object=<input object>                                         -
+              Extra object files to be loaded
+
+       --fake-argv0=<executable>                                             -
+              Override the 'argv[0]' value passed into the executing program
+
+       --fatal-warnings                                                      -
+              Treat warnings as errors
+
+       --filetype=<value>                                                    -
+              Choose a file type (not all types are supported by all targets):
+
+       =asm   -   Emit an assembly ('.s') file
+
+       =obj   -   Emit a native object ('.o') file
+
+       =null  -   Emit nothing, for performance testing
+
+       --float-abi=<value>                                                   -
+              Choose float ABI type
+
+       =default
+              -   Target default float ABI type
+
+       =soft  -   Soft float ABI (implied by -soft-float)
+
+       =hard  -   Hard float ABI (uses FP registers)
+
+       --force-dwarf-frame-section                                           -
+              Always emit a debug frame section.
+
+       --force-interpreter                                                   -
+              Force interpretation: disable JIT
+
+       --fp-contract=<value>                                                 -
+              Enable aggressive formation of fused FP ops
+
+       =fast  -   Fuse FP ops whenever profitable
+
+       =on    -   Only fuse 'blessed' FP ops.
+
+       =off   -   Only fuse FP ops when the result won't be affected.
+
+       --frame-pointer=<value>                                               -
+              Specify frame pointer elimination optimization
+
+       =all   -   Disable frame pointer elimination
+
+       =non-leaf
+              -   Disable frame pointer elimination for non-leaf frame
+
+       =none  -   Enable frame pointer elimination
+
+       --fs-profile-debug-bw-threshold=<uint>                                -
+       Only show debug message if the source branch weight is greater
+              than this value.
+
+       --fs-profile-debug-prob-diff-threshold=<uint>                         -
+              Only show debug message if the branch probility is greater  than
+              this value (in percentage).
+
+       --function-sections                                                   -
+              Emit functions into separate sections
+
+       --generate-merged-base-profiles                                       -
+              When generating nested context-sensitive profiles, always gener‐
+              ate extra base profile for function with all  its  context  pro‐
+              files merged into it.
+
+       --gpsize=<uint>                                                       -
+       Global Pointer Addressing Size.
+              The default size is 8.
+
+       --hash-based-counter-split                                            -
+              Rename counter variable of a comdat function based on cfg hash
+
+       --hot-cold-split                                                      -
+              Enable hot-cold splitting pass
+
+       --ignore-xcoff-visibility                                             -
+              Not  emit the visibility attribute for asm in AIX OS or give all
+              symbols 'unspecified' visibility in XCOFF object file
+
+       --import-all-index                                                    -
+              Import all external functions in index.
+
+       --incremental-linker-compatible                                       -
+              When used with filetype=obj, emit an object file  which  can  be
+              used with an incremental linker
+
+       --instcombine-code-sinking                                            -
+              Enable code sinking
+
+       --instcombine-guard-widening-window=<uint>                            -
+              How  wide  an  instruction  window to bypass looking for another
+              guard
+
+       --instcombine-max-iterations=<uint>                                   -
+              Limit the maximum number of instruction combining iterations
+
+       --instcombine-max-num-phis=<uint>                                     -
+              Maximum number phis to handle in intptr/ptrint folding
+
+       --instcombine-maxarray-size=<uint>                                    -
+              Maximum array size considered when doing a combine
+
+       --instcombine-negator-enabled                                         -
+              Should we attempt to sink negations?
+
+       --instcombine-negator-max-depth=<uint>                                -
+              What  is  the maximal lookup depth when trying to check for via‐
+              bility of negation sinking.
+
+       --instrprof-atomic-counter-update-all                                 -
+              Make all profile counter updates atomic (for testing only)
+
+       --internalize-public-api-file=<filename>                              -
+              A file containing list of symbol names to preserve
+
+       --internalize-public-api-list=<list>                                  -
+              A list of symbol names to preserve
+
+       --iterative-counter-promotion                                         -
+              Allow counter promotion across the whole loop nest.
+
+       --jd=<string>                                                         -
+              Specifies the JITDylib to be used for any subsequent -extra-mod‐
+              ule arguments.
+
+       --jit-kind=<value>                                                    -
+              Choose underlying JIT kind.
+
+       =mcjit
+              -   MCJIT
+
+       =orc   -   Orc JIT
+
+       =orc-lazy
+              -   Orc-based lazy JIT.
+
+       --jit-linker=<value>                                                  -
+              Choose the dynamic linker/loader.
+
+       =default
+              -   Default for platform and JIT-kind
+
+       =rtdyld
+              -   RuntimeDyld
+
+       =jitlink
+              -   Orc-specific linker
+
+       --load=<pluginfilename>                                               -
+              Load the specified plugin
+
+       --lto-embed-bitcode=<value>                                           -
+              Embed LLVM bitcode in object files produced by LTO
+
+       =none  -   Do not embed
+
+       =optimized
+              -   Embed after all optimization passes
+
+       =post-merge-pre-opt
+              -   Embed post merge, but before optimizations
+
+       --lto-pass-remarks-filter=<regex>                                     -
+              Only  record  optimization remarks from passes whose names match
+              the given regular expression
+
+       --lto-pass-remarks-format=<format>                                    -
+              The format used for serializing remarks (default: YAML)
+
+       --lto-pass-remarks-output=<filename>                                  -
+              Output filename for pass remarks
+
+       --march=<string>                                                      -
+              Architecture to generate code for (see --version)
+
+       --matrix-default-layout=<value>                                       -
+              Sets the default matrix layout
+
+       =column-major
+              -   Use column-major layout
+
+       =row-major
+              -   Use row-major layout
+
+       --mattr=<a1,+a2,-a3,...>                                              -
+              Target specific attributes (-mattr=help for details)
+
+       --max-counter-promotions=<int>                                        -
+              Max number of allowed counter promotions
+
+       --max-counter-promotions-per-loop=<uint>                              -
+              Max  number counter promotions per loop to avoid increasing reg‐
+              ister pressure too much
+
+       --mc-relax-all                                                        -
+              When used with filetype=obj, relax all fixups in the emitted ob‐
+              ject file
+
+       --mcabac                                                              -
+              tbd
+
+       --mcjit-remote-process=<filename>                                     -
+       Specify the filename of the process to launch for remote  MCJIT  execu‐
+       tion.
+              If  none  is  specified,  remote  execution  will  be  simulated
+              in-process.
+
+       --mcpu=<cpu-name>                                                     -
+              Target a specific cpu type (-mcpu=help for details)
+
+       --meabi=<value>                                                       -
+              Set EABI type (default depends on triple):
+
+       =default
+              -   Triple default EABI version
+
+       =4     -   EABI version 4
+
+       =5     -   EABI version 5
+
+       =gnu   -   EABI GNU
+
+       --merror-missing-parenthesis                                          -
+              Error for missing parenthesis around predicate registers
+
+       --merror-noncontigious-register                                       -
+              Error for register names that aren't contigious
+
+       --mhvx                                                                -
+              Enable Hexagon Vector eXtensions
+
+       --mhvx=<value>                                                        -
+              Enable Hexagon Vector eXtensions
+
+       =v60   -   Build for HVX v60
+
+       =v62   -   Build for HVX v62
+
+       =v65   -   Build for HVX v65
+
+       =v66   -   Build for HVX v66
+
+       =v67   -   Build for HVX v67
+
+       =v68   -   Build for HVX v68
+
+       =v69   -   Build for HVX v69
+
+       --mips-compact-branches=<value>                                       -
+              MIPS Specific: Compact branch policy.
+
+       =never
+              -   Do not use compact branches if possible.
+
+       =optimal
+              -   Use compact branches where appropriate (default).
+
+       =always
+              -   Always use compact branches if possible.
+
+       --mips16-constant-islands                                             -
+              Enable mips16 constant islands.
+
+       --mips16-hard-float                                                   -
+              Enable mips16 hard float.
+
+       --mir-strip-debugify-only                                             -
+              Should mir-strip-debug only strip  debug  info  from  debugified
+              modules by default
+
+       --mno-compound                                                        -
+              Disable looking for compound instructions for Hexagon
+
+       --mno-fixup                                                           -
+              Disable fixing up resolved relocations for Hexagon
+
+       --mno-ldc1-sdc1                                                       -
+              Expand double precision loads and stores to their single  preci‐
+              sion counterparts
+
+       --mno-pairing                                                         -
+              Disable looking for duplex instructions for Hexagon
+
+       --mtriple=<string>                                                    -
+              Override target triple for module
+
+       --mwarn-missing-parenthesis                                           -
+              Warn for missing parenthesis around predicate registers
+
+       --mwarn-noncontigious-register                                        -
+              Warn for register names that arent contigious
+
+       --mwarn-sign-mismatch                                                 -
+              Warn for mismatching a signed and unsigned value
+
+       --no-deprecated-warn                                                  -
+              Suppress all deprecated warnings
+
+       --no-discriminators                                                   -
+              Disable generation of discriminator information.
+
+       --no-process-syms                                                     -
+              Do not resolve lli process symbols in JIT'd code
+
+       --no-type-check                                                       -
+              Suppress type errors (Wasm)
+
+       --no-warn                                                             -
+              Suppress all warnings
+
+       --no-xray-index                                                       -
+              Don't emit xray_fn_idx section
+
+       --nozero-initialized-in-bss                                           -
+              Don't place zero-initialized symbols into bss section
+
+       --nvptx-sched4reg                                                     -
+              NVPTX Specific: schedule for register pressue
+
+       --object-cache-dir=<string>                                           -
+              Directory to store cached object files (must be user writable)
+
+       --opaque-pointers                                                     -
+              Use opaque pointers
+
+       --per-module-lazy                                                     -
+              Performs lazy compilation on whole module boundaries rather than
+              individual functions
+
+       --poison-checking-function-local                                      -
+              Check that returns are non-poison (for testing)
+
+       --print-pipeline-passes                                               -
+              Print a '-passes'  compatible  string  describing  the  pipeline
+              (best-effort only).
+
+       --r600-ir-structurize                                                 -
+              Use StructurizeCFG IR pass
+
+       --rdf-dump                                                            -
+
+       --rdf-limit=<uint>                                                    -
+
+       --relax-elf-relocations                                               -
+              Emit GOTPCRELX/REX_GOTPCRELX instead of GOTPCREL on x86-64 ELF
+
+       --relocation-model=<value>                                            -
+              Choose relocation model
+
+       =static
+              -   Non-relocatable code
+
+       =pic   -   Fully relocatable, position independent code
+
+       =dynamic-no-pic
+              -   Relocatable external references, non-relocatable code
+
+       =ropi  -   Code and read-only data relocatable, accessed PC-relative
+
+       =rwpi  -   Read-write data relocatable,  accessed  relative  to  static
+              base
+
+       =ropi-rwpi
+              -   Combination of ropi and rwpi
+
+       --remote-mcjit                                                        -
+              Execute MCJIT'ed code in a separate process.
+
+       --runtime-counter-relocation                                          -
+              Enable relocating counters at runtime.
+
+       --safepoint-ir-verifier-print-only                                    -
+
+       --sample-profile-check-record-coverage=<N>                            -
+              Emit a warning if less than N% of records in the  input  profile
+              are matched to the IR.
+
+       --sample-profile-check-sample-coverage=<N>                            -
+              Emit a warning if less than N% of samples in the  input  profile
+              are matched to the IR.
+
+       --sample-profile-max-propagate-iterations=<uint>                      -
+              Maximum number of iterations to go through when propagating sam‐
+              ple block/edge weights through the CFG.
+
+       --skip-ret-exit-block                                                 -
+              Suppress counter promotion if exit blocks contain ret.
+
+       --soft-float                                                          -
+              Generate software floating point library calls
+
+       --speculative-counter-promotion-max-exiting=<uint>                    -
+       The max number of exiting blocks of a loop to allow
+              speculative counter promotion
+
+       --speculative-counter-promotion-to-loop                               -
+       When  the option is false, if the target block is in a loop, the promo‐
+       tion will be disallowed unless the promoted counter
+              update can be further/iteratively promoted into an acyclic   re‐
+              gion.
+
+       --split-machine-functions                                             -
+              Split out cold basic blocks from machine functions based on pro‐
+              file information
+
+       --stack-size-section                                                  -
+              Emit a section containing stack size metadata
+
+       --stack-symbol-ordering                                               -
+              Order local stack symbols.
+
+       --stackrealign                                                        -
+              Force align the stack to the minimum alignment
+
+       --strict-dwarf                                                        -
+              use strict dwarf
+
+       --summary-file=<string>                                               -
+              The summary file to use for function importing.
+
+       --swift-async-fp=<value>                                              -
+              Determine when the Swift async frame pointer should be set
+
+       =auto  -   Determine based on deployment target
+
+       =always
+              -   Always set the bit
+
+       =never -   Never set the bit
+
+       --tail-predication=<value>                                            -
+              MVE tail-predication pass options
+
+       =disabled
+              -   Don't tail-predicate loops
+
+       =enabled-no-reductions
+              -   Enable tail-predication, but not for reduction loops
+
+       =enabled
+              -   Enable tail-predication, including reduction loops
+
+       =force-enabled-no-reductions
+              -   Enable tail-predication, but not for  reduction  loops,  and
+              force this which might be unsafe
+
+       =force-enabled
+              -    Enable  tail-predication,  including  reduction  loops, and
+              force this which might be unsafe
+
+       --tailcallopt                                                         -
+              Turn fastcc calls into tail calls by (potentially) changing ABI.
+
+       --thinlto-assume-merged                                               -
+              Assume the input has already undergone ThinLTO function  import‐
+              ing and the other pre-optimization pipeline changes.
+
+       --thread-entry=<string>                                               -
+              calls the given entry-point on a new  thread  (jit-kind=orc-lazy
+              only)
+
+       --thread-model=<value>                                                -
+              Choose threading model
+
+       =posix
+              -   POSIX thread model
+
+       =single
+              -   Single thread model
+
+       --threads=<int>                                                       -
+
+       --tls-size=<uint>                                                     -
+              Bit size of immediate TLS offsets
+
+       --unique-basic-block-section-names                                    -
+              Give unique names to every basic block section
+
+       --unique-section-names                                                -
+              Give unique names to every section
+
+       --use-ctors                                                           -
+              Use .ctors instead of .init_array.
+
+       --vec-extabi                                                          -
+              Enable the AIX Extended Altivec ABI.
+
+       --verify-region-info                                                  -
+              Verify region info (time consuming)
+
+       --vp-counters-per-site=<number>                                       -
+              The  average number of profile counters allocated per value pro‐
+              filing site.
+
+       --vp-static-alloc                                                     -
+              Do static counter allocation for value profiler
+
+       --wasm-enable-eh                                                      -
+              WebAssembly exception handling
+
+       --wasm-enable-sjlj                                                    -
+              WebAssembly setjmp/longjmp handling
+
+       --x86-align-branch=<string>                                           -
+       Specify types of branches to align (plus separated list of types):
+              jcc      indicates conditional jumps  fused     indicates  fused
+              conditional  jumps jmp      indicates direct unconditional jumps
+              call     indicates direct and indirect calls ret       indicates
+              rets indirect indicates indirect unconditional jumps
+
+       --x86-align-branch-boundary=<uint>                                    -
+              Control how the assembler should align branches with NOP. If the
+              boundary's  size is not 0, it should be a power of 2 and no less
+              than 32. Branches will be aligned to prevent from  being  across
+              or  against  the boundary of specified size. The default value 0
+              does not align branches.
+
+       --x86-branches-within-32B-boundaries                                  -
+       Align  selected instructions to mitigate negative performance impact of
+       Intel's micro code update for errata skx102.
+              May break assumptions about labels corresponding  to  particular
+              instructions, and should be used with caution.
+
+       --x86-pad-max-prefix-size=<uint>                                      -
+              Maximum number of prefixes to use for padding
+
+       --xcoff-traceback-table                                               -
+              Emit the XCOFF traceback table
+
+       Generic Options:
+
+       --help                                                                -
+              Display available options (--help-hidden for more)
+
+       --help-list                                                           -
+              Display list of available options (--help-list-hidden for more)
+
+       --version                                                             -
+              Display the version of this program
+
+       Polly Options: Configure the polly loop optimizer
+
+       --polly                                                               -
+              Enable the polly optimizer (with -O1, -O2 or -O3)
+
+       --polly-2nd-level-tiling                                              -
+              Enable a 2nd level loop of loop tiling
+
+       --polly-ast-print-accesses                                            -
+              Print memory access functions
+
+       --polly-context=<isl parameter set>                                   -
+              Provide additional constraints on the context parameters
+
+       --polly-dce-precise-steps=<int>                                       -
+              The  number  of  precise  steps between two approximating itera‐
+              tions. (A value of -1 schedules another approximation stage  be‐
+              fore the actual dead code elimination.
+
+       --polly-delicm-max-ops=<int>                                          -
+              Maximum number of isl operations to invest for  lifetime  analy‐
+              sis; 0=no limit
+
+       --polly-detect-full-functions                                         -
+              Allow the detection of full functions
+
+       --polly-dump-after                                                    -
+              Dump  module  after  Polly  transformations into a file suffixed
+              with "-after"
+
+       --polly-dump-after-file=<string>                                      -
+              Dump module after Polly transformations to the given file
+
+       --polly-dump-before                                                   -
+              Dump module before Polly transformations into  a  file  suffixed
+              with "-before"
+
+       --polly-dump-before-file=<string>                                     -
+              Dump module before Polly transformations to the given file
+
+       --polly-enable-simplify                                               -
+              Simplify SCoP after optimizations
+
+       --polly-ignore-func=<string>                                          -
+              Ignore functions that match a regex.  Multiple  regexes  can  be
+              comma  separated.  Scop detection will ignore all functions that
+              match ANY of the regexes provided.
+
+       --polly-isl-arg=<argument>                                            -
+              Option passed to ISL
+
+       --polly-on-isl-error-abort                                            -
+              Abort if an isl error is encountered
+
+       --polly-only-func=<string>                                            -
+              Only  run  on functions that match a regex. Multiple regexes can
+              be comma separated. Scop detection will  run  on  all  functions
+              that match ANY of the regexes provided.
+
+       --polly-only-region=<identifier>                                      -
+              Only run on certain regions (The provided identifier must appear
+              in the name of the region's entry block
+
+       --polly-only-scop-detection                                           -
+              Only run scop detection, but no other optimizations
+
+       --polly-optimized-scops                                               -
+              Polly  - Dump polyhedral description of Scops optimized with the
+              isl scheduling optimizer and the set of  post-scheduling  trans‐
+              formations is applied on the schedule tree
+
+       --polly-parallel                                                      -
+              Generate thread parallel code (isl codegen only)
+
+       --polly-parallel-force                                                -
+              Force generation of thread parallel code ignoring any cost model
+
+       --polly-pattern-matching-based-opts                                   -
+              Perform optimizations based on pattern matching
+
+       --polly-postopts                                                      -
+              Apply  post-rescheduling  optimizations such as tiling (requires
+              -polly-reschedule)
+
+       --polly-pragma-based-opts                                             -
+              Apply user-directed transformation from metadata
+
+       --polly-pragma-ignore-depcheck                                        -
+              Skip the dependency check for pragma-based transformations
+
+       --polly-process-unprofitable                                          -
+              Process  scops that are unlikely to benefit from Polly optimiza‐
+              tions.
+
+       --polly-register-tiling                                               -
+              Enable register tiling
+
+       --polly-report                                                        -
+              Print information about the activities of Polly
+
+       --polly-reschedule                                                    -
+              Optimize SCoPs using ISL
+
+       --polly-show                                                          -
+              Highlight the code regions that will be optimized in a (CFG  BBs
+              and LLVM-IR instructions)
+
+       --polly-show-only                                                     -
+              Highlight the code regions that will be optimized in a (CFG only
+              BBs)
+
+       --polly-stmt-granularity=<value>                                      -
+              Algorithm to use for splitting basic blocks into multiple state‐
+              ments
+
+       =bb    -   One statement per basic block
+
+       =scalar-indep
+              -   Scalar independence heuristic
+
+       =store -   Store-level granularity
+
+       --polly-target=<value>                                                -
+              The hardware to target
+
+       =cpu   -   generate CPU code
+
+       --polly-tiling                                                        -
+              Enable loop tiling
+
+       --polly-vectorizer=<value>                                            -
+              Select the vectorization strategy
+
+       =none  -   No Vectorization
+
+       =polly -   Polly internal vectorizer
+
+       =stripmine
+              -   Strip-mine outer loops for the loop-vectorizer to trigger
+
+lli 14                             July 2023                            LLI(1)

@@ -1,0 +1,33 @@
+LLVM-STRESS(1)                       LLVM                       LLVM-STRESS(1)
+
+NAME
+       llvm-stress - generate random .ll files
+
+SYNOPSIS
+       llvm-stress [-size=filesize] [-seed=initialseed] [-o=outfile]
+
+DESCRIPTION
+       The  llvm-stress  tool is used to generate random .ll files that can be
+       used to test different components of LLVM.
+
+OPTIONS
+       -o filename
+              Specify the output filename.
+
+       -size size
+              Specify the size of the generated .ll file.
+
+       -seed seed
+              Specify the seed to be used for the randomly generated  instruc‐
+              tions.
+
+EXIT STATUS
+       llvm-stress returns 0.
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14                    LLVM-STRESS(1)

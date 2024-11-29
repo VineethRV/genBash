@@ -1,0 +1,209 @@
+MPSTAT(1)                     Linux User's Manual                    MPSTAT(1)
+
+NAME
+       mpstat - Report processors related statistics.
+
+SYNOPSIS
+       mpstat  [ -A ] [ --dec={ 0 | 1 | 2 } ] [ -n ] [ -u ] [ -T ] [ -V ] [ -I
+       { keyword[,...] | ALL } ] [ -N { node_list | ALL } ] [ -o JSON ] [ -P {
+       cpu_list | ALL } ] [ interval [ count ] ]
+
+DESCRIPTION
+       The mpstat command writes to standard output activities for each avail‐
+       able processor, processor 0 being the first one.  Global average activ‐
+       ities  among  all processors are also reported.  The mpstat command can
+       be used on both SMP and UP machines, but in the latter, only global av‐
+       erage  activities  will  be  printed. If no activity has been selected,
+       then the default report is the CPU utilization report.
+
+       The interval parameter specifies the amount of time in seconds  between
+       each  report.   A  value  of 0 (or no parameters at all) indicates that
+       processors statistics are to be reported  for  the  time  since  system
+       startup  (boot).  The  count  parameter can be specified in conjunction
+       with the interval parameter if this one is not set to zero.  The  value
+       of count determines the number of reports generated at interval seconds
+       apart. If the interval parameter is specified without the count parame‐
+       ter, the mpstat command generates reports continuously.
+
+OPTIONS
+       -A     This  option is equivalent to specifying -n -u -I ALL.  This op‐
+              tion also implies specifying -N ALL -P ALL unless these  options
+              are explicitly set on the command line.
+
+       --dec={ 0 | 1 | 2 }
+              Specify  the  number  of  decimal places to use (0 to 2, default
+              value is 2).
+
+       -I { keyword[,...] | ALL }
+              Report interrupts statistics.  Possible keywords are CPU,  SCPU,
+              and SUM.
+
+              With  the  CPU  keyword, the number of each individual interrupt
+              received per second by the CPU or CPUs is displayed.  Interrupts
+              are those listed in /proc/interrupts file.
+
+              With  the  SCPU  keyword, the number of each individual software
+              interrupt received per second by the CPU or CPUs  is  displayed.
+              This  option  works only with kernels 2.6.31 and later. Software
+              interrupts are those listed in /proc/softirqs file.
+
+              With the SUM keyword, the mpstat command reports the total  num‐
+              ber  of interrupts per processor.  The following values are dis‐
+              played:
+
+              CPU    Processor number. The keyword all indicates that  statis‐
+                     tics are calculated as averages among all processors.
+
+              intr/s Show  the  total number of interrupts received per second
+                     by the CPU or CPUs.
+
+              The ALL keyword is equivalent to  specifying  all  the  keywords
+              above and therefore all the interrupts statistics are displayed.
+
+       -N { node_list | ALL }
+              Indicate the NUMA nodes for which statistics are to be reported.
+              node_list is a list of comma-separated values or range of values
+              (e.g.,  0,2,4-7,12-).  Note  that node all is the global average
+              among all nodes. The ALL keyword indicates that  statistics  are
+              to be reported for all nodes.
+
+       -n     Report  summary CPU statistics based on NUMA node placement. The
+              following values are displayed:
+
+              NODE   Logical NUMA node number. The keyword all indicates  that
+                     statistics are calculated as averages among all nodes.
+
+              All the other fields are the same as those displayed with option
+              -u (see below).
+
+       -o JSON
+              Display the statistics in JSON (Javascript Object Notation) for‐
+              mat.   JSON  output field order is undefined, and new fields may
+              be added in the future.
+
+       -P { cpu_list | ALL }
+              Indicate the processors for which statistics are to be reported.
+              cpu_list  is a list of comma-separated values or range of values
+              (e.g., 0,2,4-7,12-).  Note that processor 0 is the first proces‐
+              sor,  and  processor all is the global average among all proces‐
+              sors.  The ALL keyword indicates that statistics are to  be  re‐
+              ported  for  all  processors.   Offline  processors are not dis‐
+              played.
+
+       -T     Display topology elements in the CPU report (see option  -u  be‐
+              low). The following elements are displayed:
+
+              CORE   Logical core number.
+
+              SOCK   Logical socket number.
+
+              NODE   Logical NUMA node number.
+
+       -u     Report CPU utilization. The following values are displayed:
+
+              CPU    Processor  number. The keyword all indicates that statis‐
+                     tics are calculated as averages among all processors.
+
+              %usr   Show the percentage  of  CPU  utilization  that  occurred
+                     while executing at the user level (application).
+
+              %nice  Show  the  percentage  of  CPU  utilization that occurred
+                     while executing at the user level with nice priority.
+
+              %sys   Show the percentage  of  CPU  utilization  that  occurred
+                     while  executing  at the system level (kernel). Note that
+                     this does not include time spent servicing  hardware  and
+                     software interrupts.
+
+              %iowait
+                     Show  the  percentage  of  time that the CPU or CPUs were
+                     idle during which the system had an outstanding disk  I/O
+                     request.
+
+              %irq   Show  the  percentage of time spent by the CPU or CPUs to
+                     service hardware interrupts.
+
+              %soft  Show the percentage of time spent by the CPU or  CPUs  to
+                     service software interrupts.
+
+              %steal Show  the percentage of time spent in involuntary wait by
+                     the virtual CPU or CPUs while the hypervisor was  servic‐
+                     ing another virtual processor.
+
+              %guest Show  the  percentage of time spent by the CPU or CPUs to
+                     run a virtual processor.
+
+              %gnice Show the percentage of time spent by the CPU or  CPUs  to
+                     run a niced guest.
+
+              %idle  Show  the  percentage  of  time that the CPU or CPUs were
+                     idle and the system did not have an outstanding disk  I/O
+                     request.
+
+       -V     Print version number then exit.
+
+ENVIRONMENT
+       The  mpstat  command takes into account the following environment vari‐
+       able:
+
+       S_COLORS
+              By default statistics are displayed in color when the output  is
+              connected  to  a terminal.  Use this variable to change the set‐
+              tings. Possible values for this variable are  never,  always  or
+              auto (the latter is equivalent to the default settings).
+              Please  note  that  the  color (being red, yellow, or some other
+              color) used to display a value is not indicative of any kind  of
+              issue  simply  because of the color. It only indicates different
+              ranges of values.
+
+       S_COLORS_SGR
+              Specify the colors and other attributes used to display  statis‐
+              tics  on  the  terminal.  Its value is a colon-separated list of
+              capabilities            that             defaults             to
+              H=31;1:I=32;22:M=35;1:N=34;1:Z=34;22.    Supported  capabilities
+              are:
+
+              H=     SGR (Select Graphic Rendition) substring  for  percentage
+                     values greater than or equal to 75%.
+
+              I=     SGR substring for CPU number.
+
+              M=     SGR substring for percentage values in the range from 50%
+                     to 75%.
+
+              N=     SGR substring for non-zero statistics values.
+
+              Z=     SGR substring for zero values.
+
+       S_TIME_FORMAT
+              If this variable exists and its value is ISO  then  the  current
+              locale  will  be  ignored  when  printing the date in the report
+              header.  The  mpstat  command  will  use  the  ISO  8601  format
+              (YYYY-MM-DD) instead.  The timestamp will also be compliant with
+              ISO 8601 format.
+
+EXAMPLES
+       mpstat 2 5
+              Display five reports of global statistics among  all  processors
+              at two second intervals.
+
+       mpstat -P ALL 2 5
+              Display  five  reports  of  statistics for all processors at two
+              second intervals.
+
+BUGS
+       /proc filesystem must be mounted for the mpstat command to work.
+
+FILES
+       /proc contains various files with system statistics.
+
+AUTHOR
+       Sebastien Godard (sysstat <at> orange.fr)
+
+SEE ALSO
+       sar(1), pidstat(1), iostat(1), vmstat(8)
+
+       https://github.com/sysstat/sysstat
+       http://pagesperso-orange.fr/sebastien.godard/
+
+Linux                             AUGUST 2020                        MPSTAT(1)

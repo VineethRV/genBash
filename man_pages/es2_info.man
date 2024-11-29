@@ -1,0 +1,26 @@
+es2_info(1)                 General Commands Manual                es2_info(1)
+
+NAME
+       es2_info - list OpenGL ES extensions
+
+SYNOPSIS
+       es2_info [options]
+
+DESCRIPTION
+       The  es2_info  program  shows information about the supported OpenGL ES
+       extensions.
+
+OPTIONS
+       -display display
+               Specify the X display to run on.
+
+       -h      Print usage information.
+
+AUTHOR
+       es2_info was written by Tungsten Graphics.
+
+       This manual page was written by Ricardo Salveti de Araujo <ricardo.sal‐
+       veti@canonical.com>,  for  the  Debian project (but may be used by oth‐
+       ers).
+
+                                  2011-02-01                       es2_info(1)

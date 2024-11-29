@@ -1,0 +1,129 @@
+PG_BACKUPCLUSTER(1)    Debian PostgreSQL infrastructure    PG_BACKUPCLUSTER(1)
+
+NAME
+       pg_backupcluster - simple pg_basebackup and pg_dump front-end
+
+SYNOPSIS
+       pg_backupcluster [options] version cluster action
+
+DESCRIPTION
+       pg_backupcluster provides a simple interface to create PostgreSQL
+       cluster backups using pg_basebackup(1) and pg_dump(1).
+
+       To ease integration with systemd operation, the alternative syntax
+       "pg_basebackup version-cluster action" is also supported.
+
+ACTIONS
+       createdirectory
+           Create /var/backups and /var/backups/version-cluster.  This action
+           can be run as root to create the directories required for backups.
+           All other actions will also attempt to create the directories when
+           missing, but can of course only do that when running as root. They
+           will switch to the cluster owner after this step.
+
+       basebackup
+           Backup using pg_basebackup(1). The resulting basebackup contains
+           the WAL files required to run recovery on startup.
+
+       dump
+           Backup using pg_dump(1). Global objects (users, tablespaces) are
+           dumped using pg_dumpall(1) --globals-only. Individual databases are
+           dumped into PostgreSQL's custom format.
+
+       expirebasebackups N
+           Remove all but last the N basebackups.
+
+       expiredumps N
+           Remove all but last the N dumps.
+
+       receivewal
+           Launch pg_receivewal.
+
+       compresswal
+           Compress WAL files in archive.
+
+       archivecleanup
+           Remove obsolete WAL files from archive using pg_archivecleanup(1).
+
+       list
+           Show dumps, basebackups, and WAL, with size.
+
+OPTIONS
+       -k --keep-on-error
+           Keep faulty backup directory on error. By default backups are
+           delete on error.
+
+       -v --verbose
+           Verbose output, even when not running on a terminal.
+
+FILES
+       /var/backups
+           Default root directory for cluster backup directories.
+
+       /var/backups/version-cluster
+           Default directory for cluster backups.
+
+       /var/backups/version-cluster/timestamp.basebackup
+           Backup from pg_backupcluster ... basebackup.
+
+           config.tar.gz
+               Tarball of cluster configuration directory (postgresql.conf,
+               pg_hba.conf, ...)  in /etc/postgresql.
+
+           tablespace.tar.gz, pg_wal.tar.gz, backup_manifest
+               Tablespace and WAL tarballs and backup info written by
+               pg_basebackup.
+
+           status
+               Completion timestamp of backup run.
+
+       /var/backups/version-cluster/timestamp.dump
+           Backup from pg_backupcluster ... dump.
+
+           config.tar.gz
+               Tarball of cluster configuration directory (postgresql.conf,
+               pg_hba.conf, ...)  in /etc/postgresql.
+
+           createcluster.opts
+               Options (encoding, locale, data checksums) to be passed to
+               pg_createcluster for restoring this cluster.
+
+           globals.sql
+               Global objects (roles, tablespaces) from pg_dumpall
+               --globals-only.
+
+           databases.sql
+               SQL commands to create databases and restore database-level
+               options.
+
+           database.dump
+               Database dumps from pg_dump --format=custom.
+
+           status
+               Completion timestamp of backup run.
+
+       /var/backups/version-cluster/wal
+           WAL files from pg_receivewal.
+
+CAVEATS
+       For dump-style backups, not all properties of the original cluster are
+       preserved:
+
+       • In PostgreSQL 10 and earlier, ALTER ROLE ... IN DATABASE is not
+         supported.
+
+       • Not all initdb options are carried over. Currently supported are
+         --encoding, --lc-collate, --lc-collate, and -k --data-checksums.
+
+       The earliest PostgreSQL version supported for dumps is 9.3.  For
+       basebackups, the earliest supported version is 9.1.  receivewal (and
+       hence archive recovery) are supported in 9.5 and later.
+
+SEE ALSO
+       pg_restorecluster(1), pg_dump(1), pg_dumpall(1), pg_basebackup(1),
+       pg_receivewal(1), pg_archivecleanup(1).
+
+AUTHOR
+       Christoph Berg <myon@debian.org>
+
+Debian                            2022-02-10               PG_BACKUPCLUSTER(1)

@@ -1,0 +1,43 @@
+make-ssl-cert(8)            System Manager's Manual           make-ssl-cert(8)
+
+NAME
+       make-ssl-cert - Debconf wrapper for openssl
+
+SYNOPSIS
+       make-ssl-cert [OPTION]... template output-certificate
+       make-ssl-cert [OPTION]... generate-default-snakeoil
+
+DESCRIPTION
+       make-ssl-cert  is  a  simple debconf to openssl wrapper to create self-
+       signed   certificates.    It   requires   a   source   template    (Ex:
+       /usr/share/ssl-cert/ssleay.cnf)  and  it  will  place the new generated
+       certificate in the specified output file.
+       Invoked   with   "generate-default-snakeoil",    it    will    generate
+       /etc/ssl/certs/ssl-cert-snakeoil.pem   and   /etc/ssl/private/ssl-cert-
+       snakeoil.key.
+
+OPTIONS
+       A summary of options are included below.
+
+       --force-overwrite
+              Always create a new certificate, even if the  file  already  ex‐
+              ists.   For  backwards compatibility with 1.0.x, this option can
+              be given as last argument, too.
+
+       --no-overwrite
+              Never overwrite an existing file, even if the old  certificate's
+              key length is too small or if it uses an obsoltete signature al‐
+              gorithm.
+
+       --expiration-days N
+              Make the new certificate expire in N days.  Default is 3650.
+
+SEE ALSO
+       openssl(1)
+
+AUTHOR
+       The program author is Thom May <thom@debian.org>, manual page was writ‐
+       ten  for completeness by Fabio M. Di Nitto <fabbione@fabbione.net>, for
+       the Debian GNU/Linux system (but may be used by others).
+
+                                                              make-ssl-cert(8)

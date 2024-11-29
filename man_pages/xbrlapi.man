@@ -1,0 +1,49 @@
+XBRLAPI(1)                   BrlAPI User's Manual                   XBRLAPI(1)
+
+NAME
+       xbrlapi - X11 BrlAPI helper for Linux/Unix
+
+SYNOPSIS
+       xbrlapi [option ...]
+
+DESCRIPTION
+       xbrlapi  connects to a BrlAPI server in order to provide it with the ID
+       of the X11 window which currently  has  focus.   It  also  simulates  X
+       keysyms from braille key presses (else brltty would simulate them using
+       a qwerty keyboard). By default, it puts itself in the  background,  un‐
+       less option -n is given.
+
+OPTIONS
+       Options are processed sequentially from left to right.  If an option is
+       specified more than once, or in case of a conflict, the rightmost spec‐
+       ification takes precedence.
+
+       The following options are supported:
+
+       -b [host][:port] (--brlapi=)
+              The BrlAPI server to connect to.
+
+       -a string (--auth=)
+              The BrlAPI authorization/authentication string.
+
+       -d display (--display=)
+              The  X  display to connect to.  If not specified, the content of
+              the DISPLAY environment variable is used.
+
+       -n (--no-daemon)
+              Keep xbrlapi in the foreground.
+
+       -q (--quiet)
+              Do not write any text to the braille device.
+
+       -h (--help)
+              Print a command line usage summary and then exit.
+
+       -H (--full-help)
+              Print a thorough command line usage summary and then exit.
+
+SEE ALSO
+       For more details on the purpose of xbrlapi, see BrlAPI's on-line manual
+       at [http://brltty.app/doc/Manual-BrlAPI/English/BrlAPI-3.html].
+
+BrlAPI 0.8.3                    September 2021                      XBRLAPI(1)

@@ -1,0 +1,39 @@
+CLANG-REORDER-FIELDS(1)          User Commands         CLANG-REORDER-FIELDS(1)
+
+NAME
+       clang-reorder-fields - manual page for clang-reorder-fields 14
+
+DESCRIPTION
+       OVERVIEW: A tool to reorder fields in C/C++ structs/classes.
+
+       USAGE: clang-reorder-fields [options] <source0> [... <sourceN>]
+
+       OPTIONS:
+
+       Generic Options:
+
+       --help                       - Display available options (--help-hidden
+              for more)
+
+       --help-list                  -  Display  list  of   available   options
+              (--help-list-hidden for more)
+
+       --version                   - Display the version of this program
+
+       clang-reorder-fields options:
+
+       --extra-arg=<string>        - Additional argument to append to the com‐
+              piler command line
+
+       --extra-arg-before=<string> - Additional argument  to  prepend  to  the
+              compiler command line
+
+       --fields-order=<string>     - The desired fields order.
+
+       -i                          - Overwrite edited files.
+
+       -p=<string>                 - Build path
+
+       --record-name=<string>      - The name of the struct/class.
+
+clang-reorder-fields 14            July 2023           CLANG-REORDER-FIELDS(1)

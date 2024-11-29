@@ -1,0 +1,36 @@
+PKMON(1)                        [FIXME: manual]                       PKMON(1)
+
+NAME
+       pkmon - PackageKit console client
+
+SYNOPSIS
+       pkmon [search] [debug install] [remove]
+
+DESCRIPTION
+       This manual page documents briefly the pkmon command.
+
+       pkmon is the command line client for PackageKit.
+
+RETURN VALUES
+       0
+           Success
+
+       1
+           Failed with miscellaneous internal error.
+
+SEE ALSO
+       pkcon (1).
+
+       The programs are documented fully on http://www.packagekit.org.
+
+AUTHOR
+       This manual page was written by Richard Hughes <richard@hughsie.com>.
+
+AUTHOR
+       Richard Hughes
+           Author.
+
+COPYRIGHT
+       Copyright © 2007 Richard Hughes
+
+[FIXME: source]                  29 March,2006                        PKMON(1)

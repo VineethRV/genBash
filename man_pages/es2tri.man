@@ -1,0 +1,21 @@
+es2tri(1)                   General Commands Manual                  es2tri(1)
+
+NAME
+       es2tri - a draw demonstration using X/EGL and OpenGL ES 2.x
+
+SYNOPSIS
+       es2tri
+
+DESCRIPTION
+       The  es2tri program demonstrate the usage of X/EGL and OpenGL ES 2.x by
+       drawing a triangle at the screen. This  program  is  most  useful  when
+       studied in its source code form.
+
+AUTHOR
+       es2tri was written by Tungsten Graphics.
+
+       This manual page was written by Ricardo Salveti de Araujo <ricardo.sal‐
+       veti@canonical.com>, for the Debian project (but may be  used  by  oth‐
+       ers).
+
+                                  2011-02-01                         es2tri(1)

@@ -1,0 +1,21 @@
+libwacom-list-devices(1)    General Commands Manual   libwacom-list-devices(1)
+
+NAME
+       libwacom-list-devices - utility to list supported tablet devices
+
+SYNOPSIS
+       libwacom-list-devices [--format=yaml|datafile]
+
+DESCRIPTION
+       libwacom-list-devices  is  a debug utility to list all supported tablet
+       devices identified by libwacom. It is usually used to check  whether  a
+       libwacom installation is correct after adding custom data files.
+
+OPTIONS
+       --format=yaml|datafile
+               Sets  the  output format to be used. If yaml, the output format
+               is YAML comprising the bus type, vendor and product ID and  the
+               device  name. If datafile, the output format matches the tablet
+               data files. The default is yaml.
+
+                                                      libwacom-list-devices(1)

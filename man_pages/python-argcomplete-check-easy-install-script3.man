@@ -1,0 +1,17 @@
+PYTHON-ARGCOMPLETE-CHECK-EASY-IPYTHON-ARGCOMPLETE-CHECK-EASY-INSTALL-SCRIPT(1)
+
+NAME
+       python-argcomplete-check-easy-install-script    -   python-argcomplete-
+       check-easy-install-script - argcomplete utility script
+
+DESCRIPTION
+       IOError: [Errno 2] No such file or directory: '--help'
+
+AUTHORS
+       argcomplete module was written by Andrey Kislyuk
+
+SEE ALSO
+       Full documentation for argccomplete module is stored at https://argcom‐
+       plete.readthedocs.org/en/latest/
+
+python-argcomplete-check-easy-iPYTHON-ARGCOMPLETE-CHECK-EASY-INSTALL-SCRIPT(1)

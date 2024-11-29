@@ -1,0 +1,90 @@
+CLANG-INCLUDE-FIXER(1)           User Commands          CLANG-INCLUDE-FIXER(1)
+
+NAME
+       clang-include-fixer - manual page for clang-include-fixer 14
+
+DESCRIPTION
+       USAGE: clang-include-fixer [options] <source0> [... <sourceN>]
+
+       OPTIONS:
+
+       Generic Options:
+
+       --help                       - Display available options (--help-hidden
+              for more)
+
+       --help-list                  -  Display  list  of   available   options
+              (--help-list-hidden for more)
+
+       --version                   - Display the version of this program
+
+       Tool options:
+
+       --db=<value>                - Specify input format
+
+       =fixed
+              -   Hard-coded mapping
+
+       =yaml  -   Yaml database created by find-all-symbols
+
+       =fuzzyYaml
+              -   Yaml database, with fuzzy-matched names
+
+       --extra-arg=<string>        - Additional argument to append to the com‐
+              piler command line
+
+       --extra-arg-before=<string> - Additional argument  to  prepend  to  the
+              compiler command line
+
+       --input=<string>            - String to initialize the database
+
+       --insert-header=<string>    - Insert a specific header. This should run
+       with STDIN mode.
+              The result is written to stdout. It is currently used for editor
+              integration. Support YAML/JSON format:
+
+       -insert-header="{
+              FilePath: "/path/to/foo.cc", QuerySymbolInfos: [
+
+       {RawIdentifier: foo,
+              Range: {Offset: 0, Length: 3}}
+
+       ],     HeaderInfos: [ {Headers: "\"foo_a.h\"",
+
+              QualifiedName: "a::foo"} ]}"
+
+       --minimize-paths            - Whether to minimize added include paths
+
+       --output-headers             -  Print  the symbol being queried and all
+       its relevant headers in
+              JSON format to stdout:
+
+       {      "FilePath": "/path/to/foo.cc", "QuerySymbolInfos": [
+
+       {"RawIdentifier": "foo",
+              "Range": {"Offset": 0, "Length": 3}}
+
+       ],     "HeaderInfos": [ {"Header": "\"foo_a.h\"",
+
+       "QualifiedName": "a::foo"} ]
+              }
+
+       -p=<string>                 - Build path
+
+       -q                          - Reduce terminal output
+
+       --query-symbol=<string>     - Query a given symbol  (e.g.  "a::b::foo")
+       in
+              database directly without parsing the file.
+
+       --stdin                      -  Override  source file's content (in the
+       overlaying
+              virtual file system) with input from <stdin> and run the tool on
+              the new content with the compilation options of the source file.
+              This mode is currently used for editor integration.
+
+       --style=<string>            - Fallback style for reformatting after in‐
+       serting new
+              headers if there is no clang-format config file found.
+
+clang-include-fixer 14             July 2023            CLANG-INCLUDE-FIXER(1)

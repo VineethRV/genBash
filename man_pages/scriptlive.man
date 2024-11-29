@@ -1,0 +1,91 @@
+SCRIPTLIVE(1)                    User Commands                   SCRIPTLIVE(1)
+
+NAME
+       scriptlive - re-run session typescripts, using timing information
+
+SYNOPSIS
+       scriptlive [options] [-t] timingfile [-I|-B] typescript
+
+DESCRIPTION
+       This program re-runs a typescript, using stdin typescript and timing
+       information to ensure that input happens in the same rhythm as it
+       originally appeared when the script was recorded.
+
+       The session is executed in a newly created pseudoterminal with the
+       user’s $SHELL (or defaults to /bin/bash).
+
+       Be careful! Do not forget that the typescript may contains arbitrary
+       commands. It is recommended to use "scriptreplay --stream in --log-in
+       typescript" (or with --log-io instead of --log-in) to verify the
+       typescript before it is executed by scriptlive.
+
+       The timing information is what script1 outputs to file specified by
+       --log-timing. The typescript has to contain stdin information and it is
+       what script1 outputs to file specified by --log-in or --log-io.
+
+OPTIONS
+       -I, --log-in file
+           File containing script's terminal input.
+
+       -B, --log-io file
+           File containing script's terminal output and input.
+
+       -t, --timing file
+           File containing script's timing output. This option overrides
+           old-style arguments.
+
+       -T, --log-timing file
+           Aliased to -t, maintained for compatibility with script(1)
+           command-line options.
+
+       -d, --divisor number
+           Speed up the replay displaying this number of times. The argument
+           is a floating-point number. It’s called divisor because it divides
+           the timings by this factor. This option overrides old-style
+           arguments.
+
+       -m, --maxdelay number
+           Set the maximum delay between updates to number of seconds. The
+           argument is a floating-point number. This can be used to avoid long
+           pauses in the typescript replay.
+
+       -V, --version
+           Display version information and exit.
+
+       -h, --help
+           Display help text and exit.
+
+EXAMPLES
+           % script --log-timing file.tm --log-in script.in
+           Script started, file is script.out
+           % date
+           <etc, etc>
+           % exit
+           Script done, file is script.out
+           % scriptlive --log-timing file.tm --log-in script.in
+
+AUTHORS
+       Karel Zak <kzak@redhat.com>
+
+COPYRIGHT
+       Copyright © 2019 Karel Zak
+
+       This is free software; see the source for copying conditions. There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+       Released under the GNU General Public License version 2 or later.
+
+SEE ALSO
+       script(1), scriptreplay(1)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at
+       https://github.com/karelzak/util-linux/issues.
+
+AVAILABILITY
+       The scriptlive command is part of the util-linux package which can be
+       downloaded from Linux Kernel Archive
+       <https://www.kernel.org/pub/linux/utils/util-linux/>.
+
+util-linux 2.37.2                 2021-06-02                     SCRIPTLIVE(1)

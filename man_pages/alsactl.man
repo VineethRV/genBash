@@ -1,0 +1,188 @@
+ALSACTL(1)                  General Commands Manual                 ALSACTL(1)
+
+NAME
+       alsactl - advanced controls for ALSA soundcard driver
+
+SYNOPSIS
+       alsactl [options] [store|restore|init] <card # or id or device>
+
+       alsactl monitor <card # or id>
+
+       alsactl [clean] <card # or id or device> [[control identifiers]]
+
+DESCRIPTION
+       alsactl  is  used  to  control advanced settings for the ALSA soundcard
+       drivers. It supports multiple soundcards. If  your  card  has  features
+       that  you can't seem to control from a mixer application, you have come
+       to the right place.
+
+COMMANDS
+   Introduction
+       The <card> argument is optional. If no soundcards are specified,  setup
+       for all cards will be saved, loaded or monitored.
+
+   store <card>
+       This  command saves the current driver state for the selected soundcard
+       to the configuration file.
+
+   restore <card>
+       This command loads driver state for the  selected  soundcard  from  the
+       configuration  file.  If  restoring fails (eventually partly), the init
+       action is called.
+
+   nrestore <card>
+       This command is like restore, but it notifies also the daemon to do new
+       rescan for available soundcards.
+
+   init <card>
+       This command tries to initialize all devices to a default state. If de‐
+       vice is not known, error code 99 is returned.
+
+   daemon
+       This command manages to save periodically the sound state.
+
+   rdaemon
+       This command is like daemon but restore the sound state at first.
+
+   kill <cmd>
+       This command notifies the daemon to do the specified  operation  (quit,
+       rescan, save_and_quit).
+
+   monitor <card>
+       This  command is for monitoring the events received from the given con‐
+       trol device.
+
+   clean <card> [filter]
+       This command cleans the controls created by applications.
+
+       The optional element identifiers are accepted as a  filter.  One  extra
+       argument is parsed as an element identifiers.
+
+       Example: alsactl clean 0 "name='PCM'" "name='Mic Phantom'"
+
+   dump-state
+       This command dumps the current state (all cards) to stdout.
+
+   dump-cfg
+       This  command  dumps  the  current configuration (all cards) to stdout.
+       Note that the configuration hooks are evaluated.
+
+OPTIONS
+       -h, --help
+              Help: show available flags and commands.
+
+       -d, --debug
+              Use debug mode: a bit more verbose.
+
+       -v, --version
+              Print alsactl version number.
+
+       -f, --file
+              Select  the  configuration  file  to   use.   The   default   is
+              /var/lib/alsa/asound.state.
+
+       -a, --config-dir
+              Select  the  boot / hotplug ALSA configuration directory to use.
+              The default is /var/lib/alsa.
+
+       -l, --lock
+              Use the file locking to serialize the concurrent access  to  the
+              state file (this option is default for the global state file).
+
+       -L, --no-lock
+              Do  not  use the file locking to serialize the concurrent access
+              to the state file (including the global state file).
+
+       -O, --lock-state-file
+              Select the state lock file path.
+
+       -F, --force
+              Used with restore command.  Try to restore the matching  control
+              elements  as  much  as  possible.  This option is set as default
+              now.
+
+       -g, --ignore
+              Used with store, restore and init  commands.  Do  not  show  'No
+              soundcards  found' and do not set an error exit code when sound‐
+              cards are not installed.
+
+       -P, --pedantic
+              Used with restore command.  Don't  restore  mismatching  control
+              elements.  This option was the old default behavior.
+
+       -I, --no-init-fallback
+              Don't  initialize cards if restore fails.  Since version 1.0.18,
+              alsactl tries to initialize the card with the restore  operation
+              as  default.   But this can cause incompatibility with the older
+              version.  The caller may expect that the state won't be  touched
+              if no state file exists.  This option takes the restore behavior
+              back to the older version by suppressing the initialization.
+
+       -r, --runstate
+              Save restore and init state to this file. The file will  contain
+              only  errors.   Errors are appended with the soundcard id to the
+              end of file.
+
+       -R, --remove
+              Remove runstate file at first.
+
+       -E, --env #=#
+              Set environment variable (useful for  init  action  or  you  may
+              override ALSA_CONFIG_PATH to read different or optimized config‐
+              uration - may be useful for "boot" scripts).
+
+       -i, --initfile
+              The   configuration   file   for   init.   By   default,    PRE‐
+              FIX/share/alsa/init/00main is used.
+
+       -p, --period
+              The store period in seconds for the daemon command.
+
+       -e, --pid-file
+              The pathname to store the process-id file in the HDB UUCP format
+              (ASCII).
+
+       -b, --background
+              Run the task in background.
+
+       -s, --syslog
+              Use syslog for messages.
+
+       -n, --nice
+              Set the process priority (see 'man nice')
+
+       -c, --sched-idle
+              Set the process scheduling policy to idle (SCHED_IDLE).
+
+       -D, --ucm-defaults
+              Execute also the 'defaults' section from the UCM  configuration.
+              The standard behaviour is to execute only 'once' section.
+
+       -U, --no-ucm
+              Skip  the  UCM  init even if available. It may be useful for the
+              test the legacy init configuration.
+
+FILES
+       /var/lib/alsa/asound.state (or whatever file you specify  with  the  -f
+       flag)  is  used to store current settings for your soundcards. The set‐
+       tings include all the usual  soundcard  mixer  settings.   More  impor‐
+       tantly,  alsactl is capable of controlling other card-specific features
+       that mixer apps usually don't know about.
+
+       The configuration file is generated automatically  by  running  alsactl
+       store. Editing the configuration file by hand may be necessary for some
+       soundcard features (e.g. enabling/disabling automatic mic gain, digital
+       output, joystick/game ports, some future MIDI routing options, etc).
+
+SEE ALSO
+        amixer(1), alsamixer(1), aplay(1), alsactl_init(7)
+
+BUGS
+       None known.
+
+AUTHOR
+       alsactl  is  by  Jaroslav  Kysela  <perex@perex.cz>  and Abramo Bagnara
+       <abramo@alsa-project.org>.   This   document   is   by   Paul   Winkler
+       <zarmzarm@erols.com>.
+
+                                  07 May 2014                       ALSACTL(1)

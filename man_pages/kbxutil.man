@@ -1,0 +1,58 @@
+KBXUTIL(1)                       User Commands                      KBXUTIL(1)
+
+NAME
+       kbxutil - List, export, import Keybox data
+
+SYNOPSIS
+       kbxutil [OPTIONS] [FILES]
+
+DESCRIPTION
+       List, export, import Keybox data
+
+COMMANDS
+       --stats
+              show key statistics
+
+       --import-openpgp
+              import OpenPGP keyblocks
+
+       --find-dups
+              find duplicates
+
+       --cut  export records
+
+OPTIONS
+       --from N
+              first record to export
+
+       --to N last record to export
+
+       -v, --verbose
+              verbose
+
+       -q, --quiet
+              be somewhat more quiet
+
+       -n, --dry-run
+              do not make any changes
+
+       --debug
+              set debugging flags
+
+       --debug-all
+              enable full debugging
+
+BUGS
+       Please report bugs to <https://dev.gnupg.org>.
+
+COPYRIGHT
+       Copyright  ©  2016  Free Software Foundation, Inc.  License GPLv3+: GNU
+       GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+
+       This is free software: you are free  to  change  and  redistribute  it.
+       There is NO WARRANTY, to the extent permitted by law.
+
+       This  manpage was written by Daniel Kahn Gillmor for the Debian distri‐
+       bution (but may be used by others).
+
+kbxutil (GnuPG) 2.1.11            March 2016                        KBXUTIL(1)

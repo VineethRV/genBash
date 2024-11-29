@@ -1,0 +1,143 @@
+PROJSYNC(1)                          PROJ                          PROJSYNC(1)
+
+NAME
+       projsync - Downloading tool of resource files
+
+SYNOPSIS
+          projsync
+            [--endpoint URL]
+            [--local-geojson-file FILENAME]
+            ([--user-writable-directory] | [--system-directory] | [--target-dir DIRNAME])
+            [--bbox west_long,south_lat,east_long,north_lat]
+            [--spatial-test contains|intersects]
+            [--source-id ID] [--area-of-use NAME]
+            [--file NAME]
+            [--all] [--exclude-world-coverage]
+            [--quiet | --verbose] [--dry-run] [--list-files]
+            [--no-version-filtering]
+
+DESCRIPTION
+       projsync is a program that downloads remote resource files into a local
+       directory. This is an alternative to downloading a proj-data-X.Y.Z  ar‐
+       chive file, or using the on-demand networking capabilities of PROJ.
+
+       The following control parameters can appear in any order:
+
+       --endpoint URL
+              Defines  the URL where to download the master files.geojson file
+              and then the resource  files.  Defaults  to  the  value  set  in
+              proj-ini
+
+       --local-geojson-file FILENAME
+              Defines  the  filename  for the master GeoJSON files that refer‐
+              ences resources.  Defaults to ${endpoint}/files.geojson
+
+       --user-writable-directory
+              Specifies that resource files must be  downloaded  in  the  user
+              writable directory. This is the default.
+
+       --system-directory
+              Specifies  that  resource  files must be downloaded in the ${in‐
+              stallation_prefix}/share/proj directory. The user launching pro‐
+              jsync should make sure it has writing rights in that directory.
+
+       --target-dir DIRNAME
+              Directory into which resource files must be downloaded.
+
+       --bbox west_long,south_lat,east_long,north_lat
+              Specify  an  area of interest to restrict the resources to down‐
+              load.  The area of interest is specified as a bounding box  with
+              geographic  coordinates,  expressed  in degrees in a unspecified
+              geographic CRS.   west_long  and  east_long  should  be  in  the
+              [-180,180]  range,  and south_lat and north_lat in the [-90,90].
+              west_long is generally lower than east_long, except in the  case
+              where the area of interest crosses the antimeridian.
+
+       --spatial-test contains|intersects
+              Specify how the extent of the resource files are compared to the
+              area of use specified explicitly with --bbox.  By  default,  any
+              resource  files  whose  extent intersects the value specified by
+              --bbox will be selected.  If using the contains  strategy,  only
+              resource  files whose extent is contained in the value specified
+              by --bbox will be selected.
+
+       --source-id ID
+              Restrict  resource  files  to  be  downloaded  to  those   whose
+              source_id  property  contains  the  ID value. Specifying ? as ID
+              will list all possible values.
+
+       --area-of-use NAME
+              Restrict  resource  files  to  be  downloaded  to  those   whose
+              area_of_use  property  contains  the NAME value. Specifying ? as
+              NAME will list all possible values.
+
+       --file NAME
+              Restrict resource files to be downloaded  to  those  whose  name
+              property contains the NAME value. Specifying ? as NAME will list
+              all possible values.
+
+       --all  Ask to download all files.
+
+       --exclude-world-coverage
+              Exclude files which have world coverage.
+
+       -q / --quiet
+              Quiet mode
+
+       --verbose
+              New in version 8.1.
+
+              Verbose mode (more than default)
+
+       --dry-run
+              Simulate the behavior of the tool without  downloading  resource
+              files.
+
+       --list-files
+              List file names, with the source_id and area_of_use properties.
+
+       --no-version-filtering
+              New in version 8.1.
+
+              By default, projsync only downloads files that are compatible of
+              the PROJ_DATA.VERSION metadata of proj.db, taking  into  account
+              the  version_added  and version_removed properties of entries in
+              files.geojson.  When specifying this switch,  all  files  refer‐
+              enced  in  files.geojson  will be candidate (combined with other
+              filters).
+
+       At least one of  --list-files,   --file,   --source-id,  --area-of-use,
+       --bbox or  --all must be specified.
+
+       Options  --file,   --source-id,  --area-of-use  and --bbox are combined
+       with a AND logic.
+
+EXAMPLES
+       1. Download all resource files
+
+          projsync --all
+
+       2. Download resource files covering specified point and attributing  to
+          an agency
+
+          projsync --source-id fr_ign --bbox 2,49,2,49
+
+SEE ALSO
+       cs2cs(1), cct(1), geod(1), gie(1), proj(1), projinfo(1)
+
+BUGS
+       A      list      of      known     bugs     can     be     found     at
+       https://github.com/OSGeo/PROJ/issues where new bug reports can be  sub‐
+       mitted  to.   Bugs  specific  to  resource files should be submitted to
+       https://github.com/OSGeo/PROJ-data/issues
+
+HOME PAGE
+       https://proj.org/
+
+AUTHOR
+       Even Rouault
+
+COPYRIGHT
+       1983-2021
+
+8.2.1                             Jan 1, 2022                      PROJSYNC(1)

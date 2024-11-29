@@ -1,0 +1,93 @@
+LLVM-OTOOL(1)                        LLVM                        LLVM-OTOOL(1)
+
+NAME
+       llvm-otool - Mach-O dumping tool
+
+SYNOPSIS
+       llvm-otool [option…] [file…]
+
+DESCRIPTION
+       llvm-otool is a tool for dumping Mach-O files.
+
+       It  attempts  to  be command-line-compatible and output-compatible with
+       macOS’s otool.
+
+OPTIONS
+       -arch <value>
+              Select slice of universal Mach-O file.
+
+       -C     Print linker optimization hints.
+
+       -D     Print shared library id.
+
+       -d     Print data section.
+
+       -f     Print universal headers.
+
+       -G     Print data-in-code table.
+
+       --help-hidden
+              Print help for hidden flags.
+
+       --help Print help.
+
+       -h     Print mach header.
+
+       -I     Print indirect symbol table.
+
+       -j     Print opcode bytes.
+
+       -L     Print used shared libraries.
+
+       -l     Print load commands.
+
+       -mcpu=<value>
+              Select cpu for disassembly.
+
+       -o     Print Objective-C segment.
+
+       -P     Print __TEXT,__info_plist section as strings.
+
+       -p <function name>
+              Start disassembly at <function name>.
+
+       -r     Print relocation entries.
+
+       -s <segname> <sectname>
+              Print contents of section.
+
+       -t     Print text section.
+
+       --version
+              Print version.
+
+       -V     Symbolize disassembled operands (implies -v).
+
+       -v     Verbose output / disassemble when printing text sections.
+
+       -X     Omit leading addresses or headers.
+
+       -x     Print all text sections.
+
+       @<FILE>
+              Read  command-line  options  and  commands  from  response  file
+              <FILE>.
+
+EXIT STATUS
+       llvm-otool  exits with a non-zero exit code if there is an error.  Oth‐
+       erwise, it exits with code 0.
+
+BUGS
+       To         report         bugs,         please         visit         <‐
+       https://github.com/llvm/llvm-project/labels/tools:llvm-objdump/>.
+
+SEE ALSO
+       llvm-nm(1), llvm-objdump(1)
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14                     LLVM-OTOOL(1)

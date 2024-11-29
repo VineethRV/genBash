@@ -1,0 +1,35 @@
+GETPCAPS(8)                 System Manager's Manual                GETPCAPS(8)
+
+NAME
+       getpcaps - display process capabilities
+
+SYNOPSIS
+       getpcaps [optional args] pid...
+
+DESCRIPTION
+       getpcaps  displays  the  capabilities on the processes indicated by the
+       pid value(s) given on the command line.  A pid of 0 displays the  capa‐
+       bilities of the process that is running getpcaps itself.
+
+       The capabilities are displayed in the cap_from_text(3) format.
+
+       Optional arguments:
+
+       --help or --usage
+              Displays usage information and exits.
+
+       --ugly or --legacy
+              Displays output in a somewhat ugly legacy format.
+
+       --verbose
+              Displays  usage in a legacy-like format but not quite so ugly in
+              modern default terminal fonts.
+
+SEE ALSO
+       capsh(1), capabilities(7), getcap(8), setcap(8)
+
+AUTHOR
+       This manual page was originally written by Robert Bihlmeyer  <robbe@de‐
+       bian.org>, for the Debian GNU/Linux system (but may be used by others).
+
+                                  2020-01-04                       GETPCAPS(8)

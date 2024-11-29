@@ -1,0 +1,9 @@
+INDEX.JS(1)                      User Commands                     INDEX.JS(1)
+
+NAME
+       index.js - List files to embed in npm package
+
+DESCRIPTION
+       usage: npm-packlist [-s --sort] [directory, directory, ...]
+
+index.js 3.0.0                   February 2022                     INDEX.JS(1)

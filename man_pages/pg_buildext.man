@@ -1,0 +1,295 @@
+PG_BUILDEXT(1)         Debian PostgreSQL infrastructure         PG_BUILDEXT(1)
+
+NAME
+       pg_buildext - Build and install a PostgreSQL extension
+
+SYNOPSIS
+       pg_buildext [options] action [src-dir] [arguments]
+
+DESCRIPTION
+       pg_buildext is a script that will build a PostgreSQL extension in a
+       VPATH way, for potentially several PostgreSQL server versions in
+       parallel.  It builds for the intersection of versions known in
+       debian/pgversions (versions supported by the package) and in
+       /usr/share/postgresql-common/supported-versions (versions supported in
+       this release).
+
+       Many PostgreSQL extension packages require no special handling at build
+       time and can use dh $@ --with pgxs or dh $@ --with pgxs_loop to
+       automatically execute the steps outlined below.
+
+USAGE
+       Packages using pg_buildext should be prepared to build binaries for
+       PostgreSQL versions that are not present in Debian unstable, e.g. for
+       older releases when building backports for Debian (old)stable (possibly
+       including backports of newer PostgreSQL releases), or for all
+       PostgreSQL releases when the package is built for apt.postgresql.org.
+
+       As the set of binary packages depends on the target PostgreSQL
+       versions, debian/control is generated from a template in
+       debian/control.in when pg_buildext updatecontrol is run. Occurrences of
+       PGVERSION in package sections are replaced by the target PostgreSQL
+       version. Include /usr/share/postgresql-common/pgxs_debian_control.mk in
+       debian/rules to run a check at build time if updating debian/control is
+       required.
+
+       As pg_buildext invokes make for the build, install, and clean actions,
+       invocations from debian/rules (which is a makefile) should be prefixed
+       with + so the sub-makes can talk with the make jobserver. Additional
+       makefile variables can be passed to make via the -m option.
+
+       Many extensions support make installcheck testing using pg_regress. As
+       this needs the package to be installed, it cannot be run at build time.
+       Instead, the tests should be run using autopkgtest from debian/tests/*.
+
+       If debian/tests/control.in exists, occurrences of package names
+       containing PGVERSION are replaced by lists of package names with the
+       target PostgreSQL versions filled in. (If no replacing is needed in
+       debian/tests/control, it is fine to provide the tests control file
+       directly.)
+
+OPTIONS
+       -cio arg
+       -s  Passed to pg_virtualenv when running installcheck.
+
+       -m arg
+           Passed to make.
+
+ACTIONS
+       Most actions expect a directory name where to build the sources. It
+       will get created for you if it does not exist. If the build-dir
+       contains a %v sign, it will get replaced by the specific version of
+       PostgreSQL being built against. (Usually this parameter is build-%v.)
+
+       supported-versions
+           Print effective list of supported versions, i.e. the intersection
+           of the sets of versions supported by the system (from
+           /usr/share/postgresql-common/supported-versions) and the package
+           (from debian/pgversions).
+
+           Use this when building packages.
+
+       installed-versions
+           In the list of installed packages, look for packages matching the
+           PGVERSION package name templates from debian/control.in, and print
+           the PostgreSQL major version number part.
+
+           Use this when testing packages.
+
+       checkcontrol
+           Check if debian/control needs updating from debian/control.in. This
+           is invoked from
+           /usr/share/postgresql-common/pgxs_debian_control.mk. When building
+           for a backports or pgdg suite as determined by debian/changelog,
+           this action also updates the control file. Otherwise, updatecontrol
+           needs to be run manually.
+
+       updatecontrol
+           Update debian/control from debian/control.in, and
+           debian/tests/control from debian/tests/control.in if the latter
+           exists.
+
+       configure [src-dir] build-dir [extra-configure-options]
+           For every supported version, call ../configure from the build-dir
+           directory. (Most PostgreSQL extensions do not have a configure
+           script.)
+
+       build [src-dir] build-dir [extra-cflags]
+           Build the extension in the build-dir directory.
+
+       install [src-dir] build-dir package-pattern
+           Invoke make install from the build-dir directory.  The third
+           parameter specifies the package name to use. Most packages use
+           postgresql-%v-pkgname. Make will be called with
+           DESTDIR="$(CURDIR)/debian/package".
+
+           The dpkg substitution variable postgresql:Depends is set to depend
+           on the required PostgreSQL server package. For compatibility with
+           previous packaging standards, the dependency is also added to
+           misc:Depends if postgresql:Depends is not used.
+
+       clean [src-dir] [build-dir] [package-pattern]
+           Clean the build directories.
+
+       loop [src-dir] package-pattern
+           As a variant to calling build and install separately for VPATH
+           builds, loop over the supported PostgreSQL versions in the top
+           source directory. This should be used if the package does not
+           support VPATH builds. As it also invokes make install, it should be
+           placed were installation happens in debian/rules, rather than where
+           build would normally be called.
+
+       installcheck [src-dir] [build-dir] [package-pattern]
+           Use pg_virtualenv make installcheck to run the extension regression
+           tests.  This is meant to be run from debian/tests/control using
+           autopkgtest. If build-dir is omitted, the top source directory is
+           used.
+
+           If package-pattern is given, options are passed to pg_virtualenv to
+           set up the temporary PostgreSQL instance to find extension files in
+           debian/package-directory/.
+
+           Other than the other actions which run on the "supported" versions,
+           if debian/control.in exists, this one runs on the "installed"
+           versions as reported by installed-versions (unless package-pattern
+           is provided, which means we are called during a build).
+
+       psql [src-dir] [build-dir] [package-pattern]
+       virtualenv [src-dir] [build-dir] [package-pattern]
+           Like installcheck, but invokes psql, or a shell, both wrapped in
+           pg_virtualenv. Input is read from stdin.
+
+       Sometimes it is desirable to run extra code per version before invoking
+       the action, in that case the loop over supported versions needs to be
+       in the calling script. To facilitate this mode, actions can also be
+       called as action-version. See the installcheck example below.
+
+SUPPORTED VERSIONS
+       pg_buildext reads debian/pgversions to decide which PostgreSQL to build
+       modules/extensions for. This file contains one PostgreSQL version
+       number per line, in the following formats:
+
+       all Support all versions. This is recommended unless there are known
+           incompatibilities.
+
+       NN  Support this version.
+
+       NN+ Support this and all greater versions.
+
+       #...
+           Comment.
+
+       For a version to be used, it must also be listed in the output of
+       /usr/share/postgresql-common/supported-versions. See this file for how
+       to configure the list of supported versions on your system.
+
+EXAMPLE
+       debian/control.in:
+             Source: postgresql-foobar
+             Rules-Requires-Root: no
+             Build-Depends:
+              debhelper,
+              postgresql-all <!nocheck>,
+              postgresql-server-dev-all (>= 217~),
+
+             Package: postgresql-PGVERSION-foobar
+             Architecture: any
+             Depends:
+              ${misc:Depends},
+              ${postgresql:Depends},
+              ${shlibs:Depends},
+
+       debian/pgversions:
+             all
+
+             # alternatives:
+             #9.6
+             #11+
+
+       debian/rules using dh $@ --with pgxs:
+             #!/usr/bin/make -f
+
+             override_dh_installdocs:
+                     dh_installdocs --all README.*
+
+             %:
+                     dh $@ --with pgxs
+
+       If the package does no support building from subdirectories, use dh $@
+       --with pgxs_loop:
+             #!/usr/bin/make -f
+
+             %:
+                     dh $@ --with pgxs_loop
+
+       If the package does not use PGXS's "make installcheck" for testing:
+             override_dh_pgxs_test:
+
+       debian/rules using pg_buildext directly:
+             #!/usr/bin/make -f
+
+             include /usr/share/postgresql-common/pgxs_debian_control.mk
+
+             # omit this if the package does not use autoconf
+             override_dh_auto_configure:
+                     +pg_buildext configure build-%v "--libdir=/usr/lib/postgresql/%v/lib --datadir=/usr/share/postgresql-%v-foobar"
+
+             override_dh_auto_build:
+                     +pg_buildext build build-%v
+
+             override_dh_auto_test:
+                     # nothing to do here, see debian/tests/* instead
+
+             override_dh_auto_install:
+                     +pg_buildext install build-%v postgresql-%v-foobar
+
+             override_dh_installdocs:
+                     dh_installdocs --all README.*
+
+             override_dh_auto_clean:
+                     +pg_buildext clean build-%v
+
+             %:
+                     dh $@
+
+       debian/tests/control:
+             Depends: @, postgresql-server-dev-all
+             Tests: installcheck
+             Restrictions: allow-stderr
+
+       debian/tests/control.in: (optional)
+             Depends: @, postgresql-contrib-PGVERSION, postgresql-PGVERSION-bar
+             Tests: installcheck
+             Restrictions: allow-stderr
+
+       debian/tests/installcheck:
+             #!/bin/sh
+             pg_buildext installcheck
+             # alternatively: pg_buildext installcheck build-%v
+
+             # Running extra code before invoking the actual action:
+             set -e
+             for v in $(pg_buildext installed-versions); do
+                     test -L build-$v/sql || ln -s ../sql build-$v/
+                     test -L build-$v/expected || ln -s ../expected build-$v/
+                     pg_buildext installcheck-$v build-$v
+             done
+
+SOURCE DIRECTORY
+       If the package source code is not in the top level directory (i.e. the
+       directory which has debian/ as subdirectory), use the src-dir argument,
+       where src-dir must be an absolute path. Example:
+
+         override_dh_auto_build:
+                 +pg_buildext build $(CURDIR)/postgresql-module build-%v
+
+COMPATIBILITY
+       pg_buildext loop was introduced in postgresql-server-dev-all (>= 141~).
+
+       The usage of "all" or "NN+" in debian/pgversions was introduced in
+       postgresql-server-dev-all (>= 148~).
+
+       pg_buildext installcheck was introduced in postgresql-server-dev-all
+       (>= 153~).
+
+       PG_VIRTUALENV_UNSHARE=-n was introduced in postgresql-common (>= 170~).
+
+       Handling of debian/tests/control.in with PGVERSION replacement was
+       introduced in postgresql-common (>= 171~).
+
+       The action installed-versions was introduced in postgresql-common (>=
+       208~).  installcheck was switched to use it in the same version.
+
+       dh $@ --with pgxs and pgxs_loop, the corresponding --buildsystem, and
+       the psql and virtualenv actions were introduced in postgresql-server-
+       dev-all (>= 217~).
+
+SEE ALSO
+       /usr/share/postgresql-common/supported-versions, autopkgtest(1),
+       pg_virtualenv(1).
+
+AUTHORS
+       Dimitri Fontaine <dim@tapoueh.org>, with extensions by Christoph Berg
+       <myon@debian.org>.
+
+Debian                            2022-02-10                    PG_BUILDEXT(1)

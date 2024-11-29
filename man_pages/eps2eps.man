@@ -1,0 +1,35 @@
+PS2PS(1)                       Ghostscript Tools                      PS2PS(1)
+
+NAME
+       ps2ps, eps2eps - Ghostscript PostScript "distiller"
+
+SYNOPSIS
+       ps2ps [ options ] input output.ps
+       eps2eps [ options ] input output.eps
+
+DESCRIPTION
+       ps2ps  uses  gs(1) to convert PostScript(tm) or PDF(tm) file "input" to
+       simpler, normalized and (usually)  faster  PostScript  in  "output.ps".
+       The output is level 2 DSC 3.0 conforming PostScript.
+
+       eps2eps  performs  the  equivalent  optimization, creating Encapsulated
+       PostScript (EPS) files. NB, despite the name, the input need not be  an
+       EPS file, PostScript or indeed PDF files are equally acceptable.
+
+       Both  accept  any general Ghostscript command line options, and options
+       specific to the ps2write and eps2write devices.
+
+FILES
+       Run "gs -h" to find the location of Ghostscript documentation  on  your
+       system, from which you can get more details.
+
+SEE ALSO
+       ps2pdf(1), ps2ascii(1), ps2epsi(1)
+
+VERSION
+       This document was last revised for Ghostscript version 9.55.0.
+
+AUTHOR
+       Artifex Software, Inc. are the primary maintainers of Ghostscript.
+
+9.55.0                         27 September 2021                      PS2PS(1)

@@ -1,0 +1,63 @@
+MEMUSAGESTAT(1)            Linux programmer's manual           MEMUSAGESTAT(1)
+
+NAME
+       memusagestat - generate graphic from memory profiling data
+
+SYNOPSIS
+       memusagestat [option]... datafile [outfile]
+
+DESCRIPTION
+       memusagestat  creates  a PNG file containing a graphical representation
+       of the memory profiling data in the file datafile; that file is  gener‐
+       ated via the -d (or --data) option of memusage(1).
+
+       The  red  line in the graph shows the heap usage (allocated memory) and
+       the green line shows the stack usage.  The x-scale is either the number
+       of  memory-handling  function  calls or (if the -t option is specified)
+       time.
+
+OPTIONS
+       -o file, --output=file
+              Name of the output file.
+
+       -s string, --string=string
+              Use string as the title inside the output graph.
+
+       -t, --time
+              Use time (rather than number of function calls) as the scale for
+              the X axis.
+
+       -T, --total
+              Also draw a graph of total memory consumption.
+
+       -x size, --x-size=size
+              Make the output graph size pixels wide.
+
+       -y size, --y-size=size
+              Make the output graph size pixels high.
+
+       -?, --help
+              Print a help message and exit.
+
+       --usage
+              Print a short usage message and exit.
+
+       -V, --version
+              Print version information and exit.
+
+BUGS
+       To report bugs, see ⟨http://www.gnu.org/software/libc/bugs.html⟩
+
+EXAMPLES
+       See memusage(1).
+
+SEE ALSO
+       memusage(1), mtrace(1)
+
+COLOPHON
+       This  page  is  part of release 5.10 of the Linux man-pages project.  A
+       description of the project, information about reporting bugs,  and  the
+       latest     version     of     this    page,    can    be    found    at
+       https://www.kernel.org/doc/man-pages/.
+
+GNU                               2020-06-09                   MEMUSAGESTAT(1)

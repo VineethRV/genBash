@@ -1,0 +1,22 @@
+NILICENSE(1)                General Commands Manual               NILICENSE(1)
+
+NAME
+       niLicense - register a license key for OpenNI middleware modules
+
+SYNOPSIS
+       niLicense [FILE]
+
+DESCRIPTION
+       This manual page documents briefly the niLicense command.
+
+       niLicense  is  a utility for registering and unregistering license keys
+       for the OpenNI frameworks.  It is used both  for  'middleware'  modules
+       like the PrimeSense NITE skeleton and gesture tracking module.
+
+AUTHOR
+       niLicense was written by OpenNI.org.
+
+       This  manual page was written by Hans-Christoph Steiner <hans@eds.org>,
+       for the Debian project (and may be used by others).
+
+                                   June 2011                      NILICENSE(1)

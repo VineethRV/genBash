@@ -1,0 +1,46 @@
+EMPY(1)                     General Commands Manual                    EMPY(1)
+
+NAME
+       empy -  A powerful and robust templating system for Python
+
+SYNOPSIS
+       empy [options] [<filename, or  '-' for stdin>  [<argument>]]
+
+DESCRIPTION
+       This manual page documents briefly the empy command.
+
+       EmPy  is  a  system  for embedding Python expressions and statements in
+       template text; it takes an EmPy source file, processes it, and produces
+       output.  This is accomplished via expansions, which are special signals
+       to the EmPy system and are set off by a special prefix (by default  the
+       at sign, @).
+
+       EmPy  can  expand  arbitrary  Python expressions and statements in this
+       way, as well as a variety of special forms. Textual data not explicitly
+       delimited in this way is sent unaffected to the output, allowing Python
+       to be used in effect as a markup language. Also supported are callbacks
+       via  hooks,  recording and playback via diversions, and dynamic, chain‐
+       able filters. The system is highly configurable via  command  line  op‐
+       tions and embedded commands.
+
+OPTIONS
+       These  programs follow the usual GNU command line syntax, with long op‐
+       tions starting with two dashes (`-').  A summary of options is included
+       below.  For a complete description, see the Info files.
+
+       -h, --help
+              Show summary of options.
+
+       -v, --version
+              Show version of program.
+
+SEE ALSO
+       python(1).
+
+AUTHOR
+       EmPy was written by Erik Max Francis <software@alcyone.com>.
+
+       This manual page was written by Ana Beatriz Guerrero Lopez, for the De‐
+       bian project (but may be used by others).
+
+                                                                       EMPY(1)

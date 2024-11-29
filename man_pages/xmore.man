@@ -1,0 +1,15 @@
+xmore(1)                    General Commands Manual                   xmore(1)
+
+NAME
+       xmore - plain text display program for the X Window System
+
+SYNOPSIS
+       xmore [filename]
+
+DESCRIPTION
+       xmore is a plain text browser.
+
+SEE ALSO
+       X11(7), xman(1)
+
+X Version 11                      xmore 1.0.3                         xmore(1)

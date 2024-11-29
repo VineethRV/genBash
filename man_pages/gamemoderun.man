@@ -1,0 +1,61 @@
+gamemoderun(1)               gamemoderun man page               gamemoderun(1)
+
+NAME
+       gamemoderun - invoke gamemode into any program
+
+SYNOPSIS
+       gamemoderun PROGRAM
+
+DESCRIPTION
+       GameMode is a daemon/lib combo for Linux that allows games to request a
+       set of optimisations be temporarily applied to the host OS.
+
+       The design has a clear cut abstraction between the host daemon and  li‐
+       brary  (gamemoded and libgamemode), and the client loaders (libgamemod‐
+       eauto and gamemode_client.h) that allows for safe usage without  worry‐
+       ing  about whether the daemon is installed or running. This design also
+       means that while the host library currently relies on systemd  for  ex‐
+       changing  messages with the daemon, it's entirely possible to implement
+       other internals that still work with the same clients.
+
+       GameMode was designed primarily as a stop-gap solution to problems with
+       the  Intel and AMD CPU powersave or ondemand governors, but is intended
+       to be expanded beyond just CPU governor states, as there are  a  wealth
+       of automation tasks one might want to apply.
+
+USAGE
+       libgamemodeauto.so.0  can  be  pre-loaded  into  any program to request
+       gamemoded begin or end the mode, like so:
+
+           gamemoderun ./game
+
+       Or by setting the Steam launch options for a game:
+
+           gamemoderun %command%
+
+       The library can be manually preloaded if needed:
+
+           LD_PRELOAD=$LD_PRELOAD:/usr/\$LIB/libgamemodeauto.so.0 ./game
+
+CONFIG
+       It is possible to set additional start commands to gamemoderun by  set‐
+       ting the environment variable:
+
+           GAMEMODERUNEXEC="command"
+
+       When  this  is  set, gamemoderun will execute the command given by that
+       environment variable, and the command line passed to  gamemoderun  will
+       be passed as arguments to that command. GameMode will not be applied to
+       the wrapper command, just the game itself.
+
+SEE ALSO
+       gamemoded(8)
+
+ABOUT
+       GameMode  source  can  be  found  at   https://github.com/FeralInterac‐
+       tive/gamemode.git
+
+AUTHOR
+       Feral Interactive (linux-contact@feralinteractive.com)
+
+1.6.1                             4 May 2020                    gamemoderun(1)

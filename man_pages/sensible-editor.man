@@ -1,0 +1,40 @@
+SENSIBLE-EDITOR(1)          General Commands Manual         SENSIBLE-EDITOR(1)
+
+NAME
+       sensible-editor - sensible editing
+
+SYNOPSIS
+       sensible-editor [OPTIONS...]
+
+DESCRIPTION
+       sensible-editor makes sensible decisions on which editor to call.  Pro‐
+       grams in Debian can use this script as their default editor.  sensible-
+       editor try to do in the following order:
+
+       1      if VISUAL environment variable exists, execute VISUAL [OPTIONS]
+
+       2      if EDITOR environment variable exists, execute EDITOR [OPTIONS]
+
+       3      source  the  contents  of  file  ~/.selected_editor  and, if SE‐
+              LECTED_EDITOR environment variable exists execute  SELECTED_EDI‐
+              TOR [OPTIONS]
+
+       4      run editor [OPTIONS] command
+
+       5      finally run nano-tiny [OPTIONS] command
+
+SEE ALSO
+       environ(7) for documentation of the EDITOR, VISUAL variables
+       select-editor(1) for changing a user's default editor.
+       editor(1) for default system wide editor.
+
+BUGS
+       This command is protected against trivial fork bomb, when user set EDI‐
+       TOR=sensible-editor wider loops are still possible.
+
+STANDARD
+       Documentation of behavior of sensible-utils under a  debian  system  is
+       available  under  section 11.4 of debian-policy usually installed under
+       /usr/share/doc/debian-policy (you might need to install debian-policy)
+
+Debian                            14 Nov 2018               SENSIBLE-EDITOR(1)

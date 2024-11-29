@@ -1,0 +1,57 @@
+GRUB-PROBE(8)           System Administration Utilities          GRUB-PROBE(8)
+
+NAME
+       grub-probe - probe device information for GRUB
+
+SYNOPSIS
+       grub-probe [OPTION...] [OPTION]... [PATH|DEVICE]
+
+DESCRIPTION
+       Probe  device information for a given path (or device, if the -d option
+       is given).
+
+       -0     separate items in output using ASCII NUL characters
+
+       -d, --device
+              given argument is a system device, not a path
+
+       -m, --device-map=FILE
+              use FILE as the device map [default=/boot/grub/device.map]
+
+       -t, --target=TARGET
+              print  TARGET   available   targets:   abstraction,   arc_hints,
+              baremetal_hints,     bios_hints,    compatibility_hint,    cryp‐
+              todisk_uuid,  device,  disk,  drive,  efi_hints,  fs,  fs_label,
+              fs_uuid, gpt_parttype, hints_string, ieee1275_hints, msdos_part‐
+              type, partmap, partuuid, zero_check [default=fs]
+
+       -v, --verbose
+              print verbose messages.
+
+       -?, --help
+              give this help list
+
+       --usage
+              give a short usage message
+
+       -V, --version
+              print program version
+
+       Mandatory or optional arguments to long options are also  mandatory  or
+       optional for any corresponding short options.
+
+REPORTING BUGS
+       Report bugs to <bug-grub@gnu.org>.
+
+SEE ALSO
+       grub-fstest(1)
+
+       The  full  documentation for grub-probe is maintained as a Texinfo man‐
+       ual.  If the info and grub-probe programs  are  properly  installed  at
+       your site, the command
+
+              info grub-probe
+
+       should give you access to the complete manual.
+
+GRUB 2.06-2ubuntu7.2             December 2022                   GRUB-PROBE(8)

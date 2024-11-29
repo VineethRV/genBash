@@ -1,0 +1,72 @@
+SYSTEMD-ID128(1)                 systemd-id128                SYSTEMD-ID128(1)
+
+NAME
+       systemd-id128 - Generate and print sd-128 identifiers
+
+SYNOPSIS
+       systemd-id128 [OPTIONS...] new
+
+       systemd-id128 [OPTIONS...] machine-id
+
+       systemd-id128 [OPTIONS...] boot-id
+
+       systemd-id128 [OPTIONS...] invocation-id
+
+DESCRIPTION
+       id128 may be used to conveniently print sd-id128(3) UUIDs. What
+       identifier is printed depends on the specific verb.
+
+       With new, a new random identifier will be generated.
+
+       With machine-id, the identifier of the current machine will be printed.
+       See machine-id(5).
+
+       With boot-id, the identifier of the current boot will be printed.
+
+       Both machine-id and boot-id may be combined with the
+       --app-specific=app-id switch to generate application-specific IDs. See
+       sd_id128_get_machine(3) for the discussion when this is useful.
+
+       With invocation-id, the identifier of the current service invocation
+       will be printed. This is available in systemd services. See
+       systemd.exec(5).
+
+       With show, well-known UUIDs are printed. When no arguments are
+       specified, all known UUIDs are shown. When arguments are specified,
+       they must be the names or values of one or more known UUIDs, which are
+       then printed.
+
+OPTIONS
+       The following options are understood:
+
+       -p, --pretty
+           Generate output as programming language snippets.
+
+       -a app-id, --app-specific=app-id
+           With this option, an identifier that is the result of hashing the
+           application identifier app-id and the machine identifier will be
+           printed. The app-id argument must be a valid sd-id128 string
+           identifying the application.
+
+       -u, --uuid
+           Generate output as an UUID formatted in the "canonical
+           representation", with five groups of digits separated by hyphens.
+           See the wikipedia[1] for more discussion.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+SEE ALSO
+       systemd(1), sd-id128(3), sd_id128_get_machine(3)
+
+NOTES
+        1. wikipedia
+           https://en.wikipedia.org/wiki/Universally_unique_identifier#Format
+
+systemd 249                                                   SYSTEMD-ID128(1)

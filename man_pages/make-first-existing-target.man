@@ -1,0 +1,44 @@
+MAKE-FIRST-EXISTING-TAUser(Contributed Perl DocumMAKE-FIRST-EXISTING-TARGET(1)
+
+NAME
+       make-first-existing-target - runs make on one of several targets
+
+SYNOPSIS
+       make-first-existing-target [-c cmd] target1 [target2 ...] --
+       [make-options]
+
+DESCRIPTION
+       The design of make(1) causes difficulty when you know that a Makefile
+       probably has one of several standardized target names, and want build
+       machinery to run exactly one of them, propagating any errors. make(1)
+       will exit 2 if a target does not exist, but an existing target may also
+       exit 2 due to some other failure. Makefiles cannot be reliably parsed
+       to find targets by anything less Turing-complete than make, and make
+       itself does not provide a way to enumerate the targets in a Makefile.
+       It may not even be possible to enumerate the targets in a Makefile
+       without executing part of it. (Proof of this is left as an exercise for
+       the reader.)
+
+       This program avoids the problems described above, by attempting to call
+       each specified target in turn, until it observes make actually doing
+       something for one of them.
+
+OPTIONS
+       -c cmd
+           This can be used to specify the make command to run. Default is
+           "make".
+
+EXIT STATUS
+       The exit status is 0 if at least one target existed and was
+       successfully run, and nonzero otherwise.
+
+AUTHOR
+       Joey Hess <joey@kitenet.net>
+
+LICENSE
+       Same as GNU make.
+
+SEE ALSO
+       make(1)
+
+perl v5.18.2                      2014-05-13     MAKE-FIRST-EXISTING-TARGET(1)

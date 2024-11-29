@@ -1,0 +1,51 @@
+tap-mocha-reporter(1)     tap-mocha-reporter 3.0.7+ds    tap-mocha-reporter(1)
+
+NAME
+       tap-mocha-reporter - format output of tap using mocha like reporter
+
+SYNOPSIS
+       tap-mocha-reporter { --help | reporter }
+
+DESCRIPTION
+       Reads  TAP data on stdin, and formats to stdout using the specified re‐
+       porter. (Note that some reporters write to files instead of stdout.)
+
+OPTIONS
+       Available reporter format types are:
+
+       • classic
+
+       • doc
+
+       • dot
+
+       • dump
+
+       • json
+
+       • jsonstream
+
+       • landing
+
+       • list
+
+       • markdown
+
+       • min
+
+       • nyan
+
+       • progress
+
+       • silent
+
+       • spec
+
+       • tap
+
+       • xunit
+
+SEE ALSO
+       tap(1)
+
+August 2017                    21 November 2021          tap-mocha-reporter(1)

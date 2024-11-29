@@ -1,0 +1,31 @@
+FC-CONFLIST(1)                                                  FC-CONFLIST(1)
+
+NAME
+       fc-conflist - Show the ruleset files information on the system
+
+SYNOPSIS
+       fc-conflist [ -Vh ]
+
+        [ --version ]  [ --help ]
+
+DESCRIPTION
+       fc-conflist shows the ruleset files' information being installed on the
+       system.
+
+OPTIONS
+       This program follows the usual GNU command line syntax, with  long  op‐
+       tions  starting with two dashes (`-'). A summary of options is included
+       below.
+
+       -V     Show version of the program and exit.
+
+       -h     Show summary of options.
+
+RETURN CODES
+       fc-conflist returns error code 0 for successful parsing, or  1  if  any
+       errors occured or if at least one font face could not be opened.
+
+AUTHOR
+       This manual page was updated by Akira TAGOH <akira@tagoh.org>.
+
+                                 Apr  1, 2014                   FC-CONFLIST(1)

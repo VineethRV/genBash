@@ -1,0 +1,50 @@
+LLVM-PROFGEN(1)                      LLVM                      LLVM-PROFGEN(1)
+
+NAME
+       llvm-profgen - LLVM SPGO profile generation tool
+
+SYNOPSIS
+       llvm-profgen [commands] [options]
+
+DESCRIPTION
+       The  llvm-profgen utility generates a profile data file from given perf
+       script data files for sample-based profile guided optimization(SPGO).
+
+COMMANDS
+       At least one of the following commands are required:
+
+       --perfscript=<string[,string,...]>
+              Path of perf-script trace created by Linux perf tool with script
+              command(the raw perf.data should be profiled with -b).
+
+       --binary=<string[,string,...]>
+              Path of the input profiled binary files.
+
+       --output=<string>
+              Path of the output profile file.
+
+OPTIONS
+       llvm-profgen supports the following options:
+
+       --format=[text|binary|extbinary|compbinary|gcc]
+              Specify  the format of the generated profile. Supported <format>
+              are text, binary, extbinary, compbinary, gcc, see  llvm-profdata
+              for more descriptions of the format.
+
+       --show-mmap-events
+              Print mmap events.
+
+       --show-disassembly
+              Print disassembled code.
+
+       --x86-asm-syntax=[att|intel]
+              Specify  whether  to print assembly code in AT&T syntax (the de‐
+              fault) or Intel syntax.
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14                   LLVM-PROFGEN(1)

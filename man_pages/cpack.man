@@ -1,0 +1,251 @@
+CPACK(1)                             CMake                            CPACK(1)
+
+NAME
+       cpack - CPack Command-Line Reference
+
+SYNOPSIS
+          cpack [<options>]
+
+DESCRIPTION
+       The  cpack executable is the CMake packaging program.  It generates in‐
+       stallers and source packages in a variety of formats.
+
+       For each installer or package format, cpack  has  a  specific  backend,
+       called  "generator".  A generator is responsible for generating the re‐
+       quired inputs and invoking the specific package creation  tools.  These
+       installer  or  package generators are not to be confused with the make‐
+       file generators of the cmake command.
+
+       All supported generators are specified in the cpack-generators  manual.
+       The  command cpack --help prints a list of generators supported for the
+       target platform.  Which of them are to be used can be selected  through
+       the CPACK_GENERATOR variable or through the command-line option -G.
+
+       The  cpack  program  is  steered by a configuration file written in the
+       CMake language. Unless chosen differently through the command-line  op‐
+       tion  --config,  the file CPackConfig.cmake in the current directory is
+       used.
+
+       In the standard CMake workflow, the file CPackConfig.cmake is generated
+       by  the  cmake executable, provided the CPack module is included by the
+       project's CMakeLists.txt file.
+
+OPTIONS
+       -G <generators>
+              <generators> is a semicolon-separated list of  generator  names.
+              cpack  will  iterate through this list and produce package(s) in
+              that generator's format according to the details provided in the
+              CPackConfig.cmake  configuration  file.   If  this option is not
+              given, the CPACK_GENERATOR variable determines the  default  set
+              of generators that will be used.
+
+       -C <configs>
+              Specify the project configuration(s) to be packaged (e.g. Debug,
+              Release, etc.), where <configs> is a  semicolon-separated  list.
+              When the CMake project uses a multi-configuration generator such
+              as Xcode or Visual Studio, this option is needed to  tell  cpack
+              which  built executables to include in the package.  The user is
+              responsible for ensuring that the configuration(s)  listed  have
+              already been built before invoking cpack.
+
+       -D <var>=<value>
+              Set  a  CPack  variable.   This  will override any value set for
+              <var> in the input file read by cpack.
+
+       --config <configFile>
+              Specify the configuration file read  by  cpack  to  provide  the
+              packaging details.  By default, CPackConfig.cmake in the current
+              directory will be used.
+
+       --verbose, -V
+              Run cpack with verbose output.  This can be used  to  show  more
+              details  from  the  package generation tools and is suitable for
+              project developers.
+
+       --debug
+              Run cpack with debug output.  This option is intended mainly for
+              the  developers  of  cpack  itself and is not normally needed by
+              project developers.
+
+       --trace
+              Put the underlying cmake scripts in trace mode.
+
+       --trace-expand
+              Put the underlying cmake scripts in expanded trace mode.
+
+       -P <packageName>
+              Override/define the value  of  the  CPACK_PACKAGE_NAME  variable
+              used  for  packaging.   Any  value  set for this variable in the
+              CPackConfig.cmake file will then be ignored.
+
+       -R <packageVersion>
+              Override/define the value of the CPACK_PACKAGE_VERSION  variable
+              used  for packaging.  It will override a value set in the CPack‐
+              Config.cmake file or one automatically computed from CPACK_PACK‐
+              AGE_VERSION_MAJOR,  CPACK_PACKAGE_VERSION_MINOR  and CPACK_PACK‐
+              AGE_VERSION_PATCH.
+
+       -B <packageDirectory>
+              Override/define CPACK_PACKAGE_DIRECTORY, which controls the  di‐
+              rectory where CPack will perform its packaging work.  The resul‐
+              tant package(s) will be created at this location by default  and
+              a  _CPack_Packages  subdirectory will also be created below this
+              directory to use as a working area during package creation.
+
+       --vendor <vendorName>
+              Override/define CPACK_PACKAGE_VENDOR.
+
+       --help,-help,-usage,-h,-H,/?
+              Print usage information and exit.
+
+              Usage describes the basic command line  interface  and  its  op‐
+              tions.
+
+       --version,-version,/V [<f>]
+              Show program name/version banner and exit.
+
+              If  a  file  is  specified, the version is written into it.  The
+              help is printed to a named <f>ile if given.
+
+       --help-full [<f>]
+              Print all help manuals and exit.
+
+              All manuals are printed in a human-readable  text  format.   The
+              help is printed to a named <f>ile if given.
+
+       --help-manual <man> [<f>]
+              Print one help manual and exit.
+
+              The specified manual is printed in a human-readable text format.
+              The help is printed to a named <f>ile if given.
+
+       --help-manual-list [<f>]
+              List help manuals available and exit.
+
+              The list contains all manuals for which help may be obtained  by
+              using  the  --help-manual option followed by a manual name.  The
+              help is printed to a named <f>ile if given.
+
+       --help-command <cmd> [<f>]
+              Print help for one command and exit.
+
+              The cmake-commands(7) manual entry for <cmd> is printed in a hu‐
+              man-readable text format.  The help is printed to a named <f>ile
+              if given.
+
+       --help-command-list [<f>]
+              List commands with help available and exit.
+
+              The list contains all commands for which help may be obtained by
+              using the --help-command option followed by a command name.  The
+              help is printed to a named <f>ile if given.
+
+       --help-commands [<f>]
+              Print cmake-commands manual and exit.
+
+              The cmake-commands(7) manual is printed in a human-readable text
+              format.  The help is printed to a named <f>ile if given.
+
+       --help-module <mod> [<f>]
+              Print help for one module and exit.
+
+              The  cmake-modules(7) manual entry for <mod> is printed in a hu‐
+              man-readable text format.  The help is printed to a named <f>ile
+              if given.
+
+       --help-module-list [<f>]
+              List modules with help available and exit.
+
+              The  list contains all modules for which help may be obtained by
+              using the --help-module option followed by a module  name.   The
+              help is printed to a named <f>ile if given.
+
+       --help-modules [<f>]
+              Print cmake-modules manual and exit.
+
+              The  cmake-modules(7) manual is printed in a human-readable text
+              format.  The help is printed to a named <f>ile if given.
+
+       --help-policy <cmp> [<f>]
+              Print help for one policy and exit.
+
+              The cmake-policies(7) manual entry for <cmp> is printed in a hu‐
+              man-readable text format.  The help is printed to a named <f>ile
+              if given.
+
+       --help-policy-list [<f>]
+              List policies with help available and exit.
+
+              The list contains all policies for which help may be obtained by
+              using  the  --help-policy option followed by a policy name.  The
+              help is printed to a named <f>ile if given.
+
+       --help-policies [<f>]
+              Print cmake-policies manual and exit.
+
+              The cmake-policies(7) manual is printed in a human-readable text
+              format.  The help is printed to a named <f>ile if given.
+
+       --help-property <prop> [<f>]
+              Print help for one property and exit.
+
+              The cmake-properties(7) manual entries for <prop> are printed in
+              a human-readable text format.  The help is printed  to  a  named
+              <f>ile if given.
+
+       --help-property-list [<f>]
+              List properties with help available and exit.
+
+              The  list contains all properties for which help may be obtained
+              by using the --help-property option followed by a property name.
+              The help is printed to a named <f>ile if given.
+
+       --help-properties [<f>]
+              Print cmake-properties manual and exit.
+
+              The  cmake-properties(7)  manual  is printed in a human-readable
+              text format.  The help is printed to a named <f>ile if given.
+
+       --help-variable <var> [<f>]
+              Print help for one variable and exit.
+
+              The cmake-variables(7) manual entry for <var> is  printed  in  a
+              human-readable  text  format.   The  help  is printed to a named
+              <f>ile if given.
+
+       --help-variable-list [<f>]
+              List variables with help available and exit.
+
+              The list contains all variables for which help may  be  obtained
+              by using the --help-variable option followed by a variable name.
+              The help is printed to a named <f>ile if given.
+
+       --help-variables [<f>]
+              Print cmake-variables manual and exit.
+
+              The cmake-variables(7) manual is  printed  in  a  human-readable
+              text format.  The help is printed to a named <f>ile if given.
+
+SEE ALSO
+       The following resources are available to get help using CMake:
+
+       Home Page
+              https://cmake.org
+
+              The primary starting point for learning about CMake.
+
+       Online Documentation and Community Resources
+              https://cmake.org/documentation
+
+              Links  to available documentation and community resources may be
+              found on this web page.
+
+       Discourse Forum
+              https://discourse.cmake.org
+
+              The Discourse Forum hosts discussion and questions about CMake.
+
+COPYRIGHT
+       2000-2024 Kitware, Inc. and Contributors
+
+3.22.1                         February 03, 2024                      CPACK(1)

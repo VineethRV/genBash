@@ -1,0 +1,40 @@
+PG_LSCLUSTERS(1)       Debian PostgreSQL infrastructure       PG_LSCLUSTERS(1)
+
+NAME
+       pg_lsclusters - show information about all PostgreSQL clusters
+
+SYNOPSIS
+       pg_lsclusters [options] [version [cluster]]
+
+DESCRIPTION
+       This command list the status and some configuration details of all
+       clusters.  If a version and optionally a cluster name are given, only
+       these are shown.
+
+OPTIONS
+       -h, --no-header
+           Do not print the column header line.
+
+       -j, --json
+           Output information in JSON format. Needs JSON.pm installed.
+           (Debian package: libjson-perl)
+
+       -s, --start-conf
+           Include start.conf information in status column.
+
+       --help
+           Print usage help.
+
+NOTES
+       The cluster status is shown as online or down. If a recovery.conf file
+       is found in the data directory, ,recovery is appended. The latter needs
+       read access to the data directory, which only root and the cluster
+       owner have.
+
+       The output lines are colored green and red to indicate the cluster
+       status visually.
+
+AUTHOR
+       Martin Pitt <mpitt@debian.org>
+
+Debian                            2022-02-10                  PG_LSCLUSTERS(1)

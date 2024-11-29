@@ -1,0 +1,44 @@
+VTKWRAPHIERARCHY-9.0(1)          User Commands         VTKWRAPHIERARCHY-9.0(1)
+
+NAME
+       vtkWrapHierarchy-9.0 - please refer to VTK documentation
+
+SYNOPSIS
+       vtkWrapHierarchy-9.0 [options] infile...
+
+DESCRIPTION
+       --help print this help message
+
+       --version
+              print the VTK version
+
+       -o <file>
+              the output file
+
+       -I <dir>
+              add an include directory
+
+       -D <macro[=def]>
+              define a preprocessor macro
+
+       -U <macro>
+              undefine a preprocessor macro
+
+       -imacros <file>
+              read macros from a header file
+
+       -undef do not predefine platform macros
+
+       @<file>
+              read arguments from a file
+
+SEE ALSO
+       The full documentation for vtkWrapHierarchy-9.0 is maintained as a Tex‐
+       info manual.  If the info and vtkWrapHierarchy-9.0 programs  are  prop‐
+       erly installed at your site, the command
+
+              info vtkWrapHierarchy-9.0
+
+       should give you access to the complete manual.
+
+vtkWrapHierarchy-9.0 9.0         November 2020         VTKWRAPHIERARCHY-9.0(1)

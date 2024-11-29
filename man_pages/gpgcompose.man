@@ -1,0 +1,40 @@
+gpgcompose(1)               General Commands Manual              gpgcompose(1)
+
+NAME
+       gpgcompose - Generate a stream of OpenPGP packets
+
+SYNOPSIS
+       gpgcompose [[OPTION [ARGS]] ... ]
+
+       gpgcompose --help
+
+       gpgcompose OPTION --help
+
+DESCRIPTION
+       gpgcompose  generates a stream of OpenPGP packets, including some which
+       can include other nested packets within a  layer  of  encryption.   The
+       syntax  on  the command line isn't stable enough to document currently,
+       but additional hints and examples can be found from  the  command  line
+       using --help.
+
+EXTERNAL DEPENDENCIES
+       gpgcompose  is  not  capable of performing secret key operations on its
+       own.  Creation of any OpenPGP object that requires  secret  key  opera‐
+       tions (e.g., --signature) will need to speak to an already-running gpg-
+       agent.
+
+FILES
+       Occasionally, gpgcompose will need to look up existing public keys  for
+       reference (e.g., --public-key).  It will do so in ~/.gnupg/keyring.kbx,
+       or in $GNUPGHOME/keyring.kbx if that variable is set.
+
+SEE ALSO
+       RFC 4880, gpg(1), gpg-agent(1), gpg-connect-agent(1)
+
+AUTHOR
+       gpgcompose is copyright (C) 2016, g10 Code GmbH.
+
+       This manpage  was  written  by  Daniel  Kahn  Gillmor  <dkg@fifthhorse‐
+       man.net>.
+
+                                   June 2017                     gpgcompose(1)

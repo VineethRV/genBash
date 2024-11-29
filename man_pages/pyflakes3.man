@@ -1,0 +1,38 @@
+PYFLAKES3(1)                                                      PYFLAKES3(1)
+
+NAME
+       pyflakes3 - simple Python 3 source checker
+
+SYNOPSIS
+       pyflakes [file-or-directory ...]
+
+DESCRIPTION
+       pyflakes3 is a simple program which checks Python source files for
+       errors.  It is similar to PyChecker in scope, but differs in that it
+       does not execute the modules to check them. This is both safer and
+       faster, although it does not perform as many checks. Unlike PyLint,
+       Pyflakes checks only for logical errors in programs; it does not
+       perform any checks on style.
+
+       All commandline arguments are checked, which have to be either regular
+       files or directories. If a directory is given, every .py file within
+       will be checked.
+
+       When no commandline arguments are given, data will be read from
+       standard input.
+
+OUTPUT
+       Found warnings including unused imports, undefined variables and
+       unnecessary reimports, are printed on standard output.  Found errors
+       including compile or encoding errors, are printed on standard error.
+
+EXIT STATUS
+       The exit status is 0 when no warnings or errors are found. Otherwise
+       the exit status is 1.
+
+AUTHOR
+       This manual page was originally written by Bastian Kleineidam
+       <calvin@debian.org> for the Debian distribution of pyflakes (but can be
+       used by others).
+
+                                  10/01/2007                      PYFLAKES3(1)

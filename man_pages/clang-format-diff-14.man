@@ -1,0 +1,58 @@
+CLANG-FORMAT-DIFF.PY(1)          User Commands         CLANG-FORMAT-DIFF.PY(1)
+
+NAME
+       clang-format-diff.py - manual page for clang-format-diff.py 14
+
+DESCRIPTION
+       usage: clang-format-diff.py [-h] [-i] [-p NUM] [-regex PATTERN]
+
+       [-iregex PATTERN] [-sort-includes] [-v]
+              [-style STYLE] [-fallback-style FALLBACK_STYLE] [-binary BINARY]
+
+       This  script  reads  input  from  a  unified diff and reformats all the
+       changed lines. This is useful to reformat all the lines  touched  by  a
+       specific patch.  Example usage for git/svn users:
+
+              git  diff -U0 --no-color --relative HEAD^ | clang-format-diff.py
+              -p1 -i svn diff --diff-cmd=diff -x-U0 | clang-format-diff.py -i
+
+       It should be noted that the filename contained in the diff is used  un‐
+       modified  to  determine  the  source file to update. Users calling this
+       script directly should be careful to ensure that the path in  the  diff
+       is correct relative to the current working directory.
+
+   options:
+       -h, --help
+              show this help message and exit
+
+       -i     apply edits to files instead of displaying a diff
+
+       -p NUM strip the smallest prefix containing P slashes
+
+       -regex PATTERN
+              custom pattern selecting file paths to reformat (case sensitive,
+              overrides -iregex)
+
+       -iregex PATTERN
+              custom pattern selecting file paths to reformat  (case  insensi‐
+              tive, overridden by -regex)
+
+       -sort-includes
+              let clang-format sort include blocks
+
+       -v, --verbose
+              be more verbose, ineffective without -i
+
+       -style STYLE
+              formatting  style  to apply (LLVM, GNU, Google, Chromium, Micro‐
+              soft, Mozilla, WebKit)
+
+       -fallback-style FALLBACK_STYLE
+              The name of the predefined  style  used  as  afallback  in  case
+              clang-format  is  invoked  with-style=file, but can not find the
+              .clang-formatfile to use.
+
+       -binary BINARY
+              location of binary to use for clang-format
+
+clang-format-diff.py 14            July 2023           CLANG-FORMAT-DIFF.PY(1)

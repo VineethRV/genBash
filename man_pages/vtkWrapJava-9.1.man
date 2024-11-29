@@ -1,0 +1,52 @@
+VTKWRAPJAVA-9.0(1)               User Commands              VTKWRAPJAVA-9.0(1)
+
+NAME
+       vtkWrapJava-9.0 - please refer to VTK documentation
+
+SYNOPSIS
+       vtkWrapJava-9.0 [options] infile...
+
+DESCRIPTION
+       --help print this help message
+
+       --version
+              print the VTK version
+
+       -o <file>
+              the output file
+
+       -I <dir>
+              add an include directory
+
+       -D <macro[=def]>
+              define a preprocessor macro
+
+       -U <macro>
+              undefine a preprocessor macro
+
+       -imacros <file>
+              read macros from a header file
+
+       -undef do not predefine platform macros
+
+       @<file>
+              read arguments from a file
+
+       -dM    dump all macro definitions to output
+
+       --hints <file>
+              the hints file to use
+
+       --types <file>
+              the type hierarchy file to use
+
+SEE ALSO
+       The  full  documentation for vtkWrapJava-9.0 is maintained as a Texinfo
+       manual.  If the info and  vtkWrapJava-9.0  programs  are  properly  in‐
+       stalled at your site, the command
+
+              info vtkWrapJava-9.0
+
+       should give you access to the complete manual.
+
+vtkWrapJava-9.0 9.0              November 2020              VTKWRAPJAVA-9.0(1)

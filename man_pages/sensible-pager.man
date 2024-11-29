@@ -1,0 +1,22 @@
+SENSIBLE-PAGER(1)           General Commands Manual          SENSIBLE-PAGER(1)
+
+NAME
+       sensible-pager - sensible paging
+
+SYNOPSIS
+       sensible-pager [OPTIONS...]
+
+DESCRIPTION
+       sensible-pager  makes  sensible decisions on which pager to call.  Pro‐
+       grams in Debian can use this script as their default pager, or  emulate
+       their behavior.
+
+SEE ALSO
+       Documentation of the PAGER variable in environ(7)
+
+STANDARD
+       Documentation  of  behavior  of sensible-utils under a debian system is
+       available under section 11.4 of debian-policy usually  installed  under
+       /usr/share/doc/debian-policy (you might need to install debian-policy)
+
+Debian                            12 Jan 2020                SENSIBLE-PAGER(1)

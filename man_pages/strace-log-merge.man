@@ -1,0 +1,82 @@
+STRACE-LOG-MERGE(1)         General Commands Manual        STRACE-LOG-MERGE(1)
+
+NAME
+       strace-log-merge - merge strace -ff -tt output
+
+SYNOPSIS
+       strace-log-merge STRACE_LOG
+
+       strace-log-merge --help
+
+DESCRIPTION
+       strace-log-merge  merges  the  output  of  strace  -ff  -tt[t] command,
+       prepending PID to each line and sorting the result using time stamp  as
+       a key.
+
+OPTIONS
+       --help Show program usage and exit.
+
+       STRACE_LOG
+              Output file name prefix of files produced by a strace -ff -tt[t]
+              command.
+
+EXIT STATUS
+       0      Success
+
+       Non-zero
+              Error occurred: either no argument specified (in that case a us‐
+              age  is  printed), or something went wrong during the processing
+              of STRACE_LOG.*  files.
+
+USAGE EXAMPLE
+       $ strace -o sleepy -ff -tt -e trace=execve,nanosleep \
+               sh -c 'sleep 0.1 & sleep 0.2 & sleep 0.3'
+       $ strace-log-merge sleepy | fold -w 72 -s
+       13475 21:13:52.040837 execve("/bin/sh", ["sh", "-c", "sleep 0.1 & sleep
+       0.2 & sleep 0."...], 0x7ffde54b2450 /* 33 vars */) = 0
+       13478 21:13:52.044050 execve("/bin/sleep", ["sleep", "0.3"],
+       0x5631be4f87a8 /* 33 vars */) = 0
+       13476 21:13:52.044269 execve("/bin/sleep", ["sleep", "0.1"],
+       0x5631be4f87a8 /* 33 vars */) = 0
+       13477 21:13:52.044389 execve("/bin/sleep", ["sleep", "0.2"],
+       0x5631be4f87a8 /* 33 vars */) = 0
+       13478 21:13:52.046207 nanosleep({tv_sec=0, tv_nsec=300000000}, NULL) = 0
+       13476 21:13:52.046303 nanosleep({tv_sec=0, tv_nsec=100000000}, NULL) = 0
+       13477 21:13:52.046318 nanosleep({tv_sec=0, tv_nsec=200000000}, NULL) = 0
+       13476 21:13:52.146852 +++ exited with 0 +++
+       13475 21:13:52.146942 --- SIGCHLD {si_signo=SIGCHLD,
+       si_code=CLD_EXITED, si_pid=13476, si_uid=1000, si_status=0, si_utime=0,
+       si_stime=0} ---
+       13477 21:13:52.247782 +++ exited with 0 +++
+       13475 21:13:52.247885 --- SIGCHLD {si_signo=SIGCHLD,
+       si_code=CLD_EXITED, si_pid=13477, si_uid=1000, si_status=0, si_utime=0,
+       si_stime=0} ---
+       13478 21:13:52.347680 +++ exited with 0 +++
+       13475 21:13:52.347786 --- SIGCHLD {si_signo=SIGCHLD,
+       si_code=CLD_EXITED, si_pid=13478, si_uid=1000, si_status=0, si_utime=0,
+       si_stime=0} ---
+       13475 21:13:52.348069 +++ exited with 0 +++
+
+NOTES
+       strace-log-merge does not work  well  with  strace  logs  generated  by
+       strace -tt invocation that pass midnight, as those lack the information
+       required for the proper sorting.  Employing the -ttt option in the  re‐
+       spective strace invocation should solve the problem.
+
+BUGS
+       strace-log-merge  does  not perform any checks whether the files speci‐
+       fied are in the correct format and implies that only files from a  sin‐
+       gle strace session match STRACE_LOG.*  glob pattern.
+
+HISTORY
+       The  initial  version of strace-log-merge was written by Denys Vlasenko
+       in 2012.
+
+REPORTING BUGS
+       Problems with strace-log-merge should be reported to the strace mailing
+       list at <strace-devel@lists.strace.io>.
+
+SEE ALSO
+       strace(1)
+
+strace 5.16                       2022-01-01               STRACE-LOG-MERGE(1)

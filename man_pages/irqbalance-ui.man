@@ -1,0 +1,22 @@
+IRQBALANCE-UI(1)                 irqbalance-ui                IRQBALANCE-UI(1)
+
+NAME
+       irqbalance-ui - user interface for irqbalance
+
+SYNOPSIS
+       irqbalance-ui
+
+DESCRIPTION
+       irqbalance-ui  provides  an  ncurses-based  textual  user  interface to
+       irqbalance, a daemon responsible for IRQ distribution on Linux systems.
+       It shows how IRQs are distributed over CPUs at given moment, and allows
+       one to setup of the sleep interval and the IRQ and CPU banning at  run‐
+       time.
+
+HOMEPAGE
+       https://github.com/Irqbalance/irqbalance
+
+SEE ALSO
+       irqbalance(1)
+
+Linux                              Jul 2019                   IRQBALANCE-UI(1)

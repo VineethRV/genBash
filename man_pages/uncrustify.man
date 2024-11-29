@@ -1,0 +1,155 @@
+UNCRUSTIFY(1)                    User Commands                   UNCRUSTIFY(1)
+
+NAME
+       uncrustify - C, C++, C#, D, Java and Pawn source code beautifier
+
+SYNOPSIS
+       uncrustify [OPTIONS] [FILES]
+
+DESCRIPTION
+       If no input files are specified, the input is read from stdin.
+       If reading from stdin, you should specify the language using -l.
+
+       If  -F  is  used or files are specified on the command line, the output
+       filename is PFX + "/" + filename + SFX.
+       Unless, of course, the options --replace or --no-backup are used.
+
+       When reading from stdin or doing a single file via the '-f' option, the
+       output is dumped to stdout, unless redirected with -o FILE.
+
+       Errors are always dumped to stderr
+
+OPTIONS
+   Basic Options:
+       -c CFG Use the config file CFG, or defaults if CFG is set to '-'.
+              If  not  specified,  uncrustify  will  use $UNCRUSTIFY_CONFIG or
+              $HOME/.uncrustify.cfg.
+
+       -f FILE
+              Process the single file FILE, sending output to  stdout  or  the
+              file specified with -o.
+
+       -o FILE
+              Redirect output to FILE.
+              Use  with  -f, --update-config, --update-config-with-doc, --uni‐
+              versalindent.
+
+       --check
+              Do not output the new text, instead verify that nothing  changes
+              when  the  file(s)  are  processed.  The status of every file is
+              printed to stderr. The exit code is EXIT_SUCCESS if  there  were
+              no changes, EXIT_FAILURE otherwise.
+
+       -F FILE
+              Read files to process from FILE, one filename per line.  If FILE
+              is ´-´ then read filenames from  standard  input  instead  of  a
+              file.
+              You  can  create  this  file  using something like ´find . -name
+              "*.c" > list.txt´.
+              This cannot be combined with -f.
+
+       --prefix PFX
+              Prepend PFX to the output filename path.
+              This cannot be combined with -f, --replace, or --no-backup.
+
+       --suffix SFX
+              Append SFX to the output filename.
+              The default is '.uncrustify' if neither SFX or  PFX  are  speci‐
+              fied.
+              This cannot be combined with -f, --replace, or --no-backup.
+
+       --frag Assume  the input is a code fragment and the first line is prop‐
+              erly indented.
+
+       --replace
+              Replace source files (creates a backup).
+              This cannot be combined with -f, --prefix, or --suffix.
+
+       --no-backup
+              Replace files, no backup. Useful if files are under source  con‐
+              trol
+              This cannot be combined with -f, --prefix, or --suffix.
+
+       --mtime
+              Preserve mtime on replaced files.
+
+       -l     Language override: C, CPP, D, CS, JAVA, PAWN, VALA, OC, OC+
+
+       -t     Load a file with types (usually not needed)
+
+       -q     Quiet mode - no output on stderr (-L will override)
+
+   Config/Help Options:
+       -h -? --help --usage
+              Print this message and exit
+
+       --version
+              Print the version and exit
+
+       --count-options
+              Print the number of available options and exit
+
+       --show-config
+              Print out option documentation and exit
+
+       --update-config
+              Output a new config file.
+
+       --update-config-with-doc
+              Output a new config file with embedded usage comments.
+
+       --universalindent
+              Output a config file for Universal Indent GUI.
+
+       --detect
+              Detects  the config from a source file. Use with '-f FILE'.  De‐
+              tection is currently fairly limited.
+
+   Debug Options:
+       -p FILE
+              Dump debug info into FILE, or to stdout if FILE is set to '-'."
+              Must be used in combination with '-f FILE'."
+
+       -L SEV Set the log severity (see log_levels.h)
+
+       -s     Show the log severity in the logs
+
+       --decode FLAG
+              Print FLAG as text and exit
+
+EXAMPLES
+       Read a D file from stdin, output to stdout.
+              cat foo.d | uncrustify -q -c my.cfg -l d
+
+       Process a file, output to stdout.
+              uncrustify -c my.cfg -d foo.d
+
+       Process a source tree, output to a different tree.
+              find src -name "*.[ch]" > files.txt
+              uncrustify -c my.cfg -F files.txt --prefix out
+
+       Process a source tree in‐place.
+              uncrustify -c my.cfg --no-backup $(find src -name "*.[ch]")
+
+NOTES
+       Use comments containing ' *INDENT-OFF*' and ' *INDENT-ON*'  to  disable
+       processing of parts of the source file.
+
+AUTHOR
+       Written by Ben Gardner
+
+REPORTING BUGS
+       Use the issue tracker at <http://sourceforge.net/projects/uncrustify>
+
+COPYRIGHT
+       Copyright (C) 2006‐2014 Ben Gardner
+       Copyright (C) 2015, 2016 Guy Maurel
+
+LICENSE
+       GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>
+
+       This is free software; see the source for copying conditions.  There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR  A  PARTICULAR
+       PURPOSE.
+
+uncrustify                         Oct 2014                      UNCRUSTIFY(1)

@@ -1,0 +1,84 @@
+XWAYLAND(1)                 General Commands Manual                XWAYLAND(1)
+
+NAME
+       Xwayland - an X server for running X clients under Wayland.
+
+SYNOPSIS
+       Xwayland [option ...]
+
+DESCRIPTION
+       Xwayland  is  an  X server and a Wayland client. It plays the role of a
+       proxy between legacy X clients which do not support the Wayland  proto‐
+       cols and the Wayland server.
+
+       Usually,  Xwayland  is  spawned automatically by the Wayland server and
+       runs rootless so that X clients integrate seamlessly with the  rest  of
+       the  Wayland desktop. It is however possible for a user to launch Xway‐
+       land non-rootless, mainly for testing purposes.
+
+       Like all of the X servers, Xwayland accepts the  command  line  options
+       described  in the Xserver(7) manual page.  The following additional ar‐
+       guments are supported as well.
+
+       -eglstream
+               Use EGLStream backend for NVidia GPUs. If Xwayland was compiled
+               with  EGLStream  support, this option will instruct Xwayland to
+               try that backend first, then fallback to  the  GBM  backend  if
+               EGLStream  is not supported by the Wayland server. Without this
+               option, Xwayland tries the GBM backend first, and  fallback  to
+               EGLStream if GBM is not usable.
+
+       -initfd fd
+               Add  the  given  fd  as a listen socket for initialization of X
+               clients.  This options is aimed at Wayland  servers  which  run
+               Xwayland  on-demand,  to  be  able  to spawn specific X clients
+               which need to complete before other regular X clients can  con‐
+               nect to Xwayland, like xrdb.
+
+       -listen fd
+               deprecated, use -listenfd instead.
+
+       -listenfd fd
+               Add  given  fd  as  a listen socket. This option is used by the
+               Wayland server to pass Xwayland the socket where X clients con‐
+               nect.
+
+       -noTouchPointerEmulation
+               Disable  touch  pointer emulation. This allows the Wayland com‐
+               positor to implement its own pointer  emulation  mechanism  for
+               X11 clients that don't support touch input.
+
+       -rootless
+               Run  Xwayland  rootless, so that X clients integrate seamlessly
+               with Wayland clients in a Wayland desktop.  That  requires  the
+               Wayland server to be an X window manager as well.
+
+       -shm    Force  the  shared  memory backend instead of glamor (if avail‐
+               able) for passing buffers to the Wayland server.
+
+       -verbose [n]
+               Sets the verbosity level for information printed on stderr.  If
+               the  n value isn't supplied, each occurrence of this option in‐
+               crements the verbosity level.  When the n  value  is  supplied,
+               the  verbosity  level  is  set to that value.  The default ver‐
+               bosity level is 0.
+
+       -version
+               Show the server version and exit.
+
+       -wm fd  This option is used by the Wayland server to pass Xwayland  the
+               socket  where  the X window manager client connects, when Xway‐
+               land is running with -rootless.
+
+ENVIRONMENT
+       WAYLAND_DISPLAY
+               the name of the display of the Wayland server.
+
+       XWAYLAND_NO_GLAMOR
+               disable glamor and DRI3 support in Xwayland, for  testing  pur‐
+               poses.
+
+SEE ALSO
+       General information: X(7)
+
+X Version 11                  xorg-server 22.1.1                   XWAYLAND(1)

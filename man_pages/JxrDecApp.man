@@ -1,0 +1,76 @@
+JXRDECAPP(1)                     User Commands                    JXRDECAPP(1)
+
+NAME
+       JxrDecApp - JPEG XR Decoder Utility
+
+DESCRIPTION
+       JPEG  XR  Decoder  Utility  Copyright  2013 Microsoft Corporation - All
+       Rights Reserved
+
+       ./debian/tmp/usr/bin/JxrDecApp [options]...
+
+       -i input.jxr/wdp
+              Input JPEG XR/HD Photo file name
+
+       -o output.bmp/pnm/tif/jxr
+              Output image file name bmp: <=8bpc, BGR pnm:  >=8bpc,  RGB  tif:
+              >=8bpc, RGB jxr: for compressed domain transcode
+
+       -c format
+              Specifies  the  uncompressed  output format 0: 24bppBGR 1: 1bpp‐
+              BlackWhite 2: 8bppGray 3: 16bppGray  4:  16bppGrayFixedPoint  5:
+              16bppGrayHalf  7: 32bppGrayFixedPoint 8: 32bppGrayFloat 9: 24bp‐
+              pRGB
+
+       10: 48bppRGB
+              11: 48bppRGBFixedPoint 12: 48bppRGBHalf  14:  96bppRGBFixedPoint
+              15: 128bppRGBFloat 16: 32bppRGBE 17: 32bppCMYK 18: 64bppCMYK 22:
+              32bppBGRA 23: 64bppRGBA 24: 64bppRGBAFixedPoint  25:  64bppRGBA‐
+              Half  27:  128bppRGBAFixedPoint  28:  128bppRGBAFloat 29: 16bpp‐
+              BGR555 30: 16bppBGR565 31:  32bppBGR101010  32:  40bppCMYKA  33:
+              80bppCMYKA 34: 32bppBGR
+
+       -r top left height width
+              Specifies the rectangle for region decode
+
+       -T m   Reduced  resolution (mipmap) decode 0: Full resolution (default)
+              1: 1/2 res (down-sampled from full res) 2: 1/4 res  (native  de‐
+              code) 3: 1/8 res (down-sampled from 1/4 res) 4: 1/16 res (native
+              decode)
+
+              >4: 1/(2^m) res (down-sampled from 1/16 res)
+
+       -O orientation
+              0: No transformation (default) 1: Flip vertically 2: Flip  hori‐
+              zontally  3: Flip vertically & horizontally 4: Rotate 90 degrees
+              CW 5: Rotate 90 degrees CW & flip vertically 6:  Rotate  90  de‐
+              grees CW & flip horizontally 7: Rotate 90 degrees CW & flip vert
+              & horiz
+
+       -s skip subbands
+              Used for compressed domain transcoding 0: All subbands  included
+              (default)  1:  Skip flexbits 2: Skip highpass 3: Skip highpass &
+              lowpass (DC only)
+
+       -a alpha decode
+              0: Decode without alpha channel 1: Decode only alpha channel  2:
+              Decode image & alpha (default)
+
+       -p strength
+              Post  processing  filter  strength 0: None (default) 1: Light 2:
+              Medium 3: Strong 4: Very strong
+
+       -C     Suppress overlapping boundary macro blocks (Used for  compressed
+              domain tile extraction)
+
+       -t     Display timing information
+
+       -v     Display verbose decoder information
+
+       Eg: ./debian/tmp/usr/bin/JxrDecApp -i input.jxr -o output.bmp -c 0
+
+AUTHOR
+       This  manual  page  was written by Mathieu Malaterre <malat@debian.org>
+       for the Debian GNU/Linux system (but may be used by others).
+
+JxrDecApp 1.2~git20170615.f752187January 2022                     JXRDECAPP(1)

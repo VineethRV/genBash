@@ -1,0 +1,6 @@
+RST2LATEX(1)                    text processing                   RST2LATEX(1)
+
+NAME
+       rst2latex - convert reST documents to LaTeX
+
+                                                                  RST2LATEX(1)

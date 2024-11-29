@@ -1,0 +1,83 @@
+DBUS-RUN-SESSION(1)              User Commands             DBUS-RUN-SESSION(1)
+
+NAME
+       dbus-run-session - start a process as a new D-Bus session
+
+SYNOPSIS
+       dbus-run-session [--config-file FILENAME] [--dbus-daemon BINARY] [--]
+                        PROGRAM [ARGUMENTS...]
+
+       dbus-run-session --help
+
+       dbus-run-session --version
+
+DESCRIPTION
+       dbus-run-session is used to start a session bus instance of dbus-daemon
+       from a shell script, and start a specified program in that session. The
+       dbus-daemon will run for as long as the program does, after which it
+       will terminate.
+
+       One use is to run a shell with its own dbus-daemon in a text-mode or
+       SSH session, and have the dbus-daemon terminate automatically on
+       leaving the sub-shell, like this:
+
+       dbus-run-session -- bash
+
+       or to replace the login shell altogether, by combining dbus-run-session
+       with the exec builtin:
+
+       exec dbus-run-session -- bash
+
+       Another use is to run regression tests and similar things in an
+       isolated D-Bus session, to avoid either interfering with the "real"
+       D-Bus session or relying on there already being a D-Bus session active,
+       for instance:
+
+       dbus-run-session -- make check
+
+       or (in automake(1)):
+
+             AM_TESTS_ENVIRONMENT = export MY_DEBUG=all;
+             LOG_COMPILER = dbus-run-session
+             AM_LOG_FLAGS = --
+
+OPTIONS
+       --config-file=FILENAME, --config-file FILENAME
+           Pass --config-file=FILENAME to the bus daemon, instead of passing
+           it the --session argument. See dbus-daemon(1).
+
+       --dbus-daemon=BINARY, --dbus-daemon BINARY
+           Run BINARY as dbus-daemon(1), instead of searching the PATH in the
+           usual way for an executable called dbus-daemon.
+
+       --help
+           Print usage information and exit.
+
+       --version
+           Print the version of dbus-run-session and exit.
+
+EXIT STATUS
+       dbus-run-session exits with the exit status of PROGRAM, 0 if the --help
+       or --version options were used, 127 on an error within dbus-run-session
+       itself, or 128+n if the PROGRAM was killed by signal n.
+
+ENVIRONMENT
+       PATH is searched to find PROGRAM, and (if the --dbus-daemon option is
+       not used or its argument does not contain a / character) to find
+       dbus-daemon.
+
+       The session bus' address is made available to PROGRAM in the
+       environment variable DBUS_SESSION_BUS_ADDRESS.
+
+       The variables DBUS_SESSION_BUS_PID, DBUS_SESSION_BUS_WINDOWID,
+       DBUS_STARTER_BUS_TYPE and DBUS_STARTER_ADDRESS are removed from the
+       environment, if present.
+
+BUGS
+       Please send bug reports to the D-Bus mailing list or bug tracker, see
+       http://www.freedesktop.org/software/dbus/
+
+SEE ALSO
+       dbus-daemon(1), dbus-launch(1)
+
+D-Bus 1.12.20                                              DBUS-RUN-SESSION(1)

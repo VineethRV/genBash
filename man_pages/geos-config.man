@@ -1,0 +1,33 @@
+geos-config(1)                   User Commands                  geos-config(1)
+
+NAME
+       geos-config  -  returns  information about installed GEOS libraries and
+       binaries
+
+SYNOPSIS
+       geos-config [OPTIONS]
+
+DESCRIPTION
+       The geos-config shell script displays configuration information for in‐
+       stalled GEOS libraries and binaries.
+
+OPTIONS
+       --prefix
+              print the prefix used by geos
+
+       --version
+              print the GEOS version
+
+       --libs print the linker flags that are necessary to link to GEOS
+
+       --cflags
+              print the compiler flags that are necessary to compile a plug-in
+
+       --includes
+              show location of C++ header files
+
+       --jtsport
+              show the version of the Java Topology Suite this version of GEOS
+              was ported from
+
+geos-config                    October 25, 2004                 geos-config(1)

@@ -1,0 +1,93 @@
+SYSTEMD-MACHINE-ID-SETUP(1)systemd-machine-id-setupSYSTEMD-MACHINE-ID-SETUP(1)
+
+NAME
+       systemd-machine-id-setup - Initialize the machine ID in /etc/machine-id
+
+SYNOPSIS
+       systemd-machine-id-setup
+
+DESCRIPTION
+       systemd-machine-id-setup may be used by system installer tools to
+       initialize the machine ID stored in /etc/machine-id at install time,
+       with a provisioned or randomly generated ID. See machine-id(5) for more
+       information about this file.
+
+       If the tool is invoked without the --commit switch, /etc/machine-id is
+       initialized with a valid, new machined ID if it is missing or empty.
+       The new machine ID will be acquired in the following fashion:
+
+        1. If a valid D-Bus machine ID is already configured for the system,
+           the D-Bus machine ID is copied and used to initialize the machine
+           ID in /etc/machine-id.
+
+        2. If run inside a KVM virtual machine and a UUID is configured (via
+           the -uuid option), this UUID is used to initialize the machine ID.
+           The caller must ensure that the UUID passed is sufficiently unique
+           and is different for every booted instance of the VM.
+
+        3. Similarly, if run inside a Linux container environment and a UUID
+           is configured for the container, this is used to initialize the
+           machine ID. For details, see the documentation of the Container
+           Interface[1].
+
+        4. Otherwise, a new ID is randomly generated.
+
+       The --commit switch may be used to commit a transient machined ID to
+       disk, making it persistent. For details, see below.
+
+       Use systemd-firstboot(1) to initialize the machine ID on mounted (but
+       not booted) system images.
+
+OPTIONS
+       The following options are understood:
+
+       --root=path
+           Takes a directory path as argument. All paths operated on will be
+           prefixed with the given alternate root path, including the path for
+           /etc/machine-id itself.
+
+       --image=path
+           Takes a path to a device node or regular file as argument. This is
+           similar to --root= as described above, but operates on a disk image
+           instead of a directory tree.
+
+       --commit
+           Commit a transient machine ID to disk. This command may be used to
+           convert a transient machine ID into a persistent one. A transient
+           machine ID file is one that was bind mounted from a memory file
+           system (usually "tmpfs") to /etc/machine-id during the early phase
+           of the boot process. This may happen because /etc/ is initially
+           read-only and was missing a valid machine ID file at that point.
+
+           This command will execute no operation if /etc/machine-id is not
+           mounted from a memory file system, or if /etc/ is read-only. The
+           command will write the current transient machine ID to disk and
+           unmount the /etc/machine-id mount point in a race-free manner to
+           ensure that this file is always valid and accessible for other
+           processes.
+
+           This command is primarily used by the systemd-machine-id-
+           commit.service(8) early boot service.
+
+       --print
+           Print the machine ID generated or committed after the operation is
+           complete.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+SEE ALSO
+       systemd(1), machine-id(5), systemd-machine-id-commit.service(8), dbus-
+       uuidgen(1), systemd-firstboot(1)
+
+NOTES
+        1. Container Interface
+           https://systemd.io/CONTAINER_INTERFACE
+
+systemd 249                                        SYSTEMD-MACHINE-ID-SETUP(1)

@@ -1,0 +1,30 @@
+CLANG-NVLINK-WRAPPER(1)          User Commands         CLANG-NVLINK-WRAPPER(1)
+
+NAME
+       clang-nvlink-wrapper - manual page for clang-nvlink-wrapper 14
+
+DESCRIPTION
+       OVERVIEW:  A  wrapper tool over nvlink program. It transparently passes
+       every input option and objects to nvlink except archive files and  path
+       of  nvlink binary. It reads each input archive file to extract archived
+       cubin files as temporary files.
+
+       USAGE: clang-nvlink-wrapper [options]
+
+       OPTIONS:
+
+       Generic Options:
+
+       --help                 - Display available options  (--help-hidden  for
+              more)
+
+       --help-list               -   Display   list   of   available   options
+              (--help-list-hidden for more)
+
+       --version              - Display the version of this program
+
+       clang-nvlink-wrapper options:
+
+       --nvlink-path=<string> - Path of nvlink binary
+
+clang-nvlink-wrapper 14            July 2023           CLANG-NVLINK-WRAPPER(1)

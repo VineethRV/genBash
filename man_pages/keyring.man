@@ -1,0 +1,43 @@
+KEYRING(1)                  General Commands Manual                 KEYRING(1)
+
+NAME
+       keyring - Python-Keyring command-line utility
+
+SYNOPSIS
+       keyring [get|set|del] SERVICE USERNAME
+
+OPTIONS
+       -h, --help
+              Show the help message and exit.
+
+       -p KEYRING_PATH, --keyring-path=KEYRING_PATH
+              Specify path to the keyring backend to use.
+
+       -b KEYRING_BACKEND, --keyring-backend=KEYRING_BACKEND
+              Specify name of the keyring backend to use.
+
+       --list-backends
+              List the available keyring backends and exit.
+
+       --disable
+              Create a configuration file disabling keyring and exit.
+
+DESCRIPTION
+       keyring provides a way to store, lookup and delete passwords in various
+       backends supported by Python-Keyring.
+
+       Usage example:
+
+       $ keyring set service username
+       Password for 'username' in 'service':
+       $ keyring get service username
+       password
+
+       How the SERVICE and USERNAME parameters  are  handled  depends  on  the
+       backend,  with  the  default  Secret Service backend they are stored as
+       item lookup attributes.
+
+SEE ALSO
+       secret-tool(1)
+
+                                                                    KEYRING(1)

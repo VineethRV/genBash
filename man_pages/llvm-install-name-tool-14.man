@@ -1,0 +1,78 @@
+LLVM-INSTALL-NAME-TOOL(1)            LLVM            LLVM-INSTALL-NAME-TOOL(1)
+
+NAME
+       llvm-install-name-tool  -  LLVM tool for manipulating install-names and
+       rpaths
+
+SYNOPSIS
+       llvm-install-name-tool [options] input
+
+DESCRIPTION
+       llvm-install-name-tool is a tool to manipulate dynamic  shared  library
+       install names and rpaths listed in a Mach-O binary.
+
+       For  most  scenarios, it works as a drop-in replacement for Apple’s in‐
+       stall_name_tool.
+
+OPTIONS
+       At least one of the following options are required,  and  some  options
+       can  be combined with other options. Options -add_rpath, -delete_rpath,
+       and -rpath can be combined in an invocation only if they do  not  share
+       the same <rpath> value.
+
+       -add_rpath <rpath>
+              Add an rpath named <rpath> to the specified binary. Can be spec‐
+              ified multiple times to add multiple rpaths. Throws an error  if
+              <rpath> is already listed in the binary.
+
+       -change <old_install_name> <new_install_name>
+              Change  an install name <old_install_name> to <new_install_name>
+              in the specified binary. Can  be  specified  multiple  times  to
+              change  multiple  dependent shared library install names. Option
+              is ignored if <old_install_name> is not listed in the  specified
+              binary.
+
+       -delete_rpath <rpath>
+              Delete  an rpath named <rpath> from the specified binary. Can be
+              specified multiple times to delete multiple  rpaths.  Throws  an
+              error if <rpath> is not listed in the binary.
+
+       -delete_all_rpaths
+              Deletes all rpaths from the binary.
+
+       --help, -h
+              Print a summary of command line options.
+
+       -id <name>
+              Change shared library’s identification name under LC_ID_DYLIB to
+              <name> in the specified binary.  If  specified  multiple  times,
+              only  the  last -id option is selected. Option is ignored if the
+              specified Mach-O binary is not a dynamic shared library.
+
+       -rpath <old_rpath> <new_rpath>
+              Change an rpath named <old_rpath> to <new_rpath> in  the  speci‐
+              fied  binary. Can be specified multiple times to change multiple
+              rpaths. Throws an error if <old_rpath> is not listed in the  bi‐
+              nary or <new_rpath> is already listed in the binary.
+
+       --version, -V
+              Display the version of the llvm-install-name-tool executable.
+
+EXIT STATUS
+       llvm-install-name-tool  exits  with a non-zero exit code if there is an
+       error.  Otherwise, it exits with code 0.
+
+BUGS
+       To         report         bugs,         please         visit         <‐
+       https://github.com/llvm/llvm-project/labels/tools:llvm-objcopy/strip/>.
+
+SEE ALSO
+       llvm-objcopy(1)
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14         LLVM-INSTALL-NAME-TOOL(1)

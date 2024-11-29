@@ -1,0 +1,37 @@
+SEAHORSE(1)                      User Commands                     SEAHORSE(1)
+
+NAME
+       seahorse - Passwords and Keys
+
+SYNOPSIS
+       seahorse [OPTIONS...] [FILES...]
+
+DESCRIPTION
+       Seahorse is a graphical interface for managing and using encryption
+       keys, passwords and certificates. Currently it supports PGP keys (using
+       GPG/GPGME) and SSH keys. Its goal is to provide an easy to use Key
+       Management Tool, along with an easy to use interface for encryption
+       operations.
+
+OPTIONS
+       -?, --help
+           Prints a short help text and exits.
+
+       --help-all
+           Show all help options
+
+       --help-gtk
+           Show all GTK options
+
+APPLICATION OPTIONS
+       -v, --version
+           Version of this application
+
+       --display=DISPLAY
+           X display to use
+
+BUGS
+       If you find a bug, please report it at
+       https://gitlab.gnome.org/GNOME/seahorse/issues/new.
+
+GNOME                                                              SEAHORSE(1)

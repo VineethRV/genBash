@@ -1,0 +1,18 @@
+node-coveralls(1)            node-coveralls 3.1.1            node-coveralls(1)
+
+NAME
+       node-coveralls - report coverage to coveralls.io service
+
+SYNOPSIS
+       node-coveralls
+
+DESCRIPTION
+       This program takes standard input from any tool that emits the lcov da‐
+       ta format (including mocha's) and send it  to  coveralls.io  to  report
+       your  code coverage there.  Once your app is instrumented for coverage,
+       and building, you need to pipe the lcov output to this command.
+
+SEE ALSO
+       mocha(1)
+
+August 2017                    24 November 2021              node-coveralls(1)

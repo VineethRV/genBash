@@ -1,0 +1,253 @@
+LOCALECTL(1)                       localectl                      LOCALECTL(1)
+
+NAME
+       localectl - Control the system locale and keyboard layout settings
+
+SYNOPSIS
+       localectl [OPTIONS...] {COMMAND}
+
+DESCRIPTION
+       localectl may be used to query and change the system locale and
+       keyboard layout settings. It communicates with systemd-localed(8) to
+       modify files such as /etc/locale.conf and /etc/vconsole.conf.
+
+       The system locale controls the language settings of system services and
+       of the UI before the user logs in, such as the display manager, as well
+       as the default for users after login.
+
+       The keyboard settings control the keyboard layout used on the text
+       console and of the graphical UI before the user logs in, such as the
+       display manager, as well as the default for users after login.
+
+       Note that the changes performed using this tool might require the
+       initramfs to be rebuilt to take effect during early system boot. The
+       initramfs is not rebuilt automatically by localectl.
+
+       Note that systemd-firstboot(1) may be used to initialize the system
+       locale for mounted (but not booted) system images.
+
+COMMANDS
+       The following commands are understood:
+
+       status
+           Show current settings of the system locale and keyboard mapping. If
+           no command is specified, this is the implied default.
+
+       set-locale LOCALE, set-locale VARIABLE=LOCALE...
+           Set the system locale. This takes one locale such as "en_US.UTF-8",
+           or takes one or more locale assignments such as "LANG=de_DE.utf8",
+           "LC_MESSAGES=en_GB.utf8", and so on. If one locale without variable
+           name is provided, then "LANG=" locale variable will be set. See
+           locale(7) for details on the available settings and their meanings.
+           Use list-locales for a list of available locales (see below).
+
+       list-locales
+           List available locales useful for configuration with set-locale.
+
+       set-keymap MAP [TOGGLEMAP]
+           Set the system keyboard mapping for the console and X11. This takes
+           a mapping name (such as "de" or "us"), and possibly a second one to
+           define a toggle keyboard mapping. Unless --no-convert is passed,
+           the selected setting is also applied as the default system keyboard
+           mapping of X11, after converting it to the closest matching X11
+           keyboard mapping. Use list-keymaps for a list of available keyboard
+           mappings (see below).
+
+       list-keymaps
+           List available keyboard mappings for the console, useful for
+           configuration with set-keymap.
+
+       set-x11-keymap LAYOUT [MODEL [VARIANT [OPTIONS]]]
+           Set the system default keyboard mapping for X11 and the virtual
+           console. This takes a keyboard mapping name (such as "de" or "us"),
+           and possibly a model, variant, and options, see kbd(4) for details.
+           Unless --no-convert is passed, the selected setting is also applied
+           as the system console keyboard mapping, after converting it to the
+           closest matching console keyboard mapping.
+
+       list-x11-keymap-models, list-x11-keymap-layouts,
+       list-x11-keymap-variants [LAYOUT], list-x11-keymap-options
+           List available X11 keymap models, layouts, variants and options,
+           useful for configuration with set-keymap. The command
+           list-x11-keymap-variants optionally takes a layout parameter to
+           limit the output to the variants suitable for the specific layout.
+
+OPTIONS
+       The following options are understood:
+
+       --no-ask-password
+           Do not query the user for authentication for privileged operations.
+
+       --no-convert
+           If set-keymap or set-x11-keymap is invoked and this option is
+           passed, then the keymap will not be converted from the console to
+           X11, or X11 to console, respectively.
+
+       -H, --host=
+           Execute the operation remotely. Specify a hostname, or a username
+           and hostname separated by "@", to connect to. The hostname may
+           optionally be suffixed by a port ssh is listening on, separated by
+           ":", and then a container name, separated by "/", which connects
+           directly to a specific container on the specified host. This will
+           use SSH to talk to the remote machine manager instance. Container
+           names may be enumerated with machinectl -H HOST. Put IPv6 addresses
+           in brackets.
+
+       -M, --machine=
+           Execute operation on a local container. Specify a container name to
+           connect to, optionally prefixed by a user name to connect as and a
+           separating "@" character. If the special string ".host" is used in
+           place of the container name, a connection to the local system is
+           made (which is useful to connect to a specific user's user bus:
+           "--user --machine=lennart@.host"). If the "@" syntax is not used,
+           the connection is made as root user. If the "@" syntax is used
+           either the left hand side or the right hand side may be omitted
+           (but not both) in which case the local user name and ".host" are
+           implied.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       --no-pager
+           Do not pipe output into a pager.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+ENVIRONMENT
+       $SYSTEMD_LOG_LEVEL
+           The maximum log level of emitted messages (messages with a higher
+           log level, i.e. less important ones, will be suppressed). Either
+           one of (in order of decreasing importance) emerg, alert, crit, err,
+           warning, notice, info, debug, or an integer in the range 0...7. See
+           syslog(3) for more information.
+
+       $SYSTEMD_LOG_COLOR
+           A boolean. If true, messages written to the tty will be colored
+           according to priority.
+
+           This setting is only useful when messages are written directly to
+           the terminal, because journalctl(1) and other tools that display
+           logs will color messages based on the log level on their own.
+
+       $SYSTEMD_LOG_TIME
+           A boolean. If true, console log messages will be prefixed with a
+           timestamp.
+
+           This setting is only useful when messages are written directly to
+           the terminal or a file, because journalctl(1) and other tools that
+           display logs will attach timestamps based on the entry metadata on
+           their own.
+
+       $SYSTEMD_LOG_LOCATION
+           A boolean. If true, messages will be prefixed with a filename and
+           line number in the source code where the message originates.
+
+           Note that the log location is often attached as metadata to journal
+           entries anyway. Including it directly in the message text can
+           nevertheless be convenient when debugging programs.
+
+       $SYSTEMD_LOG_TID
+           A boolean. If true, messages will be prefixed with the current
+           numerical thread ID (TID).
+
+           Note that the this information is attached as metadata to journal
+           entries anyway. Including it directly in the message text can
+           nevertheless be convenient when debugging programs.
+
+       $SYSTEMD_LOG_TARGET
+           The destination for log messages. One of console (log to the
+           attached tty), console-prefixed (log to the attached tty but with
+           prefixes encoding the log level and "facility", see syslog(3), kmsg
+           (log to the kernel circular log buffer), journal (log to the
+           journal), journal-or-kmsg (log to the journal if available, and to
+           kmsg otherwise), auto (determine the appropriate log target
+           automatically, the default), null (disable log output).
+
+       $SYSTEMD_PAGER
+           Pager to use when --no-pager is not given; overrides $PAGER. If
+           neither $SYSTEMD_PAGER nor $PAGER are set, a set of well-known
+           pager implementations are tried in turn, including less(1) and
+           more(1), until one is found. If no pager implementation is
+           discovered no pager is invoked. Setting this environment variable
+           to an empty string or the value "cat" is equivalent to passing
+           --no-pager.
+
+       $SYSTEMD_LESS
+           Override the options passed to less (by default "FRSXMK").
+
+           Users might want to change two options in particular:
+
+           K
+               This option instructs the pager to exit immediately when Ctrl+C
+               is pressed. To allow less to handle Ctrl+C itself to switch
+               back to the pager command prompt, unset this option.
+
+               If the value of $SYSTEMD_LESS does not include "K", and the
+               pager that is invoked is less, Ctrl+C will be ignored by the
+               executable, and needs to be handled by the pager.
+
+           X
+               This option instructs the pager to not send termcap
+               initialization and deinitialization strings to the terminal. It
+               is set by default to allow command output to remain visible in
+               the terminal even after the pager exits. Nevertheless, this
+               prevents some pager functionality from working, in particular
+               paged output cannot be scrolled with the mouse.
+
+           See less(1) for more discussion.
+
+       $SYSTEMD_LESSCHARSET
+           Override the charset passed to less (by default "utf-8", if the
+           invoking terminal is determined to be UTF-8 compatible).
+
+       $SYSTEMD_PAGERSECURE
+           Takes a boolean argument. When true, the "secure" mode of the pager
+           is enabled; if false, disabled. If $SYSTEMD_PAGERSECURE is not set
+           at all, secure mode is enabled if the effective UID is not the same
+           as the owner of the login session, see geteuid(2) and
+           sd_pid_get_owner_uid(3). In secure mode, LESSSECURE=1 will be set
+           when invoking the pager, and the pager shall disable commands that
+           open or create new files or start new subprocesses. When
+           $SYSTEMD_PAGERSECURE is not set at all, pagers which are not known
+           to implement secure mode will not be used. (Currently only less(1)
+           implements secure mode.)
+
+           Note: when commands are invoked with elevated privileges, for
+           example under sudo(8) or pkexec(1), care must be taken to ensure
+           that unintended interactive features are not enabled. "Secure" mode
+           for the pager may be enabled automatically as describe above.
+           Setting SYSTEMD_PAGERSECURE=0 or not removing it from the inherited
+           environment allows the user to invoke arbitrary commands. Note that
+           if the $SYSTEMD_PAGER or $PAGER variables are to be honoured,
+           $SYSTEMD_PAGERSECURE must be set too. It might be reasonable to
+           completely disable the pager using --no-pager instead.
+
+       $SYSTEMD_COLORS
+           Takes a boolean argument. When true, systemd and related utilities
+           will use colors in their output, otherwise the output will be
+           monochrome. Additionally, the variable can take one of the
+           following special values: "16", "256" to restrict the use of colors
+           to the base 16 or 256 ANSI colors, respectively. This can be
+           specified to override the automatic decision based on $TERM and
+           what the console is connected to.
+
+       $SYSTEMD_URLIFY
+           The value must be a boolean. Controls whether clickable links
+           should be generated in the output for terminal emulators supporting
+           this. This can be specified to override the decision that systemd
+           makes based on $TERM and other conditions.
+
+SEE ALSO
+       systemd(1), locale(7), locale.conf(5), vconsole.conf(5), loadkeys(1),
+       kbd(4), The XKB Configuration Guide[1], systemctl(1), systemd-
+       localed.service(8), systemd-firstboot(1), mkinitrd(8)
+
+NOTES
+        1. The XKB Configuration Guide
+           http://www.x.org/releases/current/doc/xorg-docs/input/XKB-Config.html
+
+systemd 249                                                       LOCALECTL(1)

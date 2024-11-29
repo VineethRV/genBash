@@ -1,0 +1,84 @@
+PPPOE-DISCOVERY(8)          System Manager's Manual         PPPOE-DISCOVERY(8)
+
+NAME
+       pppoe-discovery - perform PPPoE discovery
+
+SYNOPSIS
+       pppoe-discovery [ options ]
+       pppoe-discovery { -V | -h }
+
+DESCRIPTION
+       pppoe-discovery  performs the same discovery process as pppoe, but does
+       not initiate a session.  It sends a PADI packet  and  then  prints  the
+       names of access concentrators in each PADO packet it receives.
+
+OPTIONS
+       -I interface
+              The  -I  option  specifies the Ethernet interface to use.  Under
+              Linux, it is typically eth0 or eth1.  The  interface  should  be
+              “up” before you start pppoe-discovery, but should not be config‐
+              ured to have an IP address.  The default interface is eth0.
+
+       -D file_name
+              The -D option causes every packet to be dumped to the  specified
+              file_name.  This is intended for debugging only.
+
+       -U
+              Causes pppoe-discovery to use the Host-Uniq tag in its discovery
+              packets. The value of the tag is derived from the process's  PID
+              number.  This lets you run multiple instances of pppoe-discovery
+              and/or pppd without having  their  discovery  packets  interfere
+              with  one another.  You must supply this option to all instances
+              that you intend to run simultaneously.  This option is  mutually
+              exclusive with -W.
+
+       -W value
+              Causes pppoe-discovery to use the Host-Uniq tag in its discovery
+              packets. The value of the tag is taken from the option argument,
+              encoded  as  a  string of hexadecimal digits.  This lets you run
+              multiple instances of pppoe-discovery and/or pppd without having
+              their  discovery  packets  interfere with one another.  You must
+              supply this option to all instances that you intend to  run  si‐
+              multaneously.  This option is mutually exclusive with -U.
+
+       -S service_name
+              Specifies  the  desired service name.  pppoe-discovery will only
+              accept access concentrators which can provide the specified ser‐
+              vice.   In  most cases, you should not specify this option.  Use
+              it only if you know that there are multiple access concentrators
+              or know that you need a specific service name.
+
+       -C ac_name
+              Specifies the desired access concentrator name.  pppoe-discovery
+              will only accept the specified  access  concentrator.   In  most
+              cases,  you  should not specify this option.  Use it only if you
+              know that there are multiple access concentrators.  If both  the
+              -S and -C options are specified, they must both match.
+
+       -Q
+              Causes  pppoe-discovery to avoid printing discovered access con‐
+              centrator names.  This can be useful in scripts, which  can  use
+              the  exit  code of the program to determine whether any matching
+              access concentrators were discovered.
+
+       -t timeout
+              Changes the discovery timeout for  PADI  requests,  in  seconds.
+              The default value is 5 seconds.
+
+       -a attempts
+              Changes the number of PADI discovery attempts made.  By default,
+              3 attempts are made to discover access concentrators before giv‐
+              ing up.
+
+       -V | -h
+              Either of these options causes pppoe-discovery to print its ver‐
+              sion number and usage information, then exit.
+
+AUTHORS
+       pppoe-discovery was written by Marco d'Itri <md@linux.it>, based on pp‐
+       poe by David F. Skoll <dfs@roaringpenguin.com>.
+
+SEE ALSO
+       pppoe(8), pppoe-sniff(8)
+
+                                12 January 2019             PPPOE-DISCOVERY(8)

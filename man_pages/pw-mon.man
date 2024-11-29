@@ -1,0 +1,35 @@
+PW-MON(1)                   General Commands Manual                  PW-MON(1)
+
+NAME
+       pw-mon - The PipeWire monitor
+
+SYNOPSIS
+       pw-mon [options]
+
+DESCRIPTION
+       Monitor objects on the PipeWire instance.
+
+OPTIONS
+       -r | --remote=NAME
+              The  name the remote instance to monitor. If left unspecified, a
+              connection is made to the default PipeWire instance.
+
+       -h | --help
+              Show help.
+
+       --version
+              Show version information.
+
+       -N | --color=WHEN
+              Whether to use color, one of 'never', 'always', or  'auto'.  The
+              default is 'auto'. -N is equivalent to --color=never.
+
+AUTHORS
+       The                PipeWire                Developers                <‐
+       https://gitlab.freedesktop.org/pipewire/pipewire/issues>;  PipeWire  is
+       available from https://pipewire.org
+
+SEE ALSO
+       pipewire(1),
+
+                                                                     PW-MON(1)

@@ -1,0 +1,53 @@
+CLANG-RENAME(1)                  User Commands                 CLANG-RENAME(1)
+
+NAME
+       clang-rename - manual page for clang-rename 14
+
+DESCRIPTION
+       USAGE: clang-rename [options] <source0> [... <sourceN>]
+
+       OPTIONS:
+
+       Generic Options:
+
+       --help                       - Display available options (--help-hidden
+              for more)
+
+       --help-list                  -  Display  list  of   available   options
+              (--help-list-hidden for more)
+
+       --version                   - Display the version of this program
+
+       clang-rename common options:
+
+       --export-fixes=<filename>   - YAML file to store suggested fixes in.
+
+       --extra-arg=<string>        - Additional argument to append to the com‐
+              piler command line
+
+       --extra-arg-before=<string> - Additional argument  to  prepend  to  the
+              compiler command line
+
+       --force                     - Ignore nonexistent qualified names.
+
+       -i                          - Overwrite edited <file>s.
+
+       --input=<string>             -  YAML file to load oldname-newname pairs
+              from.
+
+       --new-name=<string>         - The new name to change the symbol to.
+
+       --offset=<uint>             - Locates the symbol by offset  as  opposed
+              to <line>:<column>.
+
+       -p=<string>                 - Build path
+
+       --pl                         - Print the locations affected by renaming
+              to stderr.
+
+       --pn                        - Print the found symbol's  name  prior  to
+              renaming to stderr.
+
+       --qualified-name=<string>   - The fully qualified name of the symbol.
+
+clang-rename 14                    July 2023                   CLANG-RENAME(1)

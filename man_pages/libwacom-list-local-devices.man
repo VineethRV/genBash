@@ -1,0 +1,37 @@
+libwacom-list-local-devices(General Commands Manlibwacom-list-local-devices(1)
+
+NAME
+       libwacom-list-local-devices - utility to list tablet devices
+
+SYNOPSIS
+       libwacom-list-local-devices   [--format=oneline|datafile]   [--database
+       /path/to/datadir]
+
+DESCRIPTION
+       libwacom-list-local-devices is a debug utility to list connected tablet
+       devices  identified  by libwacom. It is usually used to check whether a
+       libwacom data file is correct, present and/or applies to a specific de‐
+       vice.
+
+OPTIONS
+       --format=oneline|datafile
+               Sets  the output format to be used. If oneline, the output for‐
+               mat is a one-line format comprising the  device  name  and  the
+               event nodes.  If datafile, the output format matches the tablet
+               data files. The default is oneline.
+
+       --database /path/do/datadir
+               Sets the data directory path to be used. This  is  only  useful
+               when testing against a modified data path. Only libwacom devel‐
+               opers need this option.
+
+NOTES
+       The Linux kernel provides separate /dev/input/event* nodes for the sty‐
+       lus,  the pad and the touch part of the tablet. These devices nodes are
+       listed as part of this tool's output.
+
+       This tool is unable to distinguish between multiple identical  devices.
+       Only  one such device will be listed, with all event nodes from all de‐
+       vices that are of the same type.
+
+                                                libwacom-list-local-devices(1)

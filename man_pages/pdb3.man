@@ -1,0 +1,19 @@
+PDB3.10(1)                  General Commands Manual                 PDB3.10(1)
+
+NAME
+       pdb3.10 - the Python debugger
+
+SYNOPSIS
+       pdb3.10 script [...]
+
+DESCRIPTION
+       See  the  chapter "The Python Debugger" in the Python Library Reference
+       for more information on the use of pdb.  When the debugger is  started,
+       help is available via the help command.
+
+SEE ALSO
+       python3.10(1). Chapter "The Python Debugger" of the Python Library Ref‐
+       erence.    Available    in    the     python3.10-doc     package     at
+       /usr/share/doc/python3.10/html/library/pdb.html.
+
+                                                                    PDB3.10(1)

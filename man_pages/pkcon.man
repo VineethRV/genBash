@@ -1,0 +1,225 @@
+PKCON(1)                         User Commands                        PKCON(1)
+
+NAME
+       pkcon - PackageKit console client
+
+SYNOPSIS
+       pkcon [OPTION...] [COMMAND]
+
+DESCRIPTION
+       This manual page documents briefly the pkcon command.
+
+       pkcon is the command line client for PackageKit.
+
+COMMANDS
+       pkcon knows about the following commands. Depending on the backend in
+       use, not all of them may be available.
+
+       backend-details
+           Print information about the PackageKit backend in use.
+
+       get-roles
+           List the roles that a transaction can have.
+
+       get-groups
+           List the available package groups.
+
+       get-filters
+           List the available filters.
+
+       get-transactions
+           List known transactions.
+
+       get-time ROLE
+           Print the time that has passed since the last transaction with the
+           given role.
+
+       search [name|details|group|file] DATA
+           Search for a package matching the given data. The search is
+           performed in the package information that is indicated by the first
+           argument: name, details, group or files.
+
+       install PACKAGES
+           Install the given packages from repositories.
+
+       install-local FILES
+           Install the given packages from the local filesystem.
+
+       download DIRECTORY PACKAGES
+           Download the given packages from repositories, and store them in
+           the given directory.
+
+       install-sig TYPE KEY_ID PACKAGE
+           Install a package signature. Only GPG signatures are supported at
+           this time.
+
+       remove PACKAGE
+           Remove the given package.
+
+       update [PACKAGES]
+           Update the system by installing available updates. If a list of
+           packages is specified, only install updates for these packages.
+
+       refresh [force]
+           Refresh the cached information about available updates.
+
+       resolve PACKAGE
+           Resolve the given package name and print information about
+           installed or available packages and updates.
+
+       upgrade-system DISTRIBUTION [minimal|default|complete]
+           Upgrade the system to the given distribution.
+
+       get-updates
+           List available updates.
+
+       get-distro-upgrades
+           List available distribution upgrades.
+
+       depends-on PACKAGE
+           List dependencies fo the given package.
+
+       required-by PACKAGE
+           List packages that require the given package.
+
+       get-details PACKAGE
+           Print details about the available or installed package with the
+           given name.
+
+       get-details-local FILE
+           Print details about the local package.
+
+       get-files PACKAGE
+           List the files contained in the given package.
+
+       get-files-local FILE
+           List the files contained in the local package.
+
+       get-update-detail PACKAGE
+           Print the package changelog for the given package.
+
+       get-packages
+           List all available and installed packages.
+
+       repo-list
+           List all configured package repositories.
+
+       repo-enable REPOSITORY
+           Enable the given repository.
+
+       repo-disable REPOSITORY
+           Disable the given repository.
+
+       repo-set-data REPOSITORY PARAMETER DATA
+           Set the given parameter to the given value for the repository.
+
+       repo-remove REPOSITORY PARAMETER
+           Removes the repository and optionally any packages installed from
+           it.
+
+       what-provides STRING
+           List packages that provide the given string.
+
+       accept-eula EULA_ID
+           Accept the EULA with the given id.
+
+       get-categories
+           List available categories.
+
+       repair
+           Attempt to repair the system package database.
+
+       offline-get-prepared
+           Print information about the prepared offline update. If no offline
+           update is prepared, exit with an exit code of 1.
+
+       offline-trigger
+           Trigger an offline update.
+
+       offline-status
+           Print information about the result of the last offline update.
+
+OPTIONS
+       The following options can be used to influence the behavior of pkcon.
+
+       --version
+           Print the program version and exit.
+
+       -h, --help
+           Show help options.
+
+       --help-all
+           Show all help options.
+
+       --filter FILTER
+           Set the filter to use.
+
+       -y, --noninteractive
+           Install packages without asking for confirmation.
+
+       --only-download
+           Prepare the transaction by downloading packages only.
+
+       -n, --background
+           Run the command using idle network bandwidth and also using less
+           power.
+
+       -p, --plain
+           Print to screen a machine-readable output, rather than using
+           animated widgets.
+
+       -v, --verbose
+           Show debugging information.
+
+       -c, --cache-age AGE
+           Set the maximum acceptable age for cached metadata, in seconds. Use
+           -1 for 'never'.
+
+       --allow-untrusted
+           Allow untrusted packages to be installed.
+
+       --allow-downgrade
+           Allow packages to be downgraded during transaction.
+
+       --allow-reinstall
+           Allow packages to be reinstalled during transaction.
+
+RETURN VALUES
+       0
+           Success
+
+       1
+           Failed with miscellaneous internal error.
+
+       3
+           Failed with syntax error, or failed to parse command.
+
+       4
+           Failed as a file or directory was not found.
+
+       5
+           Nothing useful was done.
+
+       6
+           The initial setup failed, e.g. setting the network proxy.
+
+       7
+           The transaction failed, see the detailed error for more
+           information.
+
+SEE ALSO
+       pkmon (1).
+
+       The programs are documented fully on http://www.packagekit.org.
+
+AUTHOR
+       This manual page was written by Richard Hughes <richard@hughsie.com>.
+
+AUTHOR
+       Richard Hughes
+           Author.
+
+COPYRIGHT
+       Copyright © 2007 - 2013 Richard Hughes
+
+PackageKit                       July 29, 2013                        PKCON(1)

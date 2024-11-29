@@ -1,0 +1,42 @@
+KBD_MODE(1)                 General Commands Manual                KBD_MODE(1)
+
+NAME
+       kbd_mode - report or set the keyboard mode
+
+SYNOPSIS
+       kbd_mode [ -a | -u | -k | -s ] [ -f ] [ -C CONSOLE ]
+
+DESCRIPTION
+       Without argument, kbd_mode prints the current keyboard mode (RAW, MEDI‐
+       UMRAW or XLATE).  With argument, it sets the  keyboard  mode  as  indi‐
+       cated:
+
+       -s: scancode mode (RAW),
+
+       -k: keycode mode (MEDIUMRAW),
+
+       -a: ASCII mode (XLATE),
+
+       -u: UTF-8 mode (UNICODE).
+
+       Of  course  the  "-a" is only traditional, and the code used can be any
+       8-bit character set.  With "-u" a 16-bit character set is expected, and
+       these  chars are transmitted to the kernel as 1, 2, or 3 bytes (follow‐
+       ing the UTF-8 coding).  In these latter two modes the key  mapping  de‐
+       fined by loadkeys(1) is used.
+
+       kbd_mode operates on the console specified by the "-C" option; if there
+       is none, the console associated with stdin is used.
+
+       Warning: changing the keyboard mode, other than between ASCII and  Uni‐
+       code, will probably make your keyboard unusable. Set the "-f" option to
+       force such changes.  This command is only meant for use (say via remote
+       login)  when  some program left your keyboard in the wrong state.  Note
+       that in some obsolete versions of this program the "-u"  option  was  a
+       synonym  for  "-s" and older versions of this program may not recognize
+       the "-f" option.
+
+SEE ALSO
+       loadkeys(1)
+
+kbd                               6 Apr 1994                       KBD_MODE(1)

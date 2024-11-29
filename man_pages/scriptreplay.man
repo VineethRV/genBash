@@ -1,0 +1,127 @@
+SCRIPTREPLAY(1)                  User Commands                 SCRIPTREPLAY(1)
+
+NAME
+       scriptreplay - play back typescripts, using timing information
+
+SYNOPSIS
+       scriptreplay [options] [-t] timingfile [typescript [divisor]]
+
+DESCRIPTION
+       This program replays a typescript, using timing information to ensure
+       that output happens in the same rhythm as it originally appeared when
+       the script was recorded.
+
+       The replay simply displays the information again; the programs that
+       were run when the typescript was being recorded are not run again.
+       Since the same information is simply being displayed, scriptreplay is
+       only guaranteed to work properly if run on the same type of terminal
+       the typescript was recorded on. Otherwise, any escape characters in the
+       typescript may be interpreted differently by the terminal to which
+       scriptreplay is sending its output.
+
+       The timing information is what script(1) outputs to file specified by
+       --log-timing.
+
+       By default, the typescript to display is assumed to be named
+       typescript, but other filenames may be specified, as the second
+       parameter or with option --log-out.
+
+       If the third parameter or --divisor is specified, it is used as a
+       speed-up multiplier. For example, a speed-up of 2 makes scriptreplay go
+       twice as fast, and a speed-up of 0.1 makes it go ten times slower than
+       the original session.
+
+OPTIONS
+       -I, --log-in file
+           File containing script's terminal input.
+
+       -O, --log-out file
+           File containing script's terminal output.
+
+       -B, --log-io file
+           File containing script's terminal output and input.
+
+       -t, --timing file
+           File containing script's timing output. This option overrides
+           old-style arguments.
+
+       -T, --log-timing file
+           This is an alias for -t, maintained for compatibility with
+           script(1) command-line options.
+
+       -s, --typescript file
+           File containing script's terminal output. Deprecated alias to
+           --log-out. This option overrides old-style arguments.
+
+       -c, --cr-mode mode
+           Specifies how to use the CR (0x0D, carriage return) character from
+           log files. The default mode is auto, in this case CR is replaced
+           with line break for stdin log, because otherwise scriptreplay would
+           overwrite the same line. The other modes are never and always.
+
+       -d, --divisor number
+           Speed up the replay displaying this number of times. The argument
+           is a floating-point number. It’s called divisor because it divides
+           the timings by this factor. This option overrides old-style
+           arguments.
+
+       -m, --maxdelay number
+           Set the maximum delay between updates to number of seconds. The
+           argument is a floating-point number. This can be used to avoid long
+           pauses in the typescript replay.
+
+       --summary
+           Display details about the session recorded in the specified timing
+           file and exit. The session has to be recorded using advanced format
+           (see script(1)) option --logging-format for more details).
+
+       -x, --stream type
+           Forces scriptreplay to print only the specified stream. The
+           supported stream types are in, out, signal, or info. This option is
+           recommended for multi-stream logs (e.g., --log-io) in order to
+           print only specified data.
+
+       -V, --version
+           Display version information and exit.
+
+       -h, --help
+           Display help text and exit.
+
+EXAMPLES
+           % script --log-timing file.tm --log-out script.out
+           Script started, file is script.out
+           % ls
+           <etc, etc>
+           % exit
+           Script done, file is script.out
+           % scriptreplay --log-timing file.tm --log-out script.out
+
+AUTHORS
+       The original scriptreplay program was written by Joey Hess
+       <joey@kitenet.net>. The program was re-written in C by James Youngman
+       <jay@gnu.org> and Karel Zak <kzak@redhat.com>
+
+COPYRIGHT
+       Copyright © 2008 James Youngman
+
+       Copyright © 2008-2019 Karel Zak
+
+       This is free software; see the source for copying conditions. There is
+       NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+       Released under the GNU General Public License version 2 or later.
+
+SEE ALSO
+       script(1), scriptlive(1)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at
+       https://github.com/karelzak/util-linux/issues.
+
+AVAILABILITY
+       The scriptreplay command is part of the util-linux package which can be
+       downloaded from Linux Kernel Archive
+       <https://www.kernel.org/pub/linux/utils/util-linux/>.
+
+util-linux 2.37.2                 2021-07-20                   SCRIPTREPLAY(1)

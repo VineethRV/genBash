@@ -1,0 +1,61 @@
+FINCORE(1)                       User Commands                      FINCORE(1)
+
+NAME
+       fincore - count pages of file contents in core
+
+SYNOPSIS
+       fincore [options] file...
+
+DESCRIPTION
+       fincore counts pages of file contents being resident in memory (in
+       core), and reports the numbers. If an error occurs during counting,
+       then an error message is printed to the stderr and fincore continues
+       processing the rest of files listed in a command line.
+
+       The default output is subject to change. So whenever possible, you
+       should avoid using default outputs in your scripts. Always explicitly
+       define expected columns by using --output columns-list in environments
+       where a stable output is required.
+
+OPTIONS
+       -n, --noheadings
+           Do not print a header line in status output.
+
+       -b, --bytes
+           Print the SIZE column in bytes rather than in a human-readable
+           format.
+
+       -o, --output list
+           Define output columns. See the --help output to get a list of the
+           currently supported columns. The default list of columns may be
+           extended if list is specified in the format +list.
+
+       -r, --raw
+           Produce output in raw format. All potentially unsafe characters are
+           hex-escaped (\x<code>).
+
+       -J, --json
+           Use JSON output format.
+
+       -V, --version
+           Display version information and exit.
+
+       -h, --help
+           Display help text and exit.
+
+AUTHORS
+       Masatake YAMATO <yamato@redhat.com>
+
+SEE ALSO
+       mincore(2), getpagesize(2), getconf(1p)
+
+REPORTING BUGS
+       For bug reports, use the issue tracker at
+       https://github.com/karelzak/util-linux/issues.
+
+AVAILABILITY
+       The fincore command is part of the util-linux package which can be
+       downloaded from Linux Kernel Archive
+       <https://www.kernel.org/pub/linux/utils/util-linux/>.
+
+util-linux 2.37.2                 2021-06-02                        FINCORE(1)

@@ -1,0 +1,7 @@
+MAKECONV(1)                     ICU 70.1 Manual                    MAKECONV(1)
+
+NAME
+       icuexportdata  -  Writes  text  files with Unicode properties data from
+       ICU.
+
+ICU MANPAGE                      12 June 2021                      MAKECONV(1)

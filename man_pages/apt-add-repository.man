@@ -1,0 +1,216 @@
+add-apt-repository(1)       General Commands Manual      add-apt-repository(1)
+
+NAME
+       add-apt-repository  -  Adds a repository into the /etc/apt/sources.list
+       or /etc/apt/sources.list.d or removes an existing one
+
+SYNOPSIS
+       add-apt-repository [OPTIONS] [LINE]
+
+DESCRIPTION
+       add-apt-repository is a script which adds an external APT repository to
+       either  /etc/apt/sources.list  or a file in /etc/apt/sources.list.d/ or
+       removes an already existing repository.
+
+OPTIONS
+       Note that the --list, --ppa, --cloud, --uri,  --sourceslist,  and  LINE
+       parameters  are  mutually  exclusive; only one (or none) of them may be
+       specified.
+
+       -h, --help
+              Show help message and exit.
+
+       -d, --debug
+              Print debug information to the command line.
+
+       -r, --remove
+              Remove the specified repository.
+
+              This first will disable (comment out) the matching line(s),  and
+              then  any modified file(s) under sources.list.d/ will be removed
+              if they contain only empty and commented lines.
+
+              Note that this performs differently when used with the --enable-
+              source  and/or  --component parameters.  Without either of those
+              parameters, this removes the specified repository, including any
+              deb-src  line(s),  and  all  components.   If --enable-source is
+              used, this disables only the 'deb-src' line(s).  If  --component
+              is  used, this removes only the specified component(s), and only
+              removes the repository if no components remain.
+
+              If both --enable-source and --component are used with  --remove,
+              the actions are performed separately: the specified component(s)
+              will be removed from both deb and  deb-src  lines,  and  deb-src
+              lines will be disabled.
+
+       -y, --yes
+              Assume yes to all queries.
+
+       -n, --no-update
+              After adding the repository, do not update the package cache.
+
+       -l, --login
+              Login to Launchpad (this is only needed for private PPAs).
+
+       -s, --enable-source
+              Allow downloading of the source packages from the repository.
+
+              This adds and enables a 'deb-src' line for the repository.
+
+              If this parameter is used without any repository, it will enable
+              all currently existing disabled source repository (deb-src)  en‐
+              tries  that have a corresponding enabled binary repository (deb)
+              entry.
+
+              If this parameter is used twice without any repository, it  will
+              also  add missing source repository entries for all existing bi‐
+              nary repository (deb) entries.
+
+       -c, --component
+              Which component(s) should be used with the specified repository.
+
+              If not specified, this will default to main.  This may  be  used
+              multiple times to specify multiple components.
+
+              If  this  is used without any repository, it will add the compo‐
+              nent(s) to all currently existing  (enabled)  repositories,  but
+              only if listed in the main sources.list file.
+
+       -p, --pocket
+              What pocket to use.
+
+              Defaults to none, which is equivalent to the release pocket.
+
+              If  this  is used without any repository, it will add the pocket
+              to all currently existing repositories, but only  if  listed  in
+              the main sources.list file. It will use the components currently
+              configured with the release pocket, or if that is not  currently
+              configured, it will use the main and restricted components.
+
+       --dry-run
+              Show what would be done, but don't make any changes.
+
+       -L, --list
+              List currently configured repositories.
+
+              This  will only list enabled repositories; it will not show dis‐
+              abled repository lines.
+
+              By default, this shows only binary (deb) repositories.  If --en‐
+              able-source  is  also used, this will also show source (deb-src)
+              repositories.
+
+       -P, --ppa
+              Add an Ubuntu Launchpad Personal Package Archive.
+
+              Must be in the format ppa:USER/PPA, USER/PPA, or USER.
+
+              The USER parameter should be the Launchpad team or  person  that
+              owns  the PPA.  The PPA parameter should be the name of the PPA;
+              if not provided, it defaults to 'ppa'.
+
+              The GPG public key of the PPA will also be downloaded and  added
+              to apt's keyring.
+
+              To  add  a private PPA, you must also use the --login parameter,
+              and of course you must also be subscribed to the private PPA.
+
+       -C, --cloud
+              Add an Ubuntu Cloud Archive.
+
+              Must be  in  the  format  cloud-archive:CANAME,  uca:CANAME,  or
+              CANAME.
+
+              The  CANAME  parameter  should be the name of the Cloud Archive.
+              The CANAME parameter may optionally be suffixed with the pocket,
+              as  either  -updates or -proposed.  If not specified, the pocket
+              defaults to -updates.
+
+       -U, --uri
+              Add an archive, specified as a single URI.
+
+              If the URI provided is detected to be a PPA, this  will  operate
+              as if the --ppa parameter was used.
+
+       -S, --sourceslist
+              Add  an  archive,  specified as a full source entry line in one-
+              line sources.list format.
+
+              This must follow the ONE-LINE-STYLE format as described  in  the
+              sources.list manpage.
+
+              If  the  URI provided is detected to be a PPA, this will operate
+              as if the --ppa parameter was used.
+
+LINE
+       LINE is a deprecated method to specify the  repository  to  add/remove,
+       provided  only for backwards compatibility.  It can be specified in any
+       of the supported formats: sources.list line, plain uri,  ppa  shortcut,
+       or  cloud-archive  shortcut.   It  can also be specified as one or more
+       valid component(s).  The script will attempt to detect which format  is
+       provided.
+
+       This  is  not  recommended as the autodetection of which line format is
+       intended can be ambiguous, but older scripts may still use this  method
+       of specifying the repository.
+
+       One special case of LINE is providing the value -, which will then read
+       the LINE from stdin.
+
+EXAMPLES
+       add-apt-repository -P ppa:user/repository
+
+       add-apt-repository -P user/repository
+
+       add-apt-repository -C cloud-archive:queens
+
+       add-apt-repository -C uca:queens
+
+       add-apt-repository -C queens
+
+       add-apt-repository -S 'deb http://myserver/path/to/repo stable main'
+
+       add-apt-repository -S deb http://myserver/path/to/repo stable main
+
+       add-apt-repository -U http://myserver/path/to/repo -c main
+
+       add-apt-repository -U https://packages.medibuntu.org -c  free  -c  non-
+       free
+
+       add-apt-repository -U http://extras.ubuntu.com/ubuntu
+
+       add-apt-repository -s
+
+       add-apt-repository -L
+
+       add-apt-repository -s -r
+
+       add-apt-repository -c universe
+
+       add-apt-repository -r -c multiverse
+
+DEPRECATED EXAMPLES
+       add-apt-repository deb http://myserver/path/to/repo stable main
+
+       add-apt-repository http://myserver/path/to/repo main
+
+       add-apt-repository https://packages.medibuntu.org free non-free
+
+       add-apt-repository http://extras.ubuntu.com/ubuntu
+
+       add-apt-repository multiverse
+
+SEE ALSO
+       sources.list(5) apt-get(8)
+
+COPYRIGHT
+       This manual page was written by Chow Loong Jin <hyperair@gmail.com> for
+       the Debian system (but may be used by others). Permission is granted to
+       copy, distribute and/or modify this document under the terms of the GNU
+       General Public License, Version 2 or any later version published by the
+       Free Software Foundation.
+
+       On  Debian systems, the complete text of the GNU General Public License
+       can be found in /usr/share/common-licenses.
+
+                                                         add-apt-repository(1)

@@ -1,0 +1,26 @@
+CHG(1)                      General Commands Manual                     CHG(1)
+
+NAME
+       chg - a fast client for Mercurial command server
+
+SYNOPSIS
+       chg command [options] [arguments]...
+
+DESCRIPTION
+       The  chg  command is the wrapper for hg command.  It uses the Mercurial
+       command server to reduce start-up overhead.
+
+OPTIONS
+       This program accepts the same command line syntax as  the  hg  command.
+       Additionally it accepts the following options.
+
+       --kill-chg-daemon
+              Terminate the background command servers.
+
+SEE ALSO
+       hg(1)
+
+AUTHOR
+       Written by Yuya Nishihara <yuya@tcha.org>.
+
+                                 March 3, 2013                          CHG(1)

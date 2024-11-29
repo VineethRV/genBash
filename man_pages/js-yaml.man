@@ -1,0 +1,29 @@
+JS-YAML.JS(1)                    User Commands                   JS-YAML.JS(1)
+
+NAME
+       js-yaml.js - JavaScript YAML parser and dumper
+
+DESCRIPTION
+       usage: js-yaml [-h] [-v] [-c] [-t] [file]
+
+   positional arguments:
+       file   File to read, utf-8 encoded without BOM
+
+   optional arguments:
+       -h, --help
+              show this help message and exit
+
+       -v, --version
+              show program's version number and exit
+
+       -c, --compact
+              Display errors in compact mode
+
+       -t, --trace
+              Show stack trace on error
+
+AUTHORS
+       js-yaml  was primarily authored by Vladimir Zapparov with contributions
+       from Aleksey V Zapparov, Vitaly Puzrin, and Martin Grenfell.
+
+js-yaml.js 4.1.0                 January 2022                    JS-YAML.JS(1)

@@ -1,0 +1,67 @@
+SIXEL2PNG(1)                General Commands Manual               SIXEL2PNG(1)
+
+NAME
+       sixel2png - convert DEC SIXEL images into PNG format images
+
+SYNOPSIS
+       sixel2png -i <input sixel file> -o <output png file>
+       img2sixel < <input sixel file> > <output png file>
+
+DESCRIPTION
+       img2sixel convert DEC SIXEL images into PNG format images.
+
+COMMAND-LINE OPTIONS
+       img2sixel has the following command-line options:
+
+       -i   Specify  input file. If it is omitted or "-", this command accepts
+            SIXEL data from STDIN.
+
+       -o   Specify output file. If it is omitted or "-",  this  command  emit
+            SIXEL data into STDOUT.
+
+SEE ALSO
+       sixel(5) img2sixel(1)
+
+AUTHORS
+       sixel2png  is  maintained  by  Hayaki Saito.  We imported whole code of
+       stbiw-1.01, written by Sean Barrett and its contributers,  for  writing
+       PNG images,
+
+COPYRIGHT
+       Copyright (c) 2014-2015 Hayaki Saito
+
+       Permission is hereby granted, free of charge, to any person obtaining a
+       copy of this software and associated documentation  files  (the  "Soft‐
+       ware"),  to deal in the Software without restriction, including without
+       limitation the rights to use, copy, modify, merge, publish, distribute,
+       sublicense,  and/or  sell copies of the Software, and to permit persons
+       to whom the Software is furnished to do so, subject  to  the  following
+       conditions:
+
+       The above copyright notice and this permission notice shall be included
+       in all copies or substantial portions of the Software.
+
+       THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+       OR  IMPLIED,  INCLUDING  BUT  NOT  LIMITED  TO  THE  WARRANTIES OF MER‐
+       CHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN
+       NO  EVENT  SHALL  THE  AUTHORS  OR  COPYRIGHT HOLDERS BE LIABLE FOR ANY
+       CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN  ACTION  OF  CONTRACT,
+       TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT‐
+       WARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+THANKS
+       This software derives from the following implementation.
+
+       stbiw-0.92
+            This software includes stbiw-0.92  (stb_image_write.h),  a  public
+            domain PNG/BMP/TGA writer.
+            http://nothings.org/stb/stb_image_write.h
+
+CONTRIBUTORS
+       Masami HIRATA(@msmhrt)
+       Bruce Mitchener (@waywardmonkeys)
+
+BUGS
+       •      Send bug-reports, fixes, enhancements to saitoha@me.com.
+
+4th Berkeley Distribution          May 2015                       SIXEL2PNG(1)

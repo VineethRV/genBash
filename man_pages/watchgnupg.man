@@ -1,0 +1,79 @@
+WATCHGNUPG(1)                GNU Privacy Guard 2.2               WATCHGNUPG(1)
+
+NAME
+       watchgnupg - Read and print logs from a socket
+
+SYNOPSIS
+       watchgnupg [--force] [--verbose] socketname
+
+DESCRIPTION
+       Most  of the main utilities are able to write their log files to a Unix
+       Domain socket if configured that way.  watchgnupg is a simple  listener
+       for  such  a  socket.   It ameliorates the output with a time stamp and
+       makes sure that long lines are not interspersed with  log  output  from
+       other utilities.  This tool is not available for Windows.
+
+       watchgnupg is commonly invoked as
+
+         watchgnupg --force $(gpgconf --list-dirs socketdir)/S.log
+
+OPTIONS
+       watchgnupg understands these options:
+
+       --force
+              Delete an already existing socket file.
+
+       --tcp n
+              Instead  of  reading from a local socket, listen for connects on
+              TCP port n.
+
+       --time-only
+              Do not print the date part of the timestamp.
+
+       --verbose
+              Enable extra informational output.
+
+       --version
+              Print version of the program and exit.
+
+       --help Display a brief help page and exit.
+
+EXAMPLES
+         $ watchgnupg --force --time-only $(gpgconf --list-dirs socketdir)/S.log
+
+       This   waits   for   connections   on   the    local    socket    (e.g.
+       ‘/home/foo/.gnupg/S.log’) and shows all log entries.  To make this work
+       the option log-file needs to be used with all modules which logs are to
+       be shown.  The suggested entry for the configuration files is:
+
+         log-file socket://
+
+       If  the  default  socket as given above and returned by "echo $(gpgconf
+       --list-dirs socketdir)/S.log" is not desired an arbitrary  socket  name
+       can  be  specified, for example ‘socket:///home/foo/bar/mysocket’.  For
+       debugging purposes it is also possible to do remote logging.  Take care
+       if  you  use  this feature because the information is send in the clear
+       over the network.  Use this syntax in the conf files:
+
+         log-file tcp://192.168.1.1:4711
+
+       You may use any port and not just 4711 as  shown  above;  only  IP  ad‐
+       dresses are supported (v4 and v6) and no host names.  You need to start
+       watchgnupg with the tcp option.  Note that under Windows  the  registry
+       entry  HKCU\Software\GNU\GnuPG:DefaultLogFile can be used to change the
+       default log output from stderr to whatever  is  given  by  that  entry.
+       However the only useful entry is a TCP name for remote debugging.
+
+SEE ALSO
+       gpg(1), gpgsm(1), gpg-agent(1), scdaemon(1)
+
+       The full documentation for this tool is maintained as a Texinfo manual.
+       If GnuPG and the info program are properly installed at your site,  the
+       command
+
+         info gnupg
+
+       should  give  you access to the complete manual including a menu struc‐
+       ture and an index.
+
+GnuPG 2.2.27                      2020-12-21                     WATCHGNUPG(1)

@@ -1,0 +1,50 @@
+GDAL-CONFIG(1)                       GDAL                       GDAL-CONFIG(1)
+
+NAME
+       gdal-config  -   Determines  various information about a GDAL installa‐
+       tion.
+
+       Determines various information about a GDAL installation.
+
+SYNOPSIS
+          gdal-config [OPTIONS]
+          Options:
+                  [--prefix[=DIR]]
+                  [--libs]
+                  [--cflags]
+                  [--version]
+                  [--ogr-enabled]
+                  [--formats]
+
+DESCRIPTION
+       This utility script (available on Unix systems) can be used  to  deter‐
+       mine various information about a GDAL installation. It is normally just
+       used by configure scripts  for  applications  using  GDAL  but  can  be
+       queried by an end user.
+
+       --prefix
+              the top level directory for the GDAL installation.
+
+       --libs The libraries and link directives required to use GDAL.
+
+       --cflags
+              The  include  and  macro definition required to compiled modules
+              using GDAL.
+
+       --version
+              Reports the GDAL version.
+
+       --ogr-enabled
+              Reports "yes" or "no" to standard output  depending  on  whether
+              OGR is built into GDAL.
+
+       --formats
+              Reports which formats are configured into GDAL to stdout.
+
+AUTHOR
+       Frank Warmerdam <warmerdam@pobox.com>
+
+COPYRIGHT
+       1998-2021
+
+                                 Dec 27, 2021                   GDAL-CONFIG(1)

@@ -1,0 +1,40 @@
+SCAN-VIEW(1)                     User Commands                    SCAN-VIEW(1)
+
+NAME
+       scan-view - manual page for scan-view 14
+
+DESCRIPTION
+       usage:   scan-view   [-h]   [--host   HOST]   [--port  PORT]  [--debug]
+       [--auto-reload]
+
+              [--no-browser] [--allow-all-hosts] <results directory>
+
+       The clang static analyzer results viewer.
+
+   positional arguments:
+              <results directory>
+
+   options:
+       -h, --help
+              show this help message and exit
+
+       --host HOST
+              Host interface to listen on. (default=127.0.0.1)
+
+       --port PORT
+              Port to listen on. (default=8181)
+
+       --debug
+              Print additional debugging information.
+
+       --auto-reload
+              Automatically update module for each request.
+
+       --no-browser
+              Don't open a webbrowser on startup.
+
+       --allow-all-hosts
+              Allow  connections  from  any   host   (access   restricted   to
+              "127.0.0.1" by default)
+
+scan-view 14                       July 2023                      SCAN-VIEW(1)

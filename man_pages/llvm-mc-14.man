@@ -1,0 +1,146 @@
+LLVM-MC(1)                       User Commands                      LLVM-MC(1)
+
+NAME
+       llvm-mc - manual page for llvm-mc 14
+
+DESCRIPTION
+       OVERVIEW: llvm machine code playground
+
+       USAGE: llvm-mc [options] <input file>
+
+       OPTIONS:
+
+       Color Options:
+
+       --color                                            - Use colors in out‐
+              put (default=autodetect)
+
+       Generic Options:
+
+       --help                                            -  Display  available
+              options (--help-hidden for more)
+
+       --help-list                                        -  Display  list  of
+              available options (--help-list-hidden for more)
+
+       --version                                         - Display the version
+              of this program
+
+       MC Options:
+
+       -I=<directory>                                     -  Directory  of in‐
+              clude files
+
+       -M=<string>                                        -  Disassembler  op‐
+              tions
+
+       --arch=<string>                                    - Target arch to as‐
+              semble for, see -version for available targets
+
+              Action to perform:
+
+       --as-lex                                         - Lex tokens from a .s
+              file
+
+       --assemble                                        -  Assemble a .s file
+              (default)
+
+       --disassemble                                    - Disassemble  strings
+              of hex bytes
+
+       --mdis                                            - Marked up disassem‐
+              bly of strings of hex bytes
+
+       --compress-debug-sections=<value>                 - Choose DWARF  debug
+              sections compression:
+
+       =none  -   No compression
+
+       =zlib  -   Use zlib compression
+
+       =zlib-gnu
+              -   Use zlib-gnu compression (deprecated)
+
+       --defsym=<string>                                 - Defines a symbol to
+              be an integer constant
+
+       --fdebug-compilation-dir=<string>                 - Specifies the debug
+              info's compilation dir
+
+       --fdebug-prefix-map=<=  separated  key-value  pairs>  - Map file source
+              paths in debug info
+
+       --filetype=<value>                                -  Choose  an  output
+              file type:
+
+       =asm   -   Emit an assembly ('.s') file
+
+       =null  -   Don't emit anything (for timing purposes)
+
+       =obj   -   Emit a native object ('.o') file
+
+       -g                                                 - Generate dwarf de‐
+              bugging info for assembly source files
+
+       --large-code-model                                - Create  cfi  direc‐
+              tives that assume the code might be more than 2gb away
+
+       --main-file-name=<string>                          - Specifies the name
+              we should consider the input file
+
+       --masm-hexfloats                                  -  Enable  MASM-style
+              hex float initializers (3F800000r)
+
+       --masm-integers                                    -  Enable binary and
+              hex masm integers (0b110 and 0ABCh)
+
+       --mattr=<a1,+a2,-a3,...>                          - Target specific at‐
+              tributes (-mattr=help for details)
+
+       --mcpu=<cpu-name>                                  -  Target a specific
+              cpu type (-mcpu=help for details)
+
+       --motorola-integers                               - Enable  binary  and
+              hex Motorola integers (%110 and $ABC)
+
+       -n                                                - Don't assume assem‐
+              bly file starts in the text section
+
+       --no-exec-stack                                   - File  doesn't  need
+              an exec stack
+
+       -o=<filename>                                     - Output filename
+
+       --output-asm-variant=<uint>                        -  Syntax variant to
+              use for output printing
+
+       --position-independent                            -  Position  indepen‐
+              dent
+
+       --preserve-comments                                -  Preserve Comments
+              in outputted assembly
+
+       --print-imm-hex                                   - Prefer  hex  format
+              for immediate values
+
+       --relax-relocations                                - Emit R_X86_64_GOT‐
+              PCRELX instead of R_X86_64_GOTPCREL
+
+       --save-temp-labels                                - Don't discard  tem‐
+              porary labels
+
+       --show-encoding                                    -  Show  instruction
+              encodings
+
+       --show-inst                                       - Show  internal  in‐
+              struction representation
+
+       --show-inst-operands                               -  Show instructions
+              operands as parsed
+
+       --split-dwarf-file=<filename>                     - DWO output filename
+
+       --triple=<string>                                 -  Target  triple  to
+              assemble for, see -version for available targets
+
+llvm-mc 14                         July 2023                        LLVM-MC(1)

@@ -1,0 +1,6 @@
+RST2XETEX(1)                    text processing                   RST2XETEX(1)
+
+NAME
+       rst2xetex - convert reST documents to XeLaTeX
+
+                                                                  RST2XETEX(1)

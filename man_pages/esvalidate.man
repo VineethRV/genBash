@@ -1,0 +1,18 @@
+ESVALIDATE(1)                    User Commands                   ESVALIDATE(1)
+
+NAME
+       esvalidate - ECMAScript Validator using Esprima
+
+DESCRIPTION
+   Usage:
+              esvalidate [options] file.js
+
+       Available options:
+
+       --format=type
+              Set the report format, plain (default) or junit
+
+       -v, --version
+              Print program version
+
+ECMAScript Validator               June 2016                     ESVALIDATE(1)

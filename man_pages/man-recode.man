@@ -1,0 +1,64 @@
+MAN-RECODE(1)                 Manual pager utils                 MAN-RECODE(1)
+
+NAME
+       man-recode - convert manual pages to another encoding
+
+SYNOPSIS
+       man-recode -t to-code {--suffix=suffix|--in-place} [-dqhV] [filename]
+
+DESCRIPTION
+       man-recode converts multiple manual pages from one encoding to another,
+       guessing the appropriate input encoding for each  one.   It  is  useful
+       when permanently recoding pages written in legacy character sets, or in
+       build systems that need to recode a set of pages to a single common en‐
+       coding  (usually  UTF-8) for installation.  When converting many manual
+       pages, this program is much faster than running man --recode or manconv
+       on each page.
+
+       If an encoding declaration is found on the first line of a manual page,
+       then that declaration is used as the  input  encoding  for  that  page.
+       Failing that, the input encoding is guessed based on the file name.
+
+       Encoding declarations have the following form:
+
+              '\" -*- coding: UTF-8 -*-
+
+       or (if manual page preprocessors are also to be declared):
+
+              '\" t -*- coding: ISO-8859-1 -*-
+
+OPTIONS
+       -t encoding, --to-code=encoding
+              Convert manual pages to encoding.
+
+       --suffix=suffix
+              Form each output file name by appending suffix to the input file
+              name, after removing any compression extension.
+
+       --in-place
+              Overwrite each input file with the output,  after  removing  any
+              compression extension.
+
+       -q, --quiet
+              Do not issue error messages when the page cannot be converted.
+
+       -d, --debug
+              Print debugging information.
+
+       -h, --help
+              Print a help message and exit.
+
+       -V, --version
+              Display version information.
+
+SEE ALSO
+       iconv(1), man(1), manconv(1)
+
+BUGS
+       https://gitlab.com/cjwatson/man-db/-/issues
+       https://savannah.nongnu.org/bugs/?group=man-db
+
+AUTHOR
+       Colin Watson (cjwatson@debian.org).
+
+2.10.2                            2022-03-17                     MAN-RECODE(1)

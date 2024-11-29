@@ -1,0 +1,16 @@
+ZSTDLESS(1)                      User Commands                     ZSTDLESS(1)
+
+NAME
+       zstdless - view zstandard-compressed files
+
+SYNOPSIS
+       zstdless [flags] [file ...]
+
+DESCRIPTION
+       zstdless  runs  less  (1)  on  files  or stdin, if no files argument is
+       given, after decompressing them with zstdcat (1).
+
+SEE ALSO
+       zstd (1)
+
+zstd 1.4.8                       December 2020                     ZSTDLESS(1)

@@ -1,0 +1,326 @@
+ALSAMIXER(1)                General Commands Manual               ALSAMIXER(1)
+
+NAME
+       alsamixer - soundcard mixer for ALSA soundcard driver, with ncurses in‐
+       terface
+
+SYNOPSIS
+       alsamixer [options]
+
+DESCRIPTION
+       alsamixer is an ncurses mixer program for use with the  ALSA  soundcard
+       drivers. It supports multiple soundcards with multiple devices.
+
+OPTIONS
+       -h, --help
+              Help: show available flags.
+
+       -c, --card <card number or identification>
+              Select  the  soundcard  to use, if you have more than one. Cards
+              are numbered from 0 (the default).
+
+       -D, --device <device identification>
+              Select the mixer device to control.
+
+       -V, --view <mode>
+              Select the starting view mode, either playback, capture or all.
+
+       -g, --no-color
+              Toggle the using of colors.
+
+MIXER VIEWS
+       The top-left corner of alsamixer shows some basic information: the card
+       name,  the mixer chip name, the current view mode and the currently se‐
+       lected mixer item.  When the mixer item is switched off, [Off] is  dis‐
+       played in its name.
+
+       Volume  bars  are  located  below  the basic information area.  You can
+       scroll left/right when all controls can't be put in  a  single  screen.
+       The  name of each control is shown in the bottom below the volume bars.
+       The currently selected item is drawn in red and/or emphasized.
+
+       Each mixer control with volume capability shows a box and  the  current
+       volume  filled in that box.  The volume percentages are displayed below
+       the volume bar for left and right channels.  For a mono  control,  only
+       one value is shown there.
+
+       When  a  mixer control is turned off, M (mute) appears below the volume
+       bar.  When it's turned on, O in green appears instead.  You can  toggle
+       the switch via m key.
+
+       When  a  mixer control has capture capability, the capture flag appears
+       below the volume bar, too.  When the capture is turned off, -------  is
+       shown.   CAPTURE  in  red appears when the capture switch is turned on.
+       In addition, L and R letters appear in left and right side to  indicate
+       that left and the right channels are turned on.
+
+       Some  controls have the enumeration list, and don't show boxes but only
+       texts which indicate the currently active item.   You  can  change  the
+       item via up/down keys.
+
+VIEW MODES
+       alsamixer  has  three  view  modes:  playback, capture and all.  In the
+       playback view, only the controls related with playback are shown.  Sim‐
+       ilarly, only the controls for capture (recording) are shown in the cap‐
+       ture view.  The all view mode shows all  controls.   The  current  view
+       mode  is  displayed  in  the  top-left position together with the mixer
+       name, etc.
+
+       The default view mode is the playback view.  You can change it  via  -V
+       option.
+
+       Each  view  mode  can  be switched via keyboard commands, too.  See the
+       next section.
+
+KEYBOARD COMMANDS
+       alsamixer recognizes the following keyboard  commands  to  control  the
+       soundcard.   Commands  shown  here  in  upper case can also be given in
+       lower case.  To be reminded of these keystrokes, hit the h key.
+
+   General Controls
+       The Left and right arrow keys are used to select the  channel  (or  de‐
+       vice,  depending  on  your  preferred  terminology). You can also use n
+       ("next") and p ("previous").
+
+       The Up and Down Arrows control the volume for  the  currently  selected
+       device. You can also use + or - for the same purpose. Both the left and
+       right signals are affected. For independent left and right control, see
+       below.
+
+       The  B  or = key adjusts the balance of volumes on left and right chan‐
+       nels.
+
+       M toggles muting for the current channel (both left and right).  If the
+       hardware  supports it, you can mute left and right independently by us‐
+       ing , (or <) and . (or >) respectively.
+
+       SPACE enables recording for the current channel. If any other  channels
+       have  recording  enabled,  they will have their recording function dis‐
+       abled first. This only works for valid input channels, of course.
+
+       L re-draws the screen.
+
+   View Mode Controls
+       Function keys are used to change view modes.  You  can  switch  to  the
+       help  mode and the proc info mode via F1 and F2 keys, respectively.  On
+       terminals that can't use function keys like  gnome-terminal,  ?  and  /
+       keys can be used alternatively for help and proc modes.
+
+       F3, F4 and F5 keys are used to switch to playback, capture and all view
+       mode, respectively.  TAB key toggles the current view mode circularly.
+
+   Quick Volume Changes
+       PageUp increases volume by 5.
+
+       PageDown decreases volume by 5.
+
+       End sets volume to 0.
+
+       You can also control left & right levels for the current channel  inde‐
+       pendently, as follows:
+
+       [Q | W | E ]  -- turn UP [ left | both | right ]
+
+       [Z | X | C ] -- turn DOWN [ left | both | right ]
+
+       If  the  currently selected mixer channel is not a stereo channel, then
+       all UP keys will work like W, and all DOWN keys will work like X.
+
+       The number keys from 0 to 9 are to change the absolute volume  quickly.
+       They correspond to 0 to 90% volume.
+
+   Selecting the Sound Card
+       You  can  select another sound card by pressing the F6 or S keys.  This
+       will show a list of available sound cards to choose from, and an  entry
+       to enter the mixer device name by hand.
+
+   Exiting
+       Quit  the  program with ALT Q, or by hitting ESC.  Please note that you
+       might need to hit ESC twice on some terminals since it's regarded as  a
+       prefix key.
+
+VOLUME MAPPING
+       In  alsamixer, the volume is mapped to a value that is more natural for
+       a human ear.  The mapping is designed so that the position in  the  in‐
+       terval  is proportional to the volume as a human ear would perceive it,
+       i.e. the position is the cubic root of the linear sample multiplication
+       factor.   For  controls with a small range (24 dB or less), the mapping
+       is linear in the dB values so that each step has  the  same  size  vis‐
+       ually.
+
+       Only for controls without dB information, a linear mapping of the hard‐
+       ware volume register values is used (this is the same algorithm as used
+       in the old alsamixer).
+
+FILES
+       Configuration is read from the following files:
+
+       $XDG_CONFIG_HOME/alsamixer.rc
+
+       $HOME/.config/alsamixer.rc
+
+CONFIGURATION
+       Comments start with '#'.
+
+       color element foreground background [attribute...]
+
+              Valid values for foreground and background are: red, green, yel‐
+              low, blue, magenta, cyan, white, black, none / default.
+
+              Valid values for attribute are: bold,  normal,  reverse,  under‐
+              line, dim, italic, blink.
+
+              See section THEME ELEMENTS for a list of elements.
+
+       set option value
+
+              mouse_wheel_step <N>
+
+              Set the mouse wheel step to <N>
+
+              mouse_wheel_focuses_control 0|1
+
+              If  enabled  (1), mixer controls can be changed by hovering over
+              them and scrolling the mouse wheel.
+
+              background color
+
+              Set the default background color
+
+       bind key_definition command
+
+              A key_definition may be:
+                 - a single character
+                 - a combination with control: C-a
+                 - a combination with alt: M-a
+                 - a special keyname: Enter, Escape, PageUp,  PageDown,  Left,
+              Down, Right, Up, Home, End, Backspace, F1 .. F12
+
+              See section COMMANDS for a list of commands.
+
+   COMMANDS
+       textbox_close
+              Close textbox
+
+       textbox_up / textbox_down
+              Scroll text up/down by one line
+
+       textbox_left / textbox_right
+              Scroll text left/right by one column
+
+       textbox_page_up / textbox_page_down
+              Scroll text up/down one page
+
+       textbox_page_left / textbox_page_right
+              Scroll text left/right one page
+
+       textbox_top / textbox_bottom
+              Go to top/bottom position of text
+
+       mixer_balance_volumes
+              Balance both channels
+
+       mixer_close
+              Close alsamixer application
+
+       mixer_help
+              Show help
+
+       mixer_mode_playback
+              Show playback controls
+
+       mixer_mode_capture
+              Show capture controls
+
+       mixer_mode_all
+              Show playback and capture controls
+
+       mixer_mode_toggle
+              Toggle between playback/capture/all controls
+
+       mixer_refresh
+              Refresh screen
+
+       mixer_previous / mixer_next
+              Select previous/next mixer control
+
+       mixer_control_focus_<N>
+              Focus control number <N>.
+
+       mixer_control_set_<N>[_left|_right]
+              Change volume of current control to <N> percent.
+
+       mixer_control_up_<N>[_left|_right]
+              Increase volume of current control by <N> percent.
+
+       mixer_control_down_<N>[_left|_right]
+              Decrease volume of current control by <N> percent.
+
+       mixer_toggle_mute[_left|_right]
+              Toggle mute state of both/left/right channels
+
+       mixer_toggle_capture[_left|_right]
+              Toggle capture state of both/left/right channels
+
+       mixer_select_card
+              Show window for selecting sound card
+
+       mixer_system_information
+              Show system information
+
+   THEME ELEMENTS
+       mixer_frame Color of the box around the mixer
+
+       mixer_text Color of text at the top of the mixer
+
+       mixer_active Color of AlsaMixer heading
+
+       ctl_frame Color of the frame around the mixer controls
+
+       ctl_mute Color indicating the mute state (MM)
+
+       ctl_nomute Color indicating the unmute state (00)
+
+       ctl_capture Color of CAPTURE text
+
+       ctl_nocapture Colof of disabled capture label
+
+       ctl_label Color of label underneath mixer controls
+
+       ctl_label_focus Color of label underneath focused mixer control
+
+       ctl_mark_focus Color of <> marks beside focused mixer label
+
+       ctl_bar_lo Color of lower volume bar
+
+       ctl_bar_mi Color of middle volume bar
+
+       ctl_bar_hi Color of top volume bar
+
+       ctl_inactive Color for inactive control
+
+       ctl_label_inactive Color for inactive label
+
+       errormsg Color used for error message
+
+       infomsg Color used for information message
+
+       textbox Color used for textbox (user input)
+
+       textfield Color used for textbox
+
+       menu Color used for menu
+
+       menu_selected Color used for selected entry in menu
+
+SEE ALSO
+        amixer(1), aplay(1), arecord(1)
+
+AUTHOR
+       alsamixer  has  been  written by Tim Janik and been further improved by
+       Jaroslav    Kysela     <perex@perex.cz>     and     Clemens     Ladisch
+       <clemens@ladisch.de>.
+
+       This manual page was provided by Paul Winkler <zarmzarm@erols.com>.
+
+                                  22 May 2009                     ALSAMIXER(1)

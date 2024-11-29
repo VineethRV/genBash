@@ -1,0 +1,35 @@
+ON_AC_POWER(1)              General Commands Manual             ON_AC_POWER(1)
+
+NAME
+       on_ac_power - test whether computer is running on AC power
+
+SYNOPSIS
+       on_ac_power
+
+DESCRIPTION
+       on_ac_power  checks  whether  the  system  is running on abundant power
+       (such as AC mains, an USB charger, etc), as opposed to battery power.
+
+OPTIONS
+       None.
+
+EXIT STATUS
+       0 (true)  System is on mains power
+       1 (false) System is not on mains power
+       255 (false)    Power status could not be determined
+
+CAVEATS
+       The vast majority of desktops and servers have no power  sensors,  thus
+       they  return  255  "unknown";  for most purposes you'd want to consider
+       this answer to imply mains power — note that 255 evaluates as false for
+       the shell.
+
+       This  program  currently provides only information known to the kernel;
+       it doesn't (yet?) query userspace daemons such as nut which may provide
+       further information.
+
+AUTHOR
+       This  manual  page was written by Steve Dodd <steved@loth.demon.co.uk>,
+       was updated by Thomas Hood then by Adam Borowski.
+
+                                 12 March 2018                  ON_AC_POWER(1)

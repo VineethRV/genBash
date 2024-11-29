@@ -1,0 +1,25 @@
+DH_SIP3(1)                         Debhelper                        DH_SIP3(1)
+
+NAME
+       dh_sip3 - set the correct dependencies for Python3 packages using sip
+
+SYNOPSIS
+       dh_sip3
+
+DESCRIPTION
+       dh_sip3 creates the ${sip3:Depends} substitution variable which must be
+       used by Python3 extensions built with sip in order to depend on a
+       version of python3-sip that exports the correct public API.
+
+SEE ALSO
+       debhelper(7)
+
+       This program is a part of python3-sip-dev but is made to work with
+       debhelper.
+
+AUTHORS
+       Torsten Marek <shlomme@debian.org>
+
+       Adapted for Python 3 by Scott Kitterman <scott@kitterman.com>
+
+                                  2022-03-17                        DH_SIP3(1)

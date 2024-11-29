@@ -1,0 +1,103 @@
+toilet(1)                   General Commands Manual                  toilet(1)
+
+NAME
+       TOIlet - display large colourful characters
+
+SYNOPSIS
+       toilet [ -hkostvSW ] [ -d fontdirectory ]
+              [ -f fontfile ] [ -F filter ] [ -w outputwidth ]
+              [ -I infocode ] [ -E format ] [ message ]
+
+DESCRIPTION
+       TOIlet  prints  text using large characters made of smaller characters.
+       It is similar in many ways to FIGlet with additional features  such  as
+       Unicode handling, colour fonts, filters and various export formats.
+
+USAGE
+       TOIlet  either  reads its input from the command line or from the stan‐
+       dard input.
+
+OPTIONS
+       -f, --font <name>
+              Use the given font instead of the default value. Fonts are  .flf
+              or  .tlf  files stored in the /usr/share/figlet directory. Fonts
+              are looked first in the font directory, then in the current  di‐
+              rectory.  There is also a special built-in font called term that
+              serves as a fallback if no font is available.
+
+       -d, --directory <dir>
+              Specify the directory in which to look for  fonts.  The  default
+              value   is   set   at   build   time  and  usually  defaults  to
+              /usr/share/figlet.
+
+       -s, -S, -k, -W, -o
+              Select character composition rules.  -S  sets  smushing  (nicely
+              merging  glyphs),  -k  sets  kerning (rendering subcharacters as
+              close to each other as possible), -W renders characters at their
+              full  width and -o sets overlapping (glyphs slightly overlap the
+              previous one).  -s (default behaviour) uses the font's  smushing
+              information  if any, otherwise forces overlapping, or does noth‐
+              ing if the glyph only has one subcharacter.
+
+       -w, --width <width>
+              Set the output width. By default, TOIlet will wrap its output at
+              80 character columns.
+
+       -t, --termwidth
+              Set the output width to the terminal width.
+
+       -F, --filter <filters>
+       -F, --filter list
+       --gay, --metal
+              Specify  a  list  of filters to be applied to the output.  <fil‐
+              ters> is a colon-separated list  of  filters  such  as  crop:ro‐
+              tate:gay  and the special argument list outputs a list of avail‐
+              able filters.
+
+              --gay and --metal are shortcuts to commonly  used  filters  that
+              are  guaranteed to exist. Several -F flags can also be specified
+              on the command line, in which case filters will  be  applied  in
+              order of appearance.
+
+       -E, --export <format>
+       -E, --export list
+       --irc, --html
+              Specify  the output format. By default, TOIlet will output UTF-8
+              text using ANSI colour codes suitable for most terminals such as
+              XTerm  or  rxvt.   <format>  is the name of the export format as
+              recognised by libcaca. The special argument list outputs a  list
+              of available export formats.
+
+              --irc  and  --html are shortcuts to commonly used export formats
+              that are guaranteed to exist.
+
+       -h, --help
+              Display a short help message and exit.
+
+       -I, --infocode <code>
+              Print a FIGlet infocode. This flag is only here for FIGlet  com‐
+              patibility,  see  the  figlet manpage for more information about
+              it.
+
+       -v, --version
+              Output version information and exit.
+
+EXAMPLES
+       toilet Hello World
+
+       toilet Hello | toilet
+
+       tail -f /var/log/messages | toilet -f term --gay
+
+BUGS
+       FIGlet compatibility is not complete yet.
+
+AUTHOR
+       TOIlet and this manual page were  written  by  Sam  Hocevar  <sam@hoce‐
+       var.net>. There is a webpage available at http://caca.zoy.org/wiki/toi‐
+       let .
+
+SEE ALSO
+       figlet(6)
+
+libcaca @PACKAGE_VERSION@         2006-11-10                         toilet(1)

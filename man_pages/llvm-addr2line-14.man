@@ -1,0 +1,44 @@
+LLVM-ADDR2LINE(1)                    LLVM                    LLVM-ADDR2LINE(1)
+
+NAME
+       llvm-addr2line - a drop-in replacement for addr2line
+
+SYNOPSIS
+       llvm-addr2line [options]
+
+DESCRIPTION
+       llvm-addr2line is an alias for the llvm-symbolizer(1) tool with differ‐
+       ent defaults. The goal is to make it a drop-in  replacement  for  GNU’s
+       addr2line.
+
+       Here are some of those differences:
+
+       • llvm-addr2line interprets all addresses as hexadecimal and ignores an
+         optional 0x prefix, whereas llvm-symbolizer attempts to determine the
+         base from the literal’s prefix and defaults to decimal if there is no
+         prefix.
+
+       • llvm-addr2line defaults not to print function names. Use -f to enable
+         that.
+
+       • llvm-addr2line  defaults  not  to  demangle function names. Use -C to
+         switch the demangling on.
+
+       • llvm-addr2line defaults not to print inlined frames. Use -i  to  show
+         inlined frames for a source code location in an inlined function.
+
+       • llvm-addr2line uses –output-style=GNU by default.
+
+       • llvm-addr2line   parses   options   from   the  environment  variable
+         LLVM_ADDR2LINE_OPTS instead of from LLVM_SYMBOLIZER_OPTS.
+
+SEE ALSO
+       llvm-symbolizer(1)
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14                 LLVM-ADDR2LINE(1)

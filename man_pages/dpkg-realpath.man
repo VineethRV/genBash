@@ -1,0 +1,50 @@
+dpkg-realpath(1)                  dpkg suite                  dpkg-realpath(1)
+
+NAME
+       dpkg-realpath - print the resolved pathname with DPKG_ROOT support
+
+SYNOPSIS
+       dpkg-realpath [option...] pathname
+
+DESCRIPTION
+       dpkg-realpath is a tool (since dpkg 1.20.1) to resolve a pathname, that
+       takes the dpkg(1) root directory into account, either implicitly from
+       the DPKG_ROOT environment variable or from the command-line --root or
+       --instdir options, and returns an absolute pathname relative to the
+       root directory.  The root directory must not be prefixed to the
+       pathname to be resolved.
+
+       This is intended to be used by other dpkg helpers, or by maintainer
+       scripts instead of using realpath(1) or readlink(1) to canonicalize
+       pathnames, as these latter commands do not support canonicalization
+       relative to a different root than /.
+
+OPTIONS
+       -z, --zero
+           Use a NUL byte to end output lines instead of a new line character
+           (since dpkg 1.20.6).
+
+       --instdir directory
+       --root directory
+           Set the root directory to directory, which is the base directory
+           that pathnames get canonicalized against.  Defaults to «/».
+
+       -?, --help
+           Show the usage message and exit.
+
+       --version
+           Show the version and exit.
+
+ENVIRONMENT
+       DPKG_ROOT
+           If set and the --instdir or --root options have not been specified,
+           it will be used as the filesystem root directory.
+
+       DPKG_COLORS
+           Sets the color mode.  The currently accepted values are: auto
+           (default), always and never.
+
+SEE ALSO
+       realpath(1), readlink(1).
+
+1.21.1                            2024-02-23                  dpkg-realpath(1)

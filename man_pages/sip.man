@@ -1,0 +1,108 @@
+SIP(1)                      General Commands Manual                     SIP(1)
+
+NAME
+       sip - generates C++/Python bindings
+
+SYNOPSIS
+       sip [-h] [-V] [-a file] [-b file] [-B tag] [-c dir] [-d file] [-D] [-e]
+       [-f] [-g] [-I dir] [-j number] [-k] [-m file] [-n name] [-o]  [-p  mod‐
+       ule]  [-P]  [-r]  [-s  suffix]  [-t tag] [-w] [-x feature] [-X id:file]
+       [-y file] [-z file] [@file] [file]
+
+DESCRIPTION
+       sip takes a set of specification files and generates C++ code, documen‐
+       tation and build files.
+
+       The format of the needed specification file is similar to a C++ header.
+       sip includes run-time support for the generated code.
+
+OPTIONS
+       -h     Show summary of options.
+
+       -V     Display the sip version number.
+
+       -a file
+              The name of the QScintilla API file. If not indicated,  it  will
+              not be generated.
+
+       -b file
+              The  name  of  the  build file. If not indicated, it will not be
+              generated.
+
+       -B tag Add tag to the list of timeline backstops (deprecated).
+
+       -c dir The name of the directory where generated source  file  will  be
+              put.  If not indicated, no code will be generated.
+
+       -d file
+              The  name  of the documentation file (deprecated).  If not indi‐
+              cated, no documentation will be generated.
+
+       -D     Generate code for a debug build of Python.
+
+       -e     Enable support for exceptions. Disabled by default.
+
+       -f     Handle warnings as errors.
+
+       -g     Always release and reacquire the GIL.
+
+       -I dir Directory where sip can search for included files.
+
+       -j number
+              Splits the generated code in number files (1 by  default).  This
+              flag was added for parallel compilation on SMP machines.
+
+       -k     Support keyword arguments in functions and methods.
+
+       -m file
+              The name of the XML export file. If not indicated, the file will
+              not be generated.
+
+       -n name
+              The qualified name of the private copy of the sip module.
+
+       -o     Enable the automatic generation of docstrings. Disabled  by  de‐
+              fault.
+
+       -p module
+              Give the name of the consolidated module this module should be a
+              component of.
+
+       -P     Enable the protected/public hack.
+
+       -r     Enable tracing on generated code.
+
+       -s suffix
+              The suffix used for generated C or C++ files (".c" or ".cpp"  if
+              none specified)
+
+       -t tag The version/platform to generate code for.
+
+       -w     Enable warning messages.
+
+       -x feature
+              Disable a feature.
+
+       -X id:file
+              Create the extracts for an id in a file.
+
+       -y file
+              The name of the .pyi stub file to generate. If not indicated, it
+              will not be generated.
+
+       -z file
+              The name of a file containing  additional  command  line  flags.
+              This option is deprecated, use @file instead.
+
+       @file  The name of a file containing more command line flags.
+
+       file   The  name  of the file containing the specification. If you skip
+              it, sip will expect to be fed by stdin.
+
+AUTHOR
+       This manual page was written by Ricardo Javier Cardenes  Medina  <rcar‐
+       denes@debian.org>,   Torsten   Marek  <shlomme@debian.org>  and  Dmitry
+       Shachnev <mitya57@debian.org>, for the Debian project (but may be  used
+       by others).
+
+                                  2019-10-15                            SIP(1)

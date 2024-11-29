@@ -1,0 +1,186 @@
+PLYMOUTH(1)                      User Commands                     PLYMOUTH(1)
+
+NAME
+       plymouth - Send commands to plymouthd
+
+SYNOPSIS
+       plymouth [OPTION...]
+
+       plymouth COMMAND [OPTION...]
+
+DESCRIPTION
+       The plymouth sends commands to a running plymouthd. This is used during
+       the boot process to control the display of the graphical boot splash.
+
+OPTIONS
+       The following options are understood. These options are supported for
+       compatibility with the old rhgb-client interface, and have been
+       replaced by the commands that are described in the next section.
+
+       --help
+           Show summary of options.
+
+       --debug
+           Enable verbose debug logging.
+
+       --get-splash-plugin-path
+           Get directory where splash plugins are installed.
+
+       --newroot=[STRING]
+           Tell plymouthd that the new root filesystem is mounted.
+
+       --quit
+           Tell plymouthd to quit.
+
+       --ping
+           Check if plymouthd is running.
+
+       --has-active-vt
+           Check if plymouthd has an active vt.
+
+       --sysinit
+           Tell plymouthd root filesystem is mounted read-write.
+
+       --show-splash
+           Show the splash screen.
+
+       --hide-splash
+           Hide the splash screen.
+
+       --ask-for-password
+           Ask the user for a password.
+
+       --ignore-keystroke=[STRING]
+           Remove sensitivity to a keystroke.
+
+       --update=[STRING]
+           Tell plymouthd an update about boot progress.
+
+       --details
+           Tell plymouthd there were errors during boot.
+
+       --wait
+           Wait for plymouthd to quit.
+
+COMMANDS
+       The following commands are understood:
+
+       change-mode OPTION
+           Change the operation mode.
+
+           --boot-up
+               Start the system up
+
+           --shutdown
+               Shutting the system up
+
+           --updates
+               Applying updates
+
+       system-update OPTION
+           Tell plymouthd about boot progress.
+
+           --progress=INTEGER
+               The percentage progress of the updates
+
+       update OPTION
+           Tell plymouthd about boot status changes.
+
+           --status=STRING
+               Tell plymouthd the current boot status
+
+       update-root-fs OPTION
+           Tell plymouthd about root filesystem changes.
+
+           --new-root-dir=STRING
+               Root filesystem is about to change
+
+           --read-write
+               Root filesystem is no longer read-only
+
+       show-splash
+           Tell plymouthd to show splash screen.
+
+       hide-splash
+           Tell plymouthd to hide splash screen.
+
+       ask-for-password OPTION
+           Ask the user for a password.
+
+           --command=STRING
+               Command to send password to via standard input
+
+           --prompt=STRING
+               Message to display when asking for password
+
+           --number-of-tries=INTEGER
+               Number of times to ask before giving up (requires --command)
+
+           --dont-pause-progress
+               Don't pause boot progress bar while asking
+
+       ask-question
+           Ask the user a question.
+
+           --command=STRING
+               Command to send the answer to via standard input
+
+           --prompt=STRING
+               Message to display when asking the question
+
+           --dont-pause-progress
+               Don't pause boot progress bar while asking
+
+       display-message OPTION
+           Display a message.
+
+           --text=STRING
+               The message text
+
+       hide-message OPTION
+           Hide a message.
+
+           --text=STRING
+               The message text
+
+       watch-keystroke OPTION
+           Become sensitive to a keystroke.
+
+           --command=STRING
+               Command to send keystroke to via standard input
+
+           --keys=STRING
+               Keys to become sensitive to
+
+       ignore-keystroke OPTION
+           Remove sensitivity to a keystroke.
+
+           --keys=STRING
+               Keys to remove sensitivity from
+
+       pause-progress
+           Pause boot progress bar.
+
+       unpause-progress
+           Unpause boot progress bar.
+
+       report-error
+           Tell plymouthd there were errors during boot.
+
+       deactivate
+           Tell plymouthd to deactivate.
+
+       reactivate
+           Tell plymouthd to reactivate.
+
+       quit OPTION
+           Tell plymouthd to quit.
+
+           --retain-splash
+               Don't explicitly hide boot splash on exit
+
+SEE ALSO
+       grub(8), plymouth(8), plymouthd(8),
+       http://www.freedesktop.org/wiki/Software/Plymouth
+
+plymouth                                                           PLYMOUTH(1)

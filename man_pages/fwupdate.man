@@ -1,0 +1,25 @@
+man(1)                         fwupdate man page                        man(1)
+
+NAME
+       fwupdate -debugging utility for UEFI firmware updates
+
+SYNOPSIS
+       fwupdate [CMD]
+
+DESCRIPTION
+       fwupdate is a deprecated tool that allows deploying capsule updates.
+
+OPTIONS
+       The  fwupdate  command  takes  various options depending on the action.
+       Run fwupdate --help for the full list.
+
+SEE ALSO
+       fwupdtool(1), fwupdmgr(1)
+
+BUGS
+       No known bugs.
+
+AUTHOR
+       Richard Hughes (richard@hughsie.com)
+
+1.7.9                             27 May 2022                           man(1)

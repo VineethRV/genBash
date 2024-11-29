@@ -1,0 +1,31 @@
+ESPARSE(1)                       User Commands                      ESPARSE(1)
+
+NAME
+       esparse - ECMAScript Parser using Esprima
+
+DESCRIPTION
+   Usage:
+              esparse [options] file.js
+
+       Available options:
+
+       --comment
+              Gather all line and block comments in an array
+
+       --loc  Include line-column location info for each syntax node
+
+       --range
+              Include index-based range for each syntax node
+
+       --raw  Display the raw value of literals
+
+       --tokens
+              List all tokens in an array
+
+       --tolerant
+              Tolerate errors on a best-effort basis (experimental)
+
+       -v, --version
+              Shows program version
+
+ECMAScript Parser                  June 2016                        ESPARSE(1)

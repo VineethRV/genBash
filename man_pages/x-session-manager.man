@@ -1,0 +1,192 @@
+GNOME-SESSION(1)            General Commands Manual           GNOME-SESSION(1)
+
+NAME
+       gnome-session - Start the GNOME desktop environment
+
+SYNOPSIS
+       gnome-session  [-a|--autostart=DIR] [--session=SESSION] [--failsafe|-f]
+       [--debug] [--whale]
+
+DESCRIPTION
+       The gnome-session program starts up the GNOME desktop environment. This
+       command  is  typically executed by your login manager (either gdm, xdm,
+       or from your X startup scripts). It will load either  your  saved  ses‐
+       sion,  or  it will provide a default session for the user as defined by
+       the system administrator (or the default  GNOME  installation  on  your
+       system). Note that gnome-session is a wrapper script for gnome-session-
+       binary.
+
+       The default session is defined in gnome.session, a  .desktop-like  file
+       that   is   looked   for   in  $XDG_CONFIG_HOME/gnome-session/sessions,
+       $XDG_CONFIG_DIRS/gnome-session/sessions  and  $XDG_DATA_DIRS/gnome-ses‐
+       sion/sessions.
+
+       When saving a session, gnome-session saves the currently running appli‐
+       cations in the $XDG_CONFIG_HOME/gnome-session/saved-session  directory.
+       Saving  sessions  is only supported with the legacy non-systemd startup
+       method.
+
+       gnome-session is an X11R6 session manager. It can manage GNOME applica‐
+       tions as well as any X11R6 SM compliant application.
+
+OPTIONS
+       The following options are supported:
+
+       --autostart=DIR
+              The  directory  DIR to be searched for autostart .desktop files.
+              This option can be used multiple times.   When  this  option  is
+              present,   then   default  autostart  directories  will  not  be
+              searched.
+
+       --session=SESSION
+              Use the applications defined in SESSION.session. If  not  speci‐
+              fied, gnome.session will be used.
+
+       --builtin
+              Use  the legacy non-systemd method of managing the user session.
+              This is the opposite of the --systemd option.
+
+       --systemd
+              Use the systemd method of managing the user session. This is the
+              opposite of the --builtin option.
+
+       --failsafe
+              Run  in  fail-safe mode. User-specified applications will not be
+              started.
+
+       --debug
+              Enable debugging code.
+
+       --whale
+              Show the fail whale in a dialog for debugging it.
+
+SESSION DEFINITION
+       Sessions are defined in .session files, that are using a  .desktop-like
+       format, with the following keys in the GNOME Session group:
+
+       Name   Name of the session. This can be localized.
+
+       RequiredComponents
+              List  of component identifiers (desktop files) that are required
+              by the session. The required components will always run  in  the
+              session.
+
+       Here is an example of a session definition:
+
+           [GNOME Session]
+           Name=GNOME
+           RequiredComponents=gnome-shell;gnome-settings-daemon;
+
+       In  systemd  managed sessions the RequiredComponents may be provided by
+       systemd units instead. In this case  the  corresponding  .desktop  file
+       needs  to  contain  X-GNOME-HiddenUnderSystemd=true. gnome-session will
+       ignore these components and rely on systemd to  manage  them  appropri‐
+       ately, see the systemd for more information on how this works.
+
+       The  .session  files  are  looked  for  in  $XDG_CONFIG_HOME/gnome-ses‐
+       sion/sessions,       $XDG_CONFIG_DIRS/gnome-session/sessions        and
+       $XDG_DATA_DIRS/gnome-session/sessions.
+
+systemd
+       gnome-session  can  pass much of the session management over to systemd
+       (see the --systemd option which may be the default since 3.34). In this
+       case,  startup components that have X-GNOME-HiddenUnderSystemd=true set
+       in their .desktop file will be ignored by gnome-session. It instead re‐
+       lies on the fact that these components are managed by systemd.
+
+       As  of  GNOME  3.34  the systemd support is new and the customizing the
+       configuration is not yet easily possible. With GNOME  3.34  it  may  be
+       best  to  use --builtin if session customizations are required. This is
+       due to the way that GNOME currently defines the components that will be
+       started on each session type.
+
+       systemd  provides  the two special targets graphical-session.target and
+       graphical-session-pre.target which are fully functional and  should  be
+       used. gnome-session provides the following main targets:
+
+       gnome-session.target
+              Generic unit that will be active throughout the session. Similar
+              to graphical-session.target.
+
+       gnome-session-pre.target
+              Used for tasks that need to be done before session startup. Sim‐
+              ilar to graphical-session-pre.target.
+
+       gnome-session-x11@SESSION.target gnome-session-wayland@SESSION.target
+              Main  unit started for X11/wayland based session. SESSION is set
+              according to the session that is passed in --session.
+
+       gnome-session-x11.target gnome-session-wayland.target
+              Convenience units without the session embedded into the target.
+
+       gnome-session@SESSION.target
+              Convenience unit with just the SESSION information embedded.
+
+       gnome-session-x11-services.target
+              Special unit started when X11 services are needed. This will  be
+              used from GNOME 3.36 onwards. Programs will need to use the spe‐
+              cial GNOME_SETUP_DISPLAY environment variable  instead  of  DIS‐
+              PLAY.
+
+       Note  that  care  must  be taken to set appropriate After= rules. It is
+       also strongly recommended to always do this in combination  with  Bind‐
+       sTo= or PartOf= on one of the core targets (e.g. graphical-session.tar‐
+       get).
+
+       Units are required to set CollectMode=inactive-or-failed. In  addition,
+       it  is strongly recommended to set TimeoutStopSec=5 so that logout will
+       not be delayed indefinitely in case the process does not stop properly.
+
+ENVIRONMENT
+       gnome-session sets several environment variables for  the  use  of  its
+       child processes:
+
+       SESSION_MANAGER
+
+              This  variable  is used by session-manager aware clients to con‐
+              tact gnome-session.
+
+       DISPLAY
+
+              This variable is set to the X display being used  by  gnome-ses‐
+              sion.  Note  that  if the --display option is used this might be
+              different from the setting  of  the  environment  variable  when
+              gnome-session is invoked.
+
+       Behavior  of gnome-session ifself can be modified via the following en‐
+       vironment variable:
+
+       GNOME_SESSION_AUTOSTART_DIR
+
+              This variable specifies a list of directories  to  the  searched
+              for  autostart  files.  This  variable overrides all directories
+              specified via the --autostart option, as well as all default au‐
+              tostart directories.
+
+FILES
+       $XDG_CONFIG_HOME/autostart                   $XDG_CONFIG_DIRS/autostart
+       /usr/share/gnome/autostart
+
+              Applications defined via .desktop  files  in  those  directories
+              will  be  started  on login.  gnome-session-properties(1) can be
+              used to easily configure them.
+
+       $XDG_CONFIG_HOME/gnome-session/sessions     $XDG_CONFIG_DIRS/gnome-ses‐
+       sion/sessions $XDG_DATA_DIRS/gnome-session/sessions
+
+              These  directories  contain  the .session files that can be used
+              with the --session option.
+
+       $XDG_CONFIG_HOME/gnome-session/saved-session
+
+              This directory contains the list of applications  of  the  saved
+              session.
+
+BUGS
+       If  you  find bugs in the gnome-session program, please report these on
+       https://gitlab.gnome.org/GNOME/gnome-session/issues.
+
+SEE ALSO
+       gnome-session-properties(1) gnome-session-quit(1)
+
+GNOME                              May 2020                   GNOME-SESSION(1)

@@ -1,0 +1,45 @@
+LLVM-LINK(1)                         LLVM                         LLVM-LINK(1)
+
+NAME
+       llvm-link - LLVM bitcode linker
+
+SYNOPSIS
+       llvm-link [options] filename …
+
+DESCRIPTION
+       llvm-link takes several LLVM bitcode files and links them together into
+       a single LLVM bitcode file.  It writes the output file to standard out‐
+       put, unless the -o option is used to specify a filename.
+
+OPTIONS
+       -f     Enable  binary  output  on  terminals.  Normally, llvm-link will
+              refuse to write raw bitcode output if the  output  stream  is  a
+              terminal. With this option, llvm-link will write raw bitcode re‐
+              gardless of the output device.
+
+       -o filename
+              Specify  the  output  file  name.   If  filename  is  “-”,  then
+              llvm-link will write its output to standard output.
+
+       -S     Write output in LLVM intermediate language (instead of bitcode).
+
+       -d     If  specified,  llvm-link prints a human-readable version of the
+              output bitcode file to standard error.
+
+       -help  Print a summary of command line options.
+
+       -v     Verbose mode.  Print information about what llvm-link is  doing.
+              This  typically  includes a message for each bitcode file linked
+              in and for each library found.
+
+EXIT STATUS
+       If llvm-link succeeds, it will exit with 0.  Otherwise, if an error oc‐
+       curs, it will exit with a non-zero value.
+
+AUTHOR
+       Maintained by the LLVM Team (https://llvm.org/).
+
+COPYRIGHT
+       2003-2023, LLVM Project
+
+14                                2023-07-14                      LLVM-LINK(1)

@@ -1,0 +1,33 @@
+DH_PYTHON3-PLY(1)     User Contributed Perl Documentation    DH_PYTHON3-PLY(1)
+
+NAME
+       dh_python3-ply - generate versioned dependencies on python3-ply
+
+SYNOPSIS
+       dh_python3-ply [--dependency-field dependencyfield] [debhelper options]
+       file...
+
+DESCRIPTION
+       dh_python3-ply is a debhelper program that is responsible for
+       generating the python3-ply:Depends substitutions and adding them to
+       substvars files.
+
+       The program will look only at Python3 modules that are explicitly
+       provided as its arguments, and will use this information to generate a
+       strict versioned dependency on python3-ply.
+
+OPTIONS
+       --dependency-field dependencyfield
+           Use python3-ply:dependencyfield substitution variable instead of
+           python3-ply:Depends.
+
+SEE ALSO
+       debhelper(7)
+
+       This program is not a part of debhelper, but it is meant to be used
+       together with it.
+
+AUTHOR
+       Jakub Wilk <jwilk@debian.org>
+
+perl v5.32.1                      2021-11-13                 DH_PYTHON3-PLY(1)

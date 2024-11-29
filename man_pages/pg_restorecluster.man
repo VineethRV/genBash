@@ -1,0 +1,66 @@
+PG_RESTORECLUSTER(1)   Debian PostgreSQL infrastructure   PG_RESTORECLUSTER(1)
+
+NAME
+       pg_restorecluster - Restore from a pg_backupcluster backup
+
+SYNOPSIS
+       pg_restorecluster [options] version cluster backup
+
+DESCRIPTION
+       pg_restorecluster restores a PostgreSQL cluster from a backup created
+       by pg_backupcluster. The cluster will be newly created in the system
+       using the name provided on the command line; this allows renaming a
+       cluster on restore.  The restored cluster configuration will be updated
+       to reflect the new name and location.
+
+       The backup name passed must end in either .basebackup or .dump; usually
+       this will be the full path to a backup directory in
+       /var/backups/postgresql/version-cluster/ as reported by
+       pg_backupcluster ... list.
+
+       Basebackups are restored as-is. For dumps, pg_createcluster is used to
+       create a new cluster, and schema and data are restored via pg_restore.
+
+OPTIONS
+       -d --datadir DIR
+           Use DIR as data directory for the restored cluster (default per
+           createcluster.conf, by default
+           /var/lib/postgresql/version/cluster).
+
+       -p --port N
+           Use port N for restored cluster (default is next free port).
+
+       -s --start
+           Start cluster after restoring (default for restore from dump; off
+           for basebackup restores).
+
+           After the cluster has been started, ANALYZE is run on all
+           databases.
+
+       --archive
+           Configure cluster for recovery from WAL archive. This sets
+           restore_command to retrieve WAL files from backup/../wal.
+
+       --pitr TIMESTAMP
+       --recovery-target-time TIMESTAMP
+           Additionally to setting restore_command, set recovery_target_time
+           to TIMESTAMP for point-in-time recovery. Also sets
+           recovery_target_action='promote'.
+
+       --wal-archive DIR
+           For archive recovery, read WAL from archive DIR (default is
+           backup/../wal).
+
+FILES
+       /var/backups
+           Default root directory for cluster backup directories.
+
+       See pg_backupcluster(1) for a description of files.
+
+SEE ALSO
+       pg_backupcluster(1), pg_restore(1), vacuumdb(1).
+
+AUTHOR
+       Christoph Berg <myon@debian.org>
+
+Debian                            2022-02-10              PG_RESTORECLUSTER(1)

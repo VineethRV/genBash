@@ -1,0 +1,176 @@
+PROJ(1)                              PROJ                              PROJ(1)
+
+NAME
+       proj - Cartographic projection filter
+
+SYNOPSIS
+          proj [-beEfiIlmorsStTvVwW] [args]] [+opt[=arg] ...] file ...
+
+          invproj [-beEfiIlmorsStTvVwW] [args]] [+opt[=arg] ...] file ...
+
+DESCRIPTION
+       proj  and  invproj perform respective forward and inverse conversion of
+       cartographic data to or from cartesian data with a wide  range  of  se‐
+       lectable projection functions.
+
+       invproj may not be available on all platforms; in this case use proj -I
+       instead.
+
+       The following control parameters can appear in any order
+
+       -b     Special option for  binary  coordinate  data  input  and  output
+              through  standard  input and standard output. Data is assumed to
+              be in system type double floating point words. This option is to
+              be  used  when proj is a child process and allows bypassing for‐
+              matting operations.
+
+       -d <n>
+
+       New in version 5.2.0: Specify the number of decimals in the output.
+
+       -i     Selects binary input only (see -b).
+
+       -I     Alternate method to specify inverse projection.  Redundant  when
+              used with invproj.
+
+       -o     Selects binary output only (see -b).
+
+       -t<a>  Where a specifies a character employed as the first character to
+              denote a control line to be passed through  without  processing.
+              This  option  applicable  to ASCII input only. (# is the default
+              value).
+
+       -e <string>
+              Where string is an arbitrary string to be output if an error  is
+              detected  during  data  transformations.  The default value is a
+              three character string: *\t*.  Note that if the -b, -i or -o op‐
+              tions  are  employed, an error is returned as HUGE_VAL value for
+              both return values.
+
+       -E     Causes the input coordinates to be copied  to  the  output  line
+              prior to printing the converted values.
+
+       -l<[=id]>
+              List  projection  identifiers  that  can be selected with +proj.
+              proj -l=id gives expanded description  of  projection  id,  e.g.
+              proj -l=merc.
+
+       -lp    List of all projection id that can be used with the +proj param‐
+              eter.  Equivalent to proj -l.
+
+       -lP    Expanded description of all projections that can  be  used  with
+              the +proj parameter.
+
+       -le    List  of all ellipsoids that can be selected with the +ellps pa‐
+              rameters.
+
+       -lu    List of all distance units that can be selected with the  +units
+              parameter.
+
+       -r     This  options reverses the order of the expected input from lon‐
+              gitude-latitude or x-y to latitude-longitude or y-x.
+
+       -s     This options reverses the order of the output from x-y or longi‐
+              tude-latitude to y-x or latitude-longitude.
+
+       -S     Causes estimation of meridional and parallel scale factors, area
+              scale factor and angular distortion,  and  maximum  and  minimum
+              scale  factors to be listed between <> for each input point. For
+              conformal projections meridional  and  parallel  scales  factors
+              will  be  equal  and angular distortion zero. Equal area projec‐
+              tions will have an area factor of 1.
+
+       -m <mult>
+              The cartesian data may be scaled by  the  mult  parameter.  When
+              processing  data in a forward projection mode the cartesian out‐
+              put values are multiplied by mult otherwise the input  cartesian
+              values  are  divided  by  mult before inverse projection. If the
+              first two characters of mult are 1/ or 1:  then  the  reciprocal
+              value of mult is employed.
+
+       -f <format>
+              Where  format  is  a printf format string to control the form of
+              the output values.  For inverse projections, the output will  be
+              in  degrees  when this option is employed. The default format is
+              "%.2f" for forward projection and DMS for inverse.
+
+       -w<n>  Where n is the number of significant fractional digits to employ
+              for seconds output (when the option is not specified, -w3 is as‐
+              sumed).
+
+       -W<n>  Where n is the number of significant fractional digits to employ
+              for  seconds output. When -W is employed the fields will be con‐
+              stant width with leading zeroes.
+
+       -v     Causes a listing of cartographic control parameters  tested  for
+              and used by the program to be printed prior to input data.
+
+       -V     This  option causes an expanded annotated listing of the charac‐
+              teristics of the projected point. -v is implied  with  this  op‐
+              tion.
+
+       The  +opt  run-line  arguments are associated with cartographic parame‐
+       ters.  Additional projection control parameters may be contained in two
+       auxiliary  control  files:  the first is optionally referenced with the
+       +init=file:id and the second is always processed after the name of  the
+       projection  has  been  established from either the run-line or the con‐
+       tents of +init file. The environment parameter PROJ_LIB establishes the
+       default  directory  for a file reference without an absolute path. This
+       is also used for supporting files like datum shift files.
+
+       One or more files (processed in left to right order) specify the source
+       of  data  to  be converted. A - will specify the location of processing
+       standard input. If no files are specified, the input is assumed  to  be
+       from  stdin.   For  ASCII input data the two data values must be in the
+       first two white space separated fields and when both input  and  output
+       are  ASCII  all trailing portions of the input line are appended to the
+       output line.
+
+       Input geographic data (longitude and latitude) must be in DMS or  deci‐
+       mal degrees format and input cartesian data must be in units consistent
+       with the ellipsoid major axis or sphere radius units. Output geographic
+       coordinates  will be in DMS (if the -w switch is not employed) and pre‐
+       cise to 0.001" with trailing, zero-valued minute-second fields deleted.
+
+EXAMPLE
+       The following script
+
+          proj +proj=utm +lon_0=112w +ellps=clrk66 -r <<EOF
+          45d15'33.1" 111.5W
+          45d15.551666667N -111d30
+          +45.25919444444 111d30'000w
+          EOF
+
+       will perform UTM forward projection with a standard UTM central  merid‐
+       ian  nearest  longitude 112W. The geographic values of this example are
+       equivalent and meant as examples of various forms of DMS input. The x-y
+       output data will appear as three lines of:
+
+          460769.27     5011648.45
+
+OTHER PROGRAMS
+       The  proj  program is limited to converting between geographic and pro‐
+       jected coordinates within one datum.
+
+       The cs2cs program operates similarly, but  allows  translation  between
+       any  pair  of definable coordinate reference systems, including support
+       for datum translation.
+
+SEE ALSO
+       cs2cs(1), cct(1), geod(1), gie(1), projinfo(1), projsync(1)
+
+BUGS
+       A     list     of     known     bugs     can      be      found      at
+       https://github.com/OSGeo/PROJ/issues  where new bug reports can be sub‐
+       mitted to.
+
+HOME PAGE
+       https://proj.org/
+
+AUTHOR
+       Gerald I. Evenden
+
+COPYRIGHT
+       1983-2021
+
+8.2.1                             Jan 1, 2022                          PROJ(1)

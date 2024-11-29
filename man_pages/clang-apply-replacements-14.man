@@ -1,0 +1,50 @@
+CLANG-APPLY-REPLACEMENTS(1)      User Commands     CLANG-APPLY-REPLACEMENTS(1)
+
+NAME
+       clang-apply-replacements - manual page for clang-apply-replacements 14
+
+DESCRIPTION
+       USAGE: clang-apply-replacements [options] <Search Root Directory>
+
+       OPTIONS:
+
+       Formatting Options:
+
+       --format                    -  Enable formatting of code changed by ap‐
+       plying replacements.
+              Use -style to choose formatting style.
+
+       --style=<string>           - Coding style, currently supports:
+              LLVM, GNU, Google, Chromium, Microsoft, Mozilla, WebKit.
+
+       Use -style=file to load style configuration from
+              .clang-format file located in one of the parent  directories  of
+              the   source   file  (or  current  directory  for  stdin).   Use
+              -style=file:<format_file_path> to explicitly specifythe configu‐
+              ration file.  Use -style="{key: value, ...}" to set specific pa‐
+              rameters, e.g.:
+
+              -style="{BasedOnStyle: llvm, IndentWidth: 8}"
+
+       --style-config=<string>     -  Path  to  a   directory   containing   a
+       .clang-format file
+              describing  a  formatting  style to use for formatting code when
+              -style=file.
+
+       Generic Options:
+
+       --help                     - Display available  options  (--help-hidden
+              for more)
+
+       --help-list                  -   Display   list  of  available  options
+              (--help-list-hidden for more)
+
+       --version                  - Display the version of this program
+
+       Replacement Options:
+
+       --remove-change-desc-files - Remove the change  description  files  re‐
+       gardless of successful
+              merging/replacing.
+
+clang-apply-replacements 14        July 2023       CLANG-APPLY-REPLACEMENTS(1)

@@ -1,0 +1,44 @@
+gcore(1)                           GNU Tools                          gcore(1)
+
+NAME
+       gcore - Generate core files for running processes
+
+SYNOPSIS
+       gcore [-a] [-o filename] pid[s]
+
+DESCRIPTION
+       gcore  generates  a  core file for the process(es) specified by process
+       IDs, pid[s]. By default, each core file is written to core.pid, in  the
+       current directory.
+
+       -a     (Linux only) ignore /proc/PID/coredump_filter and also dump mem‐
+              ory mappings marked with the 'VM_DONTDUMP' flag. See  info  node
+              Core File Generation for longer explanation.
+
+       -o filename
+              write  core file to filename if one PID, or filename.pid if mul‐
+              tiple PIDs, instead of default core.pid
+
+COPYING
+       Copyright © 2003, 2005, 2007, 2008, 2018, 2020  Free  Software  Founda‐
+       tion, Inc.
+
+       Permission  is  granted  to make and distribute verbatim copies of this
+       manual provided the copyright notice and  this  permission  notice  are
+       preserved on all copies.
+
+       Permission is granted to copy and distribute modified versions of  this
+       manual under the conditions for verbatim copying, provided that the en‐
+       tire resulting derived work is distributed under the terms of a permis‐
+       sion notice identical to this one.
+
+       Permission is granted to copy and distribute translations of this  man‐
+       ual into another language, under the above conditions for modified ver‐
+       sions, except that this permission notice may be included  in  transla‐
+       tions approved by the Free Software Foundation instead of in the origi‐
+       nal English.
+
+SEE ALSO
+       gdb(1), core(5)
+
+gdb 9.1                            Feb 2020                           gcore(1)

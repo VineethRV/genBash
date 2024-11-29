@@ -1,0 +1,42 @@
+NODE-GYP(1)                                                        NODE-GYP(1)
+
+NAME
+       node-gyp -- native addon build tool for node
+
+SYNOPSIS
+       node-gyp <command> [args]
+
+DESCRIPTION
+       node-gyp is a cross-platform command-line tool for compiling native ad‐
+       don modules for Node.js, taking away the pain of dealing with the vari‐
+       ous  differences  in  build  platforms.   It  is the replacement to the
+       node-waf program, which is removed since node 0.8. Native addons  still
+       using  a  wscript file should definitely add a binding.gyp file to sup‐
+       port the latest versions of node.
+
+       Multiple target versions of node are supported (from node  0.6  to  the
+       next  released version), regardless of what version of node is actually
+       installed on your system; node-gyp downloads the necessary  development
+       files for the target version.
+
+COMMANDS
+       •   build Invokes make/msbuild.exe and builds the native addon
+
+       •   clean Removes any the build dir if it exists
+
+       •   configure Generates project build files for the current platform
+
+       •   rebuild Runs clean, configure and build all in a row
+
+       •   install  <version>  Installs  node development header files for the
+           given version
+
+       •   list Lists the currently installed node development file versions
+
+       •   remove <version> Removes the node development header files for  the
+           given version
+
+SEE ALSO
+       README.md
+
+                                  March 2013                       NODE-GYP(1)

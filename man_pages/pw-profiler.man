@@ -1,0 +1,42 @@
+PW-PROFILER(1)              General Commands Manual             PW-PROFILER(1)
+
+NAME
+       pw-profiler - The PipeWire profiler
+
+SYNOPSIS
+       pw-profiler [options]
+
+DESCRIPTION
+       Start profiling a PipeWire instance.
+
+       If the server has the profiler module loaded, this program will connect
+       to it and log the profiler data. Profiler data contains times and dura‐
+       tions when processing nodes and devices started and completed.
+
+       When  this  program  is stopped, a set of gnuplot files and a script to
+       generate SVG files from the .plot files  is  generated,  along  with  a
+       .html file to visualize the profiling results in a browser.
+
+OPTIONS
+       -r | --remote=NAME
+              The  name the remote instance to monitor. If left unspecified, a
+              connection is made to the default PipeWire instance.
+
+       -h | --help
+              Show help.
+
+       --version
+              Show version information.
+
+       -o | --output=FILE
+              Profiler output name (default "profiler.log").
+
+AUTHORS
+       The                PipeWire                Developers                <‐
+       https://gitlab.freedesktop.org/pipewire/pipewire/issues>;  PipeWire  is
+       available from https://pipewire.org
+
+SEE ALSO
+       pipewire(1),
+
+                                                                PW-PROFILER(1)

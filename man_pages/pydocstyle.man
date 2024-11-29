@@ -1,0 +1,518 @@
+PYDOCSTYLE(1)                     pydocstyle                     PYDOCSTYLE(1)
+
+NAME
+       pydocstyle - pydocstyle Documentation
+
+       pydocstyle  is  a  static  analysis  tool  for checking compliance with
+       Python docstring conventions.
+
+       pydocstyle supports most of PEP 257 out of the box, but it  should  not
+       be considered a reference implementation.
+
+       pydocstyle supports Python 3.6, 3.7 and 3.8.
+
+       1. Install
+
+                 pip install pydocstyle
+
+       2. Run
+
+                 $ pydocstyle test.py
+                 test.py:18 in private nested class `meta`:
+                         D101: Docstring missing
+                 test.py:27 in public function `get_user`:
+                     D300: Use """triple double quotes""" (found '''-quotes)
+                 test:75 in public function `init_database`:
+                     D201: No blank lines allowed before function docstring (found 1)
+                 ...
+
+       3. Fix your code :)
+
+       Contents:
+
+USAGE
+   Installation
+       Use pip or easy_install:
+
+          pip install pydocstyle
+
+       Alternatively,  you  can use pydocstyle.py source file directly - it is
+       self-contained.
+
+   Command Line Interface
+   Usage
+          Usage: pydocstyle [options] [<file|dir>...]
+
+          Options:
+            --version             show program's version number and exit
+            -h, --help            show this help message and exit
+            -e, --explain         show explanation of each error
+            -s, --source          show source for each error
+            -d, --debug           print debug information
+            -v, --verbose         print status information
+            --count               print total number of errors to stdout
+            --config=<path>       use given config file and disable config discovery
+            --match=<pattern>     check only files that exactly match <pattern> regular
+                                  expression; default is --match='(?!test_).*\.py' which
+                                  matches files that don't start with 'test_' but end
+                                  with '.py'
+            --match-dir=<pattern>
+                                  search only dirs that exactly match <pattern> regular
+                                  expression; default is --match-dir='[^\.].*', which
+                                  matches all dirs that don't start with a dot
+            --ignore-decorators=<decorators>
+                                  ignore any functions or methods that are decorated by
+                                  a function with a name fitting the <decorators>
+                                  regular expression; default is --ignore-decorators=''
+                                  which does not ignore any decorated functions.
+
+            Note:
+              When using --match, --match-dir or --ignore-decorators consider
+              whether you should use a single quote (') or a double quote ("),
+              depending on your OS, Shell, etc.
+
+            Error Check Options:
+              Only one of --select, --ignore or --convention can be specified. If
+              none is specified, defaults to `--convention=pep257`. These three
+              options select the "basic list" of error codes to check. If you wish
+              to change that list (for example, if you selected a known convention
+              but wish to ignore a specific error from it or add a new one) you can
+              use `--add-[ignore/select]` in order to do so.
+
+              --select=<codes>    choose the basic list of checked errors by specifying
+                                  which errors to check for (with a list of comma-
+                                  separated error codes or prefixes). for example:
+                                  --select=D101,D2
+              --ignore=<codes>    choose the basic list of checked errors by specifying
+                                  which errors to ignore out of all of the available
+                                  error codes (with a list of comma-separated error
+                                  codes or prefixes). for example: --ignore=D101,D2
+              --convention=<name>
+                                  choose the basic list of checked errors by specifying
+                                  an existing convention. Possible conventions: pep257,
+                                  numpy, google.
+              --add-select=<codes>
+                                  add extra error codes to check to the basic list of
+                                  errors previously set by --select, --ignore or
+                                  --convention.
+              --add-ignore=<codes>
+                                  ignore extra error codes by removing them from the
+                                  basic list previously set by --select, --ignore or
+                                  --convention.
+
+       NOTE:
+          When using any of the --select, --ignore, --add-select, or --add-ig‐
+          nore  command line flags, it is possible to pass a prefix for an er‐
+          ror code. It will be expanded so that any code beginning  with  that
+          prefix will match. For example, running the command pydocstyle --ig‐
+          nore=D4 will ignore all docstring  content  issues  as  their  error
+          codes beginning with "D4" (i.e. D400, D401, D402, D403, and D404).
+
+   Return Code
+                          ┌──┬────────────────────────────┐
+                          │0 │ Success - no violations    │
+                          ├──┼────────────────────────────┤
+                          │1 │ Some  code violations were │
+                          │  │ found                      │
+                          ├──┼────────────────────────────┤
+                          │2 │ Illegal usage - see  error │
+                          │  │ message                    │
+                          └──┴────────────────────────────┘
+
+   Configuration Files
+       pydocstyle  supports  ini-like  and toml configuration files.  In order
+       for pydocstyle to use a configuration file automatically,  it  must  be
+       named one of the following options.
+
+       • setup.cfg
+
+       • tox.ini
+
+       • .pydocstyle
+
+       • .pydocstyle.ini
+
+       • .pydocstylerc
+
+       • .pydocstylerc.ini
+
+       • pyproject.toml
+
+       When  searching  for  a configuration file, pydocstyle looks for one of
+       the file specified above in that exact  order.  ini-like  configuration
+       files  must  have a [pydocstyle] section while toml configuration files
+       must have a [tool.pydocstyle] section. If a configuration file was  not
+       found, pydocstyle keeps looking for one up the directory tree until one
+       is found or uses the default configuration.
+
+       NOTE:
+          toml configuration file support is only enabled if the  toml  python
+          package  is  installed.  You can ensure that this is the case by in‐
+          stalling the pydocstyle[toml] optional dependency.
+
+       NOTE:
+          For backwards compatibility purposes, pydocstyle supports configura‐
+          tion  files  named .pep257, as well as section header [pep257]. How‐
+          ever, these are considered deprecated and support will be removed in
+          the next major version.
+
+   Available Options
+       Not all configuration options are available in the configuration files.
+       Available options are:
+
+       • convention
+
+       • select
+
+       • ignore
+
+       • add_select
+
+       • add_ignore
+
+       • match
+
+       • match_dir
+
+       • ignore_decorators
+
+       See the Usage section for more information.
+
+   Inheritance
+       By default, when finding a configuration file, pydocstyle tries to  in‐
+       herit  the parent directory's configuration and merge them to the local
+       ones.
+
+       The merge process is as follows:
+
+       • If one of select, ignore or convention was  specified  in  the  child
+         configuration  - Ignores the parent configuration and set the new er‐
+         ror codes to check. Otherwise, simply copies the parent checked error
+         codes.
+
+       • If add-ignore or add-select were specified, adds or removes the spec‐
+         ified error codes from the checked error codes list.
+
+       • If match or match-dir were specified - use them. Otherwise,  use  the
+         parent's.
+
+       In  order  to  disable  this (useful for configuration files located in
+       your repo's root), simply add inherit=false to your configuration file.
+
+       NOTE:
+          If any of select, ignore or convention were specified  in  the  CLI,
+          the  configuration  files  will take no part in choosing which error
+          codes will be checked. match and match-dir will still take effect.
+
+   Example
+          [pydocstyle]
+          inherit = false
+          ignore = D100,D203,D405
+          match = .*\.py
+
+   In-file configuration
+       pydocstyle supports inline commenting to skip specific checks  on  spe‐
+       cific  functions  or  methods. The supported comments that can be added
+       are:
+
+       1. "# noqa" skips all checks.
+
+       2. "# noqa: D102,D203" can be used to skip specific checks.  Note  that
+          this   is   compatible   with   skips  from  flake8,  e.g.  #  noqa:
+          D102,E501,D203.
+
+       For example, this will skip the check for a period  at  the  end  of  a
+       function docstring:
+
+          >>> def bad_function():  # noqa: D400
+          ...     """Omit a period in the docstring as an exception"""
+          ...     pass
+
+   Usage with the pre-commit git hooks framework
+       pydocstyle  can  be included as a hook for pre-commit.  The easiest way
+       to get started is to add this configuration  to  your  .pre-commit-con‐
+       fig.yaml:
+
+          -   repo: https://github.com/pycqa/pydocstyle
+              rev: 6.1.1  # pick a git hash / tag to point to
+              hooks:
+              -   id: pydocstyle
+
+       See the pre-commit docs for how to customize this configuration.
+
+       Checked-in  python  files  will be passed as positional arguments so no
+       need to use --match=*.py.  You can also use command line arguments  in‐
+       stead  of  configuration  files  to  achieve  the same effect with less
+       files.
+
+          - id: pydocstyle
+            args:
+            - --ignore=D100,D203,D405
+            # or multiline
+            - |-
+                    --select=
+                    D101,
+                    D2
+
+ERROR CODES
+   Grouping
+               ┌─────────────────────────┬────────────────────────────┐
+               │Missing Docstrings       │                            │
+               └─────────────────────────┴────────────────────────────┘
+
+               │D100                     │ Missing docstring in  pub‐ │
+               │                         │ lic module                 │
+               ├─────────────────────────┼────────────────────────────┤
+               │D101                     │ Missing  docstring in pub‐ │
+               │                         │ lic class                  │
+               ├─────────────────────────┼────────────────────────────┤
+               │D102                     │ Missing docstring in  pub‐ │
+               │                         │ lic method                 │
+               ├─────────────────────────┼────────────────────────────┤
+               │D103                     │ Missing  docstring in pub‐ │
+               │                         │ lic function               │
+               ├─────────────────────────┼────────────────────────────┤
+               │D104                     │ Missing docstring in  pub‐ │
+               │                         │ lic package                │
+               ├─────────────────────────┼────────────────────────────┤
+               │D105                     │ Missing docstring in magic │
+               │                         │ method                     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D106                     │ Missing docstring in  pub‐ │
+               │                         │ lic nested class           │
+               ├─────────────────────────┼────────────────────────────┤
+               │D107                     │ Missing    docstring    in │
+               │                         │ __init__                   │
+               ├─────────────────────────┼────────────────────────────┤
+               │Whitespace Issues        │                            │
+               ├─────────────────────────┼────────────────────────────┤
+               │D200                     │ One-line docstring  should │
+               │                         │ fit   on   one  line  with │
+               │                         │ quotes                     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D201                     │ No blank lines allowed be‐ │
+               │                         │ fore function docstring    │
+               ├─────────────────────────┼────────────────────────────┤
+               │D202                     │ No blank lines allowed af‐ │
+               │                         │ ter function docstring     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D203                     │ 1 blank line required  be‐ │
+               │                         │ fore class docstring       │
+               ├─────────────────────────┼────────────────────────────┤
+               │D204                     │ 1  blank line required af‐ │
+               │                         │ ter class docstring        │
+               ├─────────────────────────┼────────────────────────────┤
+               │D205                     │ 1 blank line required  be‐ │
+               │                         │ tween summary line and de‐ │
+               │                         │ scription                  │
+               ├─────────────────────────┼────────────────────────────┤
+               │D206                     │ Docstring  should  be  in‐ │
+               │                         │ dented  with  spaces,  not │
+               │                         │ tabs                       │
+               ├─────────────────────────┼────────────────────────────┤
+               │D207                     │ Docstring   is   under-in‐ │
+               │                         │ dented                     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D208                     │ Docstring is over-indented │
+               ├─────────────────────────┼────────────────────────────┤
+               │D209                     │ Multi-line docstring clos‐ │
+               │                         │ ing quotes should be on  a │
+               │                         │ separate line              │
+               ├─────────────────────────┼────────────────────────────┤
+               │D210                     │ No   whitespaces   allowed │
+               │                         │ surrounding docstring text │
+               ├─────────────────────────┼────────────────────────────┤
+               │D211                     │ No blank lines allowed be‐ │
+               │                         │ fore class docstring       │
+               └─────────────────────────┴────────────────────────────┘
+
+               │D212                     │ Multi-line  docstring sum‐ │
+               │                         │ mary should start  at  the │
+               │                         │ first line                 │
+               ├─────────────────────────┼────────────────────────────┤
+               │D213                     │ Multi-line  docstring sum‐ │
+               │                         │ mary should start  at  the │
+               │                         │ second line                │
+               ├─────────────────────────┼────────────────────────────┤
+               │D214                     │ Section is over-indented   │
+               ├─────────────────────────┼────────────────────────────┤
+               │D215                     │ Section    underline    is │
+               │                         │ over-indented              │
+               ├─────────────────────────┼────────────────────────────┤
+               │Quotes Issues            │                            │
+               ├─────────────────────────┼────────────────────────────┤
+               │D300                     │ Use    """triple    double │
+               │                         │ quotes"""                  │
+               ├─────────────────────────┼────────────────────────────┤
+               │D301                     │ Use   r"""  if  any  back‐ │
+               │                         │ slashes in a docstring     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D302                     │ Deprecated: Use  u"""  for │
+               │                         │ Unicode docstrings         │
+               ├─────────────────────────┼────────────────────────────┤
+               │Docstring Content Issues │                            │
+               ├─────────────────────────┼────────────────────────────┤
+               │D400                     │ First line should end with │
+               │                         │ a period                   │
+               ├─────────────────────────┼────────────────────────────┤
+               │D401                     │ First line  should  be  in │
+               │                         │ imperative mood            │
+               ├─────────────────────────┼────────────────────────────┤
+               │D401                     │ First  line  should  be in │
+               │                         │ imperative    mood;    try │
+               │                         │ rephrasing                 │
+               ├─────────────────────────┼────────────────────────────┤
+               │D402                     │ First  line  should not be │
+               │                         │ the function's "signature" │
+               ├─────────────────────────┼────────────────────────────┤
+               │D403                     │ First word  of  the  first │
+               │                         │ line  should  be  properly │
+               │                         │ capitalized                │
+               ├─────────────────────────┼────────────────────────────┤
+               │D404                     │ First  word  of  the  doc‐ │
+               │                         │ string should not be This  │
+               ├─────────────────────────┼────────────────────────────┤
+               │D405                     │ Section   name  should  be │
+               │                         │ properly capitalized       │
+               ├─────────────────────────┼────────────────────────────┤
+               │D406                     │ Section  name  should  end │
+               │                         │ with a newline             │
+               ├─────────────────────────┼────────────────────────────┤
+               │D407                     │ Missing  dashed  underline │
+               │                         │ after section              │
+               ├─────────────────────────┼────────────────────────────┤
+               │D408                     │ Section  underline  should │
+               │                         │ be  in  the line following │
+               │                         │ the section's name         │
+               ├─────────────────────────┼────────────────────────────┤
+               │D409                     │ Section  underline  should │
+               │                         │ match  the  length  of its │
+               │                         │ name                       │
+               ├─────────────────────────┼────────────────────────────┤
+               │D410                     │ Missing blank  line  after │
+               │                         │ section                    │
+               └─────────────────────────┴────────────────────────────┘
+
+               │D411                     │ Missing  blank line before │
+               │                         │ section                    │
+               ├─────────────────────────┼────────────────────────────┤
+               │D412                     │ No blank lines allowed be‐ │
+               │                         │ tween a section header and │
+               │                         │ its content                │
+               ├─────────────────────────┼────────────────────────────┤
+               │D413                     │ Missing blank  line  after │
+               │                         │ last section               │
+               ├─────────────────────────┼────────────────────────────┤
+               │D414                     │ Section has no content     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D415                     │ First line should end with │
+               │                         │ a period,  question  mark, │
+               │                         │ or exclamation point       │
+               ├─────────────────────────┼────────────────────────────┤
+               │D416                     │ Section  name  should  end │
+               │                         │ with a colon               │
+               ├─────────────────────────┼────────────────────────────┤
+               │D417                     │ Missing argument  descrip‐ │
+               │                         │ tions in the docstring     │
+               ├─────────────────────────┼────────────────────────────┤
+               │D418                     │ Function/ Method decorated │
+               │                         │ with  @overload  shouldn't │
+               │                         │ contain a docstring        │
+               └─────────────────────────┴────────────────────────────┘
+
+   Default conventions
+       Not  all  error codes are checked for by default.  There are three con‐
+       ventions that may be used by pydocstyle: pep257, numpy and google.
+
+       The pep257 convention (specified in PEP257), which is  enabled  by  de‐
+       fault  in  pydocstyle,  checks  for  all of the above errors except for
+       D203, D212, D213, D214, D215, D404, D405, D406, D407, D408, D409, D410,
+       D411, D413, D415, D416 and D417.
+
+       The  numpy  convention  added in v2.0.0 supports the numpydoc docstring
+       standard. This checks all of of the errors except for D107, D203, D212,
+       D213, D402, D413, D415, D416, and D417.
+
+       The  google convention added in v4.0.0 supports the Google Python Style
+       Guide. This checks for all the errors except D203,  D204,  D213,  D215,
+       D400, D401, D404, D406, D407, D408, D409 and D413.
+
+       These  conventions may be specified using --convention=<name> when run‐
+       ning pydocstyle from the command line or by specifying  the  convention
+       in a configuration file.  See the cli_usage section for more details.
+
+       NOTE:
+          It  makes  no  sense  to check the same docstring for both numpy and
+          google conventions. Therefore, if we successfully detect that a doc‐
+          string is in the numpy style, we don't check it for google.
+
+          The  reason  numpy  style  takes  precedence over google is that the
+          heuristics of detecting it are better, and we don't want to  enforce
+          users  to  provide  external  hints to pydocstyle in order to let it
+          know which style docstrings are written in.
+
+   Publicity
+       The D1xx group of errors deals with missing docstring  in  public  con‐
+       structs:  modules,  classes,  methods, etc. It is important to note how
+       publicity is determined and what its effects are.
+
+   How publicity is determined
+       Publicity for all constructs is determined as follows: a  construct  is
+       considered public if -
+
+       1. Its immediate parent is public and
+
+       2. Its name does not start with a single or double underscore.
+
+             a. Note,  names  that  start and end with a double underscore are
+                public (e.g. __init__.py).
+
+       A construct's immediate parent is the construct that contains  it.  For
+       example,  a  method's parent is a class object. A class' parent is usu‐
+       ally a module, but might also be a function, method, etc. A module  can
+       either have no parent, or it can have a parent that is a package.
+
+       In  order for a construct to be considered public, its immediate parent
+       must also be public. Since this definition is recursive, it means  that
+       all  of  its parents need to be public. The corollary is that if a con‐
+       struct is considered private, then all of its descendants are also con‐
+       sidered  private.  For  example, a class called _Foo is considered pri‐
+       vate. A method bar in _Foo is also considered private since its  parent
+       is  a  private class, even though its name does not begin with a single
+       underscore.
+
+       Note, a module's parent is recursively checked upward until we reach  a
+       directory  in  sys.path to avoid considering the complete filepath of a
+       module.  For example, consider the module /_foo/bar/baz.py.  If PYTHON‐
+       PATH  is  set  to  /,  then baz.py is private.  If PYTHONPATH is set to
+       /_foo/, then baz.py is public.
+
+       Modules are parsed to look if __all__ is defined. If so, only those top
+       level  constructs  are  considered public. The parser looks for __all__
+       defined as a literal list or tuple. As the parser doesn't  execute  the
+       module, any mutation of __all__ will not be considered.
+
+   How publicity affects error reports
+       The immediate effect of a construct being determined as private is that
+       no D1xx errors will be reported for it (or its children, as the  previ‐
+       ous  section explains). A private method, for instance, will not gener‐
+       ate a D102 error, even if it has no docstring.
+
+       However, it is important to note that while docstring are optional  for
+       private  construct,  they  are  still  required to adhere to your style
+       guide. So if a private module _foo.py does not  have  a  docstring,  it
+       will  not  generate a D100 error, but if it does have a docstring, that
+       docstring might generate other errors.
+
+       pydocstyle is a rename and continuation of pep257, a project created by
+       Vladimir Keleshev.
+
+       Maintained by Amir Rachum and Sambhav Kothari.
+
+AUTHOR
+       Amir Rachum
+
+COPYRIGHT
+       2021, Amir Rachum, Sambhav Kothari
+
+6.1.1                             2021-10-11                     PYDOCSTYLE(1)

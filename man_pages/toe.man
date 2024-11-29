@@ -1,0 +1,124 @@
+toe(1)                      General Commands Manual                     toe(1)
+
+NAME
+       toe - table of (terminfo) entries
+
+SYNOPSIS
+       toe [-v[n]] [-ahsuUV] file...
+
+DESCRIPTION
+       With no options, toe lists all available terminal types by primary name
+       with descriptions.   File  arguments  specify  the  directories  to  be
+       scanned;  if  no such arguments are given, your default terminfo direc‐
+       tory is scanned.  If you also specify the -h option, a directory header
+       will be issued as each directory is entered.
+
+       There are other options intended for use by terminfo file maintainers:
+
+       -a     report  on  all  of  the  terminal databases which ncurses would
+              search, rather than only the first one that it finds.
+
+              If the -s is also given, toe adds a column to the report,  show‐
+              ing  (like  conflict(1))  which  entries which belong to a given
+              terminal database.  An "*" marks entries which differ,  and  "+"
+              marks equivalent entries.
+
+              Without  the -s option, toe does not attempt to merge duplicates
+              in its report
+
+       -s     sort the output by the entry names.
+
+       -u file
+              says to write a report to the standard output, listing dependen‐
+              cies in the given terminfo/termcap source file.  The report con‐
+              denses the “use” relation: each line  consists  of  the  primary
+              name  of  a  terminal  that  has use capabilities, followed by a
+              colon, followed by the whitespace-separated primary names of all
+              terminals  which  occur in those use capabilities, followed by a
+              newline
+
+       -U file
+              says to write a report to the standard output,  listing  reverse
+              dependencies in the given terminfo/termcap source file.  The re‐
+              port reverses the “use” relation: each line consists of the pri‐
+              mary  name  of  a terminal that occurs in use capabilities, fol‐
+              lowed by a colon, followed by the  whitespace-separated  primary
+              names  of  all  terminals which depend on it, followed by a new‐
+              line.
+
+       -vn    specifies that (verbose) output be written  to  standard  error,
+              showing toe's progress.
+
+              The  optional  parameter n is a number from 1 to 10, interpreted
+              as for tic(1).  If ncurses is built without tracing support, the
+              optional parameter is ignored.
+
+       -V     reports  the  version of ncurses which was used in this program,
+              and exits.
+
+EXAMPLES
+       Without sorting, the -a option reports all of the names found in all of
+       the terminal databases found by the TERMINFO and TERMINFO_DIRS environ‐
+       ment variables:
+
+           MtxOrb162      16x2 Matrix Orbital LCD display
+           MtxOrb204      20x4 Matrix Orbital LCD display
+           MtxOrb         Generic Matrix Orbital LCD display
+           qvt101+        qume qvt 101 PLUS product
+           qvt119+-25     QVT 119 PLUS with 25 data lines
+           qansi-g        QNX ANSI
+           qvt103         qume qvt 103
+           qnxw           QNX4 windows
+           qansi-w        QNX ansi for windows
+           qnxm           QNX4 with mouse events
+           qvt203-25-w    QVT 203 PLUS with 25 by 132 columns
+           qansi-t        QNX ansi without console writes
+           . . .
+
+       Use the -a and -s options together to show where each terminal descrip‐
+       tion was found:
+
+           --> /usr/local/ncurses/share/terminfo
+           ----> /usr/share/terminfo
+           *-+-:     9term          Plan9 terminal emulator for X
+           *---:     Eterm          Eterm with xterm-style color support (X Window System)
+           *-*-:     Eterm-256color Eterm with xterm 256-colors
+           *-*-:     Eterm-88color  Eterm with 88 colors
+           *-+-:     MtxOrb         Generic Matrix Orbital LCD display
+           *-+-:     MtxOrb162      16x2 Matrix Orbital LCD display
+           *-+-:     MtxOrb204      20x4 Matrix Orbital LCD display
+           *-*-:     NCR260VT300WPP NCR 2900_260 vt300 wide mode pc+  kybd
+           *-+-:     aaa            ann arbor ambassador/30 lines
+           *-+-:     aaa+dec        ann arbor ambassador in dec vt100 mode
+           *-+-:     aaa+rv         ann arbor ambassador in reverse video
+           . . .
+
+FILES
+       /etc/terminfo/?/*
+            Compiled terminal description database.
+
+HISTORY
+       This  utility  is  not  provided by other implementations.  There is no
+       relevant X/Open or POSIX standard for toe.
+
+       The program name refers to a developer's pun:
+
+       •   tic,
+
+       •   tac (now tack),
+
+       •   toe.
+
+       It replaced a -T option which was briefly supported by the ncurses  in‐
+       focmp utility in 1995.
+
+       The  -a  and -s options were added to toe several years later (2006 and
+       2011, respectively).
+
+SEE ALSO
+       captoinfo(1), infocmp(1), infotocap(1), tic(1), ncurses(3NCURSES), ter‐
+       minfo(5).
+
+       This describes ncurses version 6.3 (patch 20211021).
+
+                                                                        toe(1)

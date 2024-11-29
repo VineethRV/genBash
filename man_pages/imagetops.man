@@ -1,0 +1,56 @@
+IMAGETOPS(1)              Generic Image to PS Filter              IMAGETOPS(1)
+
+NAME
+       imagetops - generic image to ps filter
+
+SYNOPSIS
+       imagetops [-gray] [arguments for pnmtops] [filename]
+
+DESCRIPTION
+       imagetops is a generic image to ps filter. It can be used as print fil‐
+       ter in KDE.
+
+       imagetops works in two steps:
+
+           1. the given file is converted to PNM format by analyzing the  file
+              format and calling the appropriate conversion program.
+
+           2. the file in PNM format is converted to PS format by calling pnm‐
+              tops.
+
+       The supported mime types are: jpeg, png, x-png,  bmp,  x-bmp,  gif  and
+       tiff.
+
+       imagetops  supports  reading the parameters via stdin. A temporary file
+       in $TMPDIR (or /tmp if unset) is created then.
+
+OPTIONS
+   Options:
+       -gray  convert image to grayscale
+
+   Arguments:
+       arguments for pnmtops
+              arguments passed to pnmtops
+
+       filename
+              image file to convert
+
+SEE ALSO
+       bmptoppm(1), giftopnm(1), jpegtopnm(1), pngtopnm(1), ppmtopgm(1),  pnm‐
+       tops(1)
+
+AUTHORS
+       The KDE project
+
+       Please use http://bugs.kde.org to report bugs.
+
+       This   manual   page  was  written  by  Holger  Hartmann  <Holger_Hart‐
+       mann@gmx.de> for the Debian Project (but may be used by  others).  Per‐
+       mission  is granted to copy, distribute and/or modify this document un‐
+       der the terms of the GNU General Public License, Version 2 or any later
+       version published by the Free Software Foundation.
+
+       On  Debian systems, the complete text of the GNU General Public License
+       can be found in /usr/share/common-licenses/GPL.
+
+K Desktop Environment              Jun 2006                       IMAGETOPS(1)

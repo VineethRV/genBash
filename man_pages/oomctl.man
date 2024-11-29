@@ -1,0 +1,39 @@
+OOMCTL(1)                           oomctl                           OOMCTL(1)
+
+NAME
+       oomctl - Analyze the state stored in systemd-oomd
+
+SYNOPSIS
+       oomctl [OPTIONS...] {COMMAND}
+
+DESCRIPTION
+       oomctl may be used to get information about the various contexts read
+       in by the systemd(1) userspace out-of-memory (OOM) killer, systemd-
+       oomd(8).
+
+COMMANDS
+       The following commands are understood:
+
+       dump
+           Show the current state of the cgroup(s) and system context(s)
+           stored by systemd-oomd.
+
+OPTIONS
+       The following options are understood:
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       --no-pager
+           Do not pipe output into a pager.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+SEE ALSO
+       systemd(1), systemd-oomd.service(8), oomd.conf(5)
+
+systemd 249                                                          OOMCTL(1)

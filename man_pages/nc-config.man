@@ -1,0 +1,32 @@
+nc-config(1)                                                      nc-config(1)
+
+NAME
+       nc-config - query netCDF build options
+
+SYNOPSIS
+       nc-config [--libs] [--cflags] [--cxxflags] [--defines] [--includes]
+                 [--version]
+
+DESCRIPTION
+       nc-config allows querying the options used to build the  netCDF  C  li‐
+       brary.
+
+OPTIONS
+       --libs Libraries
+
+       --cflags
+              Compiler flags
+
+       --cxxlibs
+              C++ Compiler flags
+
+       --defines
+              Compiler defines
+
+       --includes
+              Compiler includes
+
+       --version
+              library version
+
+                                15 January 2015                   nc-config(1)
