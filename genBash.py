@@ -37,11 +37,11 @@ def executeCommand(text:str)->str:
     global currentDir
     print("Command:",text)
     result = subprocess.run('cd '+currentDir[:-1]+';'+text, capture_output=True, text=True,shell=True)
-    print(result.stdout)
+    print(result.stdout)    
     for i in range(0,len(textC)):
         if(textC[i]=='cd'):
             if(i+1<len(textC)):
-                currentDir=subprocess.run(f'cd {textC[i+1]}; pwd', capture_output=True, text=True, shell=True).stdout
+                currentDir=subprocess.run('cd '+currentDir[:-1]+';'+f'cd {textC[i+1]}; pwd', capture_output=True, text=True, shell=True).stdout
             else:
                 currentDir=subprocess.run('cd;pwd',capture_output=True, text=True,shell=True).stdout
             print("current directory opened:"+currentDir)
@@ -50,6 +50,7 @@ model_with_tools=model.bind_tools(tools=tools)
 executeCommand('clear')
 while (1):
     text=input(userName[:-1]+'@'+hostName[:-1]+currentDir[:-1]+"$ ")
+    userInfo=f"Username: {userName} \nHostname: {hostName} \nCurrent Directory: {currentDir} \nCurrent Directory Information: {currentDirInfo}"
     try:    
         results = db.similarity_search_with_relevance_scores(text, k=3)
         template=f"You are a Linux command-line assistant. Based on the provided documentation and your knowledge, generate the most appropriate Linux command for the user's request and execute it with the executeCommand function.\nBackground Information about the user: {userInfo}\nUser Input: {text}\nRelevant Information: Source1:{results[0][0].metadata}\nSource2:{results[1][0].metadata}\nSource3:{results[2][0].metadata}"
