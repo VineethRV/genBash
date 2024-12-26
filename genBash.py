@@ -14,7 +14,7 @@ os.environ['TOKENIZERS_PARALLELISM']='true'
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 db=Chroma(persist_directory='/home/vineeth/Desktop/code/projects/genBash/chroma',embedding_function=embeddings)
 
-model=ChatGroq(model='llama3-8b-8192')
+model=ChatGroq(model='llama3-70b-8192')
 
 #getting some background information of the computer: username, current working directory, hostname, current directory information
 userName=subprocess.run(['whoami'], capture_output=True, text=True).stdout
@@ -53,7 +53,7 @@ while (1):
     userInfo=f"Username: {userName} \nHostname: {hostName} \nCurrent Directory: {currentDir} \nCurrent Directory Information: {currentDirInfo}"
     try:    
         results = db.similarity_search_with_relevance_scores(text, k=3)
-        template=f"You are a Linux command-line assistant. Based on the provided documentation and your knowledge, generate the most appropriate Linux command for the user's request and execute it with the executeCommand function.\nBackground Information about the user: {userInfo}\nUser Input: {text}\nRelevant Information: Source1:{results[0][0].metadata}\nSource2:{results[1][0].metadata}\nSource3:{results[2][0].metadata}"
+        template=f"You are a Linux command-line assistant. Based on the provided documentation and your knowledge, generate the most appropriate Linux command for the user's request and execute it with the executeCommand function.\nUser Input: {text}\nRelevant Information: Source1:{results[0][0].metadata}\nSource2:{results[1][0].metadata}\nSource3:{results[2][0].metadata}"
         result=model_with_tools.invoke(template)
         if result.tool_calls:
             executeCommand.invoke(result.tool_calls[0]['args'])
