@@ -9,10 +9,10 @@ import warnings
 
 # Suppress all warnings
 warnings.filterwarnings("ignore", category=UserWarning)
-os.environ['GROQ_API_KEY']="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"
+#os.environ['GROQ_API_KEY']="enter key"
 os.environ['TOKENIZERS_PARALLELISM']='true'
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
-db=Chroma(persist_directory='/home/vineeth/Desktop/code/projects/genBash/chroma',embedding_function=embeddings)
+db=Chroma(persist_directory='./chroma',embedding_function=embeddings)
 
 model=ChatGroq(model='llama3-70b-8192')
 
