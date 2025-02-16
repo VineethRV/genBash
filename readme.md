@@ -18,7 +18,7 @@ genBash is a CLI assistant for Linux users, written in Python using Llama3.1 8B 
     ```bash
     cd genBash
     ```
-3. Install the required dependencies (requirements.txt will added soon).
+3. Install the required dependencies and add API key(requirements.txt will added soon).
 
 ## Usage
 
